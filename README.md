@@ -1,6 +1,6 @@
-# MailMind
+# hermes
 
-An AI-powered email assistant built on the Model Context Protocol (MCP). MailMind connects Claude Desktop to your Gmail inbox, giving Claude the ability to read, classify, and compose emails in real time through natural conversation. A standalone browser UI is also included for direct access without Claude Desktop.
+An AI-powered email assistant built on the Model Context Protocol (MCP). hermes connects Claude Desktop to your Gmail inbox, giving Claude the ability to read, classify, and compose emails in real time through natural conversation. A standalone browser UI is also included for direct access without Claude Desktop.
 
 ---
 
@@ -14,7 +14,7 @@ An AI-powered email assistant built on the Model Context Protocol (MCP). MailMin
 
 ## Architecture
 
-![MailMind Architecture](diagram.png)
+![hermes Architecture](diagram.png)
 
 The system runs two interfaces from a single entry point. `main.py` starts a Flask HTTP server on a background thread for the browser UI, and simultaneously launches the MCP server over stdio for Claude Desktop. Both interfaces route through the same tools and services layer, so behaviour is identical regardless of how you access it.
 
@@ -35,7 +35,7 @@ The system runs two interfaces from a single entry point. `main.py` starts a Fla
 ## Project Structure
 
 ```
-MailMind/
+hermes/
 ├── main.py                     # Entry point — starts Flask + MCP server
 ├── tools/
 │   ├── mail_fetcher.py         # get_emails tool

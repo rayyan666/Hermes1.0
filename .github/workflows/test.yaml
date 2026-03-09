@@ -1,0 +1,9 @@
+name: Test MCP Tools
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: pip install -r requirements.txt
+      - run: python -m pytest tests/
