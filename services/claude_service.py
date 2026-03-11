@@ -22,7 +22,7 @@ def _get_groq_client() -> Groq:
     if _groq_client:
         return _groq_client
 
-    api_key = "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"
+    api_key = os.getenv("GROQ_API_KEY")
     if not api_key:
         log.error("GROQ_API_KEY not set — check your .env or claude_desktop_config.json")
         raise RuntimeError("GROQ_API_KEY not set")
