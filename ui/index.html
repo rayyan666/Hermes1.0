@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>yo wassup i'm MCP</title>
+<title>MailMind // AI Assistant</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -14,12 +14,14 @@
     --accent: #7c5cfc;
     --accent2: #fc5c7d;
     --accent3: #5cf0c8;
+    --accent4: #f0a05c;
     --text: #e8e8f0;
     --muted: #6b6b80;
     --critical: #ff4444;
     --high: #ff8c42;
     --medium: #ffd166;
     --low: #06d6a0;
+    --resume: #06d6a0;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -32,7 +34,6 @@
     overflow-x: hidden;
   }
 
-  /* Animated background grid */
   body::before {
     content: '';
     position: fixed;
@@ -45,7 +46,6 @@
     z-index: 0;
   }
 
-  /* Glowing orbs */
   body::after {
     content: '';
     position: fixed;
@@ -67,7 +67,6 @@
     min-height: 100vh;
   }
 
-  /* ── HEADER ── */
   header {
     grid-column: 1 / -1;
     display: flex;
@@ -121,7 +120,6 @@
     50% { opacity: 0.5; transform: scale(0.8); }
   }
 
-  /* ── SIDEBAR ── */
   nav {
     background: var(--surface);
     border-right: 1px solid var(--border);
@@ -163,10 +161,7 @@
     position: relative;
   }
 
-  .nav-btn:hover {
-    background: var(--surface2);
-    color: var(--text);
-  }
+  .nav-btn:hover { background: var(--surface2); color: var(--text); }
 
   .nav-btn.active {
     background: rgba(124,92,252,0.15);
@@ -186,20 +181,30 @@
     border-radius: 0 2px 2px 0;
   }
 
+  .nav-btn.gh.active {
+    background: rgba(240,160,92,0.12);
+    color: var(--accent4);
+    border: 1px solid rgba(240,160,92,0.25);
+  }
+
+  .nav-btn.gh.active::before { background: var(--accent4); }
+
+  .nav-btn.cv.active {
+    background: rgba(6,214,160,0.1);
+    color: var(--resume);
+    border: 1px solid rgba(6,214,160,0.25);
+  }
+  .nav-btn.cv.active::before { background: var(--resume); }
+
   .nav-icon { font-size: 0.6rem; width: 28px; text-align: center; color: var(--muted); letter-spacing: 0.5px; }
 
-  /* ── MAIN CONTENT ── */
   main {
     padding: 32px;
     overflow-y: auto;
     max-height: calc(100vh - 60px);
   }
 
-  .panel {
-    display: none;
-    animation: fadeIn 0.3s ease;
-  }
-
+  .panel { display: none; animation: fadeIn 0.3s ease; }
   .panel.active { display: block; }
 
   @keyframes fadeIn {
@@ -207,10 +212,7 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* ── PANEL HEADER ── */
-  .panel-header {
-    margin-bottom: 28px;
-  }
+  .panel-header { margin-bottom: 28px; }
 
   .panel-title {
     font-family: 'Syne', sans-serif;
@@ -220,12 +222,8 @@
     margin-bottom: 6px;
   }
 
-  .panel-subtitle {
-    font-size: 0.75rem;
-    color: var(--muted);
-  }
+  .panel-subtitle { font-size: 0.75rem; color: var(--muted); }
 
-  /* ── CARDS ── */
   .card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -237,10 +235,7 @@
 
   .card:hover { border-color: rgba(124,92,252,0.4); }
 
-  /* ── FORM ELEMENTS ── */
-  .form-group {
-    margin-bottom: 16px;
-  }
+  .form-group { margin-bottom: 16px; }
 
   label {
     display: block;
@@ -272,7 +267,6 @@
   select option { background: var(--surface2); }
   textarea { resize: vertical; min-height: 80px; }
 
-  /* ── BUTTONS ── */
   .btn {
     display: inline-flex;
     align-items: center;
@@ -287,51 +281,31 @@
     transition: all 0.2s ease;
   }
 
-  .btn-primary {
-    background: var(--accent);
-    color: white;
-  }
-
-  .btn-primary:hover {
-    background: #6a4aed;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 20px rgba(124,92,252,0.4);
-  }
-
+  .btn-primary { background: var(--accent); color: white; }
+  .btn-primary:hover { background: #6a4aed; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(124,92,252,0.4); }
   .btn-primary:active { transform: translateY(0); }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-  .btn-primary:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none;
+  .btn-amber {
+    background: rgba(240,160,92,0.15);
+    color: var(--accent4);
+    border: 1px solid rgba(240,160,92,0.3);
   }
+  .btn-amber:hover { background: rgba(240,160,92,0.25); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(240,160,92,0.2); }
 
-  .btn-danger {
-    background: rgba(255,68,68,0.15);
-    color: var(--critical);
-    border: 1px solid rgba(255,68,68,0.3);
-  }
-
-  .btn-ghost {
-    background: var(--surface2);
-    color: var(--text);
-    border: 1px solid var(--border);
-  }
-
+  .btn-danger { background: rgba(255,68,68,0.15); color: var(--critical); border: 1px solid rgba(255,68,68,0.3); }
+  .btn-ghost { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
   .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
 
-  /* ── CONTROLS ROW ── */
-  .controls {
-    display: flex;
-    gap: 12px;
-    align-items: flex-end;
-    flex-wrap: wrap;
-    margin-bottom: 24px;
-  }
+  .btn-green { background: rgba(6,214,160,0.15); color: var(--resume); border: 1px solid rgba(6,214,160,0.3); }
+  .btn-green:hover { background: rgba(6,214,160,0.25); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(6,214,160,0.2); }
 
+  .btn-resume { background: rgba(180,92,240,0.12); color: #b45cf0; border: 1px solid rgba(180,92,240,0.28); }
+  .btn-resume:hover { background: rgba(180,92,240,0.22); transform: translateY(-1px); }
+
+  .controls { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; margin-bottom: 24px; }
   .controls .form-group { margin-bottom: 0; flex: 1; min-width: 120px; }
 
-  /* ── EMAIL LIST ── */
   .email-list { display: flex; flex-direction: column; gap: 10px; }
 
   .email-item {
@@ -346,678 +320,633 @@
     transition: all 0.2s;
     cursor: pointer;
     animation: slideIn 0.3s ease both;
+    position: relative;
+    overflow: hidden;
   }
 
-  .email-item:hover {
-    border-color: rgba(124,92,252,0.4);
-    background: var(--surface2);
-    transform: translateX(3px);
-  }
+  .email-item:hover { border-color: rgba(124,92,252,0.4); background: var(--surface2); transform: translateX(3px); }
 
   @keyframes slideIn {
     from { opacity: 0; transform: translateX(-10px); }
     to { opacity: 1; transform: translateX(0); }
   }
 
-  .priority-badge {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    margin-top: 6px;
-    flex-shrink: 0;
-    box-shadow: 0 0 8px currentColor;
-  }
+  .email-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; opacity: 0; transition: opacity 0.2s; }
+  .email-item.critical::before { background: var(--critical); opacity: 1; }
+  .email-item.high::before    { background: var(--high); opacity: 1; }
+  .email-item.medium::before  { background: var(--medium); opacity: 1; }
+  .email-item.low::before     { background: var(--low); opacity: 1; }
 
+  .priority-badge { width: 8px; height: 8px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; box-shadow: 0 0 8px currentColor; }
   .priority-badge.critical { background: var(--critical); color: var(--critical); }
   .priority-badge.high { background: var(--high); color: var(--high); }
   .priority-badge.medium { background: var(--medium); color: var(--medium); }
   .priority-badge.low { background: var(--low); color: var(--low); }
 
   .email-content { overflow: hidden; }
+  .email-subject { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.88rem; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .email-from { font-size: 0.72rem; color: var(--muted); margin-bottom: 4px; }
+  .email-summary { font-size: 0.73rem; color: var(--muted); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
-  .email-subject {
-    font-family: 'Syne', sans-serif;
-    font-weight: 600;
-    font-size: 0.88rem;
-    margin-bottom: 4px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+  .email-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
 
-  .email-from {
-    font-size: 0.72rem;
-    color: var(--muted);
-    margin-bottom: 4px;
-  }
-
-  .email-summary {
-    font-size: 0.73rem;
-    color: var(--muted);
-    line-height: 1.5;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .email-meta {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 6px;
-    flex-shrink: 0;
-  }
-
-  .priority-tag {
-    font-size: 0.6rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    padding: 3px 8px;
-    border-radius: 4px;
-    font-weight: 500;
-  }
-
+  .priority-tag { font-size: 0.6rem; letter-spacing: 1px; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; font-weight: 500; }
   .priority-tag.critical { background: rgba(255,68,68,0.15); color: var(--critical); }
   .priority-tag.high { background: rgba(255,140,66,0.15); color: var(--high); }
   .priority-tag.medium { background: rgba(255,209,102,0.15); color: var(--medium); }
   .priority-tag.low { background: rgba(6,214,160,0.15); color: var(--low); }
 
-  .category-tag {
-    font-size: 0.6rem;
-    color: var(--muted);
-    background: var(--surface2);
-    padding: 2px 6px;
-    border-radius: 4px;
-  }
+  .category-tag { font-size: 0.6rem; color: var(--muted); background: var(--surface2); padding: 2px 6px; border-radius: 4px; }
+  .action-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 1.5s infinite; }
 
-  .action-dot {
-    width: 6px;
-    height: 6px;
-    background: var(--accent);
-    border-radius: 50%;
-    animation: pulse 1.5s infinite;
-  }
-
-  /* ── COMPOSE FORM ── */
-  .compose-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-
-  .compose-grid .form-group:last-child {
-    grid-column: 1 / -1;
-  }
-
-  .key-points-container {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .key-point-row {
-    display: flex;
-    gap: 8px;
-  }
-
+  .compose-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .key-points-container { display: flex; flex-direction: column; gap: 8px; }
+  .key-point-row { display: flex; gap: 8px; }
   .key-point-row input { flex: 1; }
 
-  .btn-icon {
-    padding: 10px 12px;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    color: var(--muted);
-    cursor: pointer;
-    font-size: 1rem;
-    transition: all 0.2s;
-    flex-shrink: 0;
-  }
-
+  .btn-icon { padding: 10px 12px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; color: var(--muted); cursor: pointer; font-size: 1rem; transition: all 0.2s; flex-shrink: 0; }
   .btn-icon:hover { border-color: var(--accent); color: var(--accent); }
 
-  /* ── EMAIL PREVIEW ── */
-  .email-preview {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 20px;
-    margin-top: 20px;
-    display: none;
-    animation: fadeIn 0.3s ease;
-  }
-
+  .email-preview { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-top: 20px; display: none; animation: fadeIn 0.3s ease; }
   .email-preview.visible { display: block; }
 
-  .preview-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--border);
-  }
+  .preview-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+  .preview-label { font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); }
+  .preview-subject { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 16px; }
+  .preview-body { font-size: 0.82rem; line-height: 1.8; color: var(--text); white-space: pre-wrap; }
 
-  .preview-label {
-    font-size: 0.65rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--accent);
-  }
+  .search-result { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-bottom: 10px; transition: all 0.2s; animation: slideIn 0.3s ease both; }
+  .search-result:hover { border-color: rgba(124,92,252,0.4); transform: translateX(3px); }
 
-  .preview-subject {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 1.1rem;
-    margin-bottom: 16px;
-  }
-
-  .preview-body {
-    font-size: 0.82rem;
-    line-height: 1.8;
-    color: var(--text);
-    white-space: pre-wrap;
-  }
-
-  /* ── SEARCH ── */
-  .search-result {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 16px;
-    margin-bottom: 10px;
-    transition: all 0.2s;
-    animation: slideIn 0.3s ease both;
-  }
-
-  .search-result:hover {
-    border-color: rgba(124,92,252,0.4);
-    transform: translateX(3px);
-  }
-
-  .result-title {
-    font-family: 'Syne', sans-serif;
-    font-weight: 600;
-    font-size: 0.9rem;
-    margin-bottom: 6px;
-    color: var(--accent);
-  }
-
-  .result-title a {
-    color: inherit;
-    text-decoration: none;
-  }
-
+  .result-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.9rem; margin-bottom: 6px; color: var(--accent); }
+  .result-title a { color: inherit; text-decoration: none; }
   .result-title a:hover { text-decoration: underline; }
+  .result-url { font-size: 0.65rem; color: var(--muted); margin-bottom: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .result-content { font-size: 0.75rem; color: var(--muted); line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .result-score { display: inline-block; font-size: 0.6rem; padding: 2px 6px; background: rgba(124,92,252,0.15); color: var(--accent); border-radius: 4px; margin-top: 8px; }
 
-  .result-url {
-    font-size: 0.65rem;
-    color: var(--muted);
-    margin-bottom: 8px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+  .ai-answer { background: linear-gradient(135deg, rgba(124,92,252,0.1), rgba(92,240,200,0.05)); border: 1px solid rgba(124,92,252,0.3); border-radius: 10px; padding: 16px 20px; margin-bottom: 20px; font-size: 0.82rem; line-height: 1.7; color: var(--text); }
+  .ai-answer-label { font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
 
-  .result-content {
-    font-size: 0.75rem;
-    color: var(--muted);
-    line-height: 1.6;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .result-score {
-    display: inline-block;
-    font-size: 0.6rem;
-    padding: 2px 6px;
-    background: rgba(124,92,252,0.15);
-    color: var(--accent);
-    border-radius: 4px;
-    margin-top: 8px;
-  }
-
-  .ai-answer {
-    background: linear-gradient(135deg, rgba(124,92,252,0.1), rgba(92,240,200,0.05));
-    border: 1px solid rgba(124,92,252,0.3);
-    border-radius: 10px;
-    padding: 16px 20px;
-    margin-bottom: 20px;
-    font-size: 0.82rem;
-    line-height: 1.7;
-    color: var(--text);
-  }
-
-  .ai-answer-label {
-    font-size: 0.6rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  /* ── LOADING ── */
-  .loader {
-    display: none;
-    align-items: center;
-    gap: 12px;
-    padding: 20px;
-    color: var(--muted);
-    font-size: 0.8rem;
-  }
-
+  .loader { display: none; align-items: center; gap: 12px; padding: 20px; color: var(--muted); font-size: 0.8rem; }
   .loader.visible { display: flex; }
 
-  .spinner {
-    width: 18px;
-    height: 18px;
-    border: 2px solid var(--border);
-    border-top-color: var(--accent);
-    border-radius: 50%;
-    animation: spin 0.7s linear infinite;
-  }
+  .spinner { width: 18px; height: 18px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; }
+  .spinner.amber { border-top-color: var(--accent4); }
+  .spinner.green { border-top-color: var(--resume); }
+  .spinner.resume { border-top-color: #b45cf0; }
 
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* ── EMPTY STATE ── */
-  .empty-state {
-    text-align: center;
-    padding: 60px 20px;
-    color: var(--muted);
-  }
-
+  .empty-state { text-align: center; padding: 60px 20px; color: var(--muted); }
   .empty-icon { font-size: 0.75rem; margin-bottom: 12px; opacity: 0.4; font-family: 'DM Mono', monospace; letter-spacing: 2px; }
   .empty-text { font-size: 0.82rem; }
 
-  /* ── TOAST ── */
-  .toast {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 12px 18px;
-    font-size: 0.78rem;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    transform: translateY(80px);
-    opacity: 0;
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    z-index: 999;
-    max-width: 320px;
-  }
-
-  .toast.show {
-    transform: translateY(0);
-    opacity: 1;
-  }
-
+  .toast { position: fixed; bottom: 24px; right: 24px; background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 18px; font-size: 0.78rem; display: flex; align-items: center; gap: 10px; transform: translateY(80px); opacity: 0; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); z-index: 999; max-width: 320px; }
+  .toast.show { transform: translateY(0); opacity: 1; }
   .toast.success { border-color: var(--accent3); }
   .toast.error { border-color: var(--critical); }
 
-  /* ── STATS ROW ── */
-  .stats-row {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin-bottom: 24px;
-  }
+  .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
+  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; text-align: center; position: relative; overflow: hidden; transition: transform 0.2s, border-color 0.2s; }
+  .stat-card:hover { transform: translateY(-2px); }
+  .stat-number { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.6rem; }
+  .stat-label { font-size: 0.65rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
 
-  .stat-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 16px;
-    text-align: center;
-  }
-
-  .stat-number {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 1.6rem;
-  }
-
-  .stat-label {
-    font-size: 0.65rem;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 2px;
-  }
-
-  /* ── TOGGLE ── */
-  .toggle-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 0;
-    border-bottom: 1px solid var(--border);
-  }
-
+  .toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border); }
   .toggle-label { font-size: 0.8rem; }
   .toggle-desc { font-size: 0.7rem; color: var(--muted); margin-top: 2px; }
-
-  .toggle {
-    width: 40px;
-    height: 22px;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 11px;
-    position: relative;
-    cursor: pointer;
-    transition: background 0.2s;
-    flex-shrink: 0;
-  }
-
+  .toggle { width: 40px; height: 22px; background: var(--surface2); border: 1px solid var(--border); border-radius: 11px; position: relative; cursor: pointer; transition: background 0.2s; flex-shrink: 0; }
   .toggle.on { background: var(--accent); border-color: var(--accent); }
-
-  .toggle::after {
-    content: '';
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    background: white;
-    border-radius: 50%;
-    top: 2px;
-    left: 2px;
-    transition: transform 0.2s;
-  }
-
+  .toggle::after { content: ''; position: absolute; width: 16px; height: 16px; background: white; border-radius: 50%; top: 2px; left: 2px; transition: transform 0.2s; }
   .toggle.on::after { transform: translateX(18px); }
 
-  /* ── SCROLLBAR ── */
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
   ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+  /* ══ GITHUB ANALYZER ══ */
+  .gh-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+
+  .gh-action-pill {
+    padding: 7px 14px; border-radius: 20px; border: 1px solid var(--border);
+    background: var(--surface2); color: var(--muted); font-family: 'DM Mono', monospace;
+    font-size: 0.72rem; cursor: pointer; transition: all 0.18s ease; white-space: nowrap;
+    position: relative;
+  }
+  .gh-action-pill:hover { border-color: rgba(240,160,92,0.4); color: var(--accent4); }
+  .gh-action-pill.active { background: rgba(240,160,92,0.15); border-color: rgba(240,160,92,0.5); color: var(--accent4); box-shadow: 0 0 12px rgba(240,160,92,0.1); }
+
+  .gh-tooltip {
+    position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+    background: var(--surface2); border: 1px solid rgba(240,160,92,0.3); border-radius: 8px;
+    padding: 7px 12px; font-size: 0.67rem; color: var(--text); white-space: nowrap;
+    pointer-events: none; opacity: 0; transition: opacity 0.18s; z-index: 60;
+    max-width: 200px; white-space: normal; text-align: center; line-height: 1.5;
+  }
+  .gh-action-pill:hover .gh-tooltip { opacity: 1; }
+
+  .gh-input-row { display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: flex-end; margin-bottom: 20px; }
+
+  .gh-extra-fields { display: none; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; padding: 16px; background: rgba(240,160,92,0.04); border: 1px solid rgba(240,160,92,0.15); border-radius: 10px; animation: fadeIn 0.2s ease; }
+  .gh-extra-fields.visible { display: grid; }
+
+  .gh-repo-card { background: var(--surface); border: 1px solid rgba(240,160,92,0.25); border-radius: 12px; padding: 20px; margin-bottom: 14px; animation: slideIn 0.3s ease both; cursor: pointer; }
+  .gh-repo-card .expand-arrow { transition: transform 0.2s; display: inline-block; color: var(--muted); font-size: 0.7rem; margin-left: 6px; }
+  .gh-repo-card.expanded .expand-arrow { transform: rotate(180deg); }
+  .gh-repo-expanded { display: none; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); animation: fadeIn 0.2s ease; }
+  .gh-repo-card.expanded .gh-repo-expanded { display: block; }
+
+  .gh-repo-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+  .gh-repo-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--accent4); }
+  .gh-repo-name a { color: inherit; text-decoration: none; }
+  .gh-repo-name a:hover { text-decoration: underline; }
+  .gh-repo-desc { font-size: 0.75rem; color: var(--muted); line-height: 1.6; margin-bottom: 14px; }
+  .gh-repo-meta { font-size: 0.63rem; color: var(--muted); }
+
+  .gh-stat-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+
+  .gh-pill { font-size: 0.65rem; padding: 4px 10px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface2); color: var(--muted); white-space: nowrap; }
+  .gh-pill.stars { border-color: rgba(255,209,102,0.3); color: var(--medium); }
+  .gh-pill.forks { border-color: rgba(92,240,200,0.3); color: var(--accent3); }
+  .gh-pill.issues { border-color: rgba(255,68,68,0.3); color: var(--critical); }
+  .gh-pill.lang { border-color: rgba(240,160,92,0.3); color: var(--accent4); }
+  .gh-pill.license { border-color: rgba(124,92,252,0.3); color: var(--accent); }
+  .gh-pill.watchers { border-color: rgba(255,140,66,0.3); color: var(--high); }
+  .gh-pill.good { border-color: rgba(6,214,160,0.3); color: var(--low); }
+
+  .gh-ai-block { background: linear-gradient(135deg, rgba(240,160,92,0.07), rgba(240,160,92,0.02)); border: 1px solid rgba(240,160,92,0.2); border-radius: 8px; padding: 14px; font-size: 0.78rem; line-height: 1.7; color: var(--text); margin-top: 10px; position: relative; overflow: hidden; }
+  .gh-ai-block::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(240,160,92,0) 0%, rgba(240,160,92,0.15) 50%, rgba(240,160,92,0) 100%);
+    background-size: 200% 100%; animation: aiShimmer 3s ease infinite; pointer-events: none;
+  }
+  @keyframes aiShimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+  .gh-ai-label { font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent4); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+  .gh-ai-block-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+
+  .typing-cursor { display: inline-block; width: 2px; height: 11px; background: var(--accent4); animation: blink 1s step-end infinite; vertical-align: middle; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  .commit-chart-wrap { overflow: hidden; margin-bottom: 30px; }
+  .commit-chart { display: flex; align-items: flex-end; gap: 4px; height: 60px; margin: 14px 0 6px; padding: 0 2px; }
+  .commit-bar { flex: 1; background: rgba(240,160,92,0.25); border-radius: 3px 3px 0 0; min-height: 3px; transition: background 0.2s; cursor: default; position: relative; }
+  .commit-bar:hover { background: rgba(240,160,92,0.6); }
+  .commit-bar-label { position: absolute; bottom: -18px; left: 50%; transform: translateX(-50%); font-size: 0.5rem; color: var(--muted); white-space: nowrap; }
+
+  .tech-stack-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .tech-badge { display: flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 6px; border: 1px solid rgba(240,160,92,0.2); background: rgba(240,160,92,0.06); font-size: 0.72rem; color: var(--accent4); animation: fadeIn 0.3s ease both; }
+  .tech-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent4); flex-shrink: 0; }
+
+  .code-review-block { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 18px; margin-bottom: 12px; animation: slideIn 0.3s ease both; }
+  .code-review-block .section-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.82rem; margin-bottom: 10px; color: var(--accent4); text-transform: uppercase; letter-spacing: 1px; }
+  .code-review-block pre { font-family: 'DM Mono', monospace; font-size: 0.74rem; color: var(--text); line-height: 1.7; white-space: pre-wrap; word-break: break-word; }
+
+  .stale-repo-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 8px; animation: slideIn 0.3s ease both; transition: all 0.2s; }
+  .stale-repo-item:hover { border-color: rgba(240,160,92,0.3); transform: translateX(3px); }
+  .stale-repo-name { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.82rem; color: var(--text); }
+  .stale-repo-days { font-size: 0.68rem; color: var(--muted); margin-top: 2px; }
+  .stale-badge { font-size: 0.6rem; padding: 3px 8px; border-radius: 4px; letter-spacing: 1px; text-transform: uppercase; }
+  .stale-badge.very-stale { background: rgba(255,68,68,0.15); color: var(--critical); border: 1px solid rgba(255,68,68,0.3); }
+  .stale-badge.stale { background: rgba(255,209,102,0.15); color: var(--medium); border: 1px solid rgba(255,209,102,0.3); }
+
+  .quality-meter { display: flex; align-items: center; gap: 12px; margin: 14px 0; }
+  .quality-bar-track { flex: 1; height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+  .quality-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--accent4), var(--accent3)); transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); width: 0%; }
+  .quality-score { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; color: var(--accent4); min-width: 32px; text-align: right; }
+  .quality-checks { display: flex; flex-direction: column; gap: 6px; margin-top: 12px; }
+  .quality-check { display: flex; align-items: center; gap: 8px; font-size: 0.75rem; color: var(--muted); }
+  .check-icon { width: 14px; height: 14px; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; flex-shrink: 0; }
+  .check-icon.pass { background: rgba(6,214,160,0.15); color: var(--low); border: 1px solid rgba(6,214,160,0.3); }
+  .check-icon.fail { background: rgba(255,68,68,0.15); color: var(--critical); border: 1px solid rgba(255,68,68,0.3); }
+
+  .dep-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 10px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 8px; animation: slideIn 0.3s ease both; transition: all 0.2s; }
+  .dep-item:hover { border-color: rgba(240,160,92,0.3); transform: translateX(3px); }
+  .dep-name { font-size: 0.8rem; font-family: 'Syne', sans-serif; font-weight: 600; }
+  .dep-version { font-size: 0.68rem; color: var(--muted); margin-top: 2px; }
+  .dep-severity { font-size: 0.6rem; padding: 2px 7px; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; }
+  .dep-severity.critical { background: rgba(255,68,68,0.15); color: var(--critical); border: 1px solid rgba(255,68,68,0.3); }
+  .dep-severity.high { background: rgba(255,140,66,0.15); color: var(--high); border: 1px solid rgba(255,140,66,0.3); }
+  .dep-severity.moderate { background: rgba(255,209,102,0.15); color: var(--medium); border: 1px solid rgba(255,209,102,0.3); }
+  .dep-severity.low { background: rgba(6,214,160,0.15); color: var(--low); border: 1px solid rgba(6,214,160,0.3); }
+  .dep-severity.ok { background: rgba(107,107,128,0.15); color: var(--muted); border: 1px solid rgba(107,107,128,0.3); }
+
+  .gh-section-heading { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; color: var(--accent4); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid rgba(240,160,92,0.2); display: flex; align-items: center; gap: 8px; justify-content: space-between; }
+  .gh-section-heading-left { display: flex; align-items: center; gap: 8px; }
+  .gh-section-heading .gh-tag { font-size: 0.6rem; padding: 2px 8px; background: rgba(240,160,92,0.1); border: 1px solid rgba(240,160,92,0.25); border-radius: 4px; letter-spacing: 1px; }
+
+  /* Donut chart */
+  .donut-row { display: flex; align-items: center; gap: 24px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; }
+  .donut-wrap { position: relative; width: 84px; height: 84px; flex-shrink: 0; }
+  .donut-wrap svg { transform: rotate(-90deg); }
+  .donut-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.15rem; }
+  .donut-center small { font-size: 0.52rem; color: var(--muted); font-family: 'DM Mono', monospace; font-weight: 400; }
+  .donut-legend { display: flex; flex-direction: column; gap: 9px; }
+  .donut-legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.73rem; }
+  .donut-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .donut-count { margin-left: auto; font-family: 'Syne', sans-serif; font-weight: 700; min-width: 24px; text-align: right; }
+
+  /* Skeleton */
+  .skeleton { background: linear-gradient(90deg, var(--surface2) 25%, var(--border) 50%, var(--surface2) 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: 6px; }
+  .skeleton-row { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; padding: 14px 16px; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 8px; background: var(--surface); }
+  .skeleton-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--surface2); margin-top: 5px; animation: shimmer 1.4s ease infinite; }
+  .skeleton-line { height: 9px; border-radius: 4px; background: var(--surface2); animation: shimmer 1.4s ease infinite; margin-bottom: 6px; }
+  @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+  /* Copy button */
+  .copy-btn { font-size: 0.63rem; padding: 4px 10px; border-radius: 5px; border: 1px solid var(--border); background: var(--surface2); color: var(--muted); cursor: pointer; font-family: 'DM Mono', monospace; transition: all 0.18s; }
+  .copy-btn:hover { border-color: var(--accent4); color: var(--accent4); }
+
+  /* Stale filter */
+  .stale-filter-row { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+  .stale-filter-btn { padding: 5px 12px; border-radius: 14px; border: 1px solid var(--border); background: var(--surface2); color: var(--muted); font-size: 0.68rem; cursor: pointer; font-family: 'DM Mono', monospace; transition: all 0.18s; }
+  .stale-filter-btn.active { background: rgba(240,160,92,0.15); border-color: rgba(240,160,92,0.4); color: var(--accent4); }
+
+  /* Repo preview card */
+  .repo-preview-card { display: none; background: linear-gradient(135deg, rgba(240,160,92,0.07), rgba(240,160,92,0.02)); border: 1px solid rgba(240,160,92,0.25); border-radius: 10px; padding: 14px 18px; margin-bottom: 16px; animation: fadeIn 0.25s ease; }
+  .repo-preview-card.visible { display: flex; gap: 16px; align-items: flex-start; flex-wrap: wrap; }
+  .rpc-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; color: var(--accent4); margin-bottom: 4px; }
+  .rpc-desc { font-size: 0.72rem; color: var(--muted); line-height: 1.5; margin-bottom: 8px; }
+
+  /* Status pills */
+  .status-pill { font-size: 0.55rem; letter-spacing: 0.5px; text-transform: uppercase; padding: 2px 7px; border-radius: 4px; }
+  .status-pill.active  { background: rgba(6,214,160,0.12);  color: var(--low);      border: 1px solid rgba(6,214,160,0.25); }
+  .status-pill.idle    { background: rgba(255,209,102,0.1); color: var(--medium);   border: 1px solid rgba(255,209,102,0.2); }
+  .status-pill.stale   { background: rgba(255,68,68,0.1);  color: var(--critical); border: 1px solid rgba(255,68,68,0.2); }
+  .status-pill.private { background: rgba(255,140,66,0.1); color: var(--high);     border: 1px solid rgba(255,140,66,0.2); }
+
+  /* Header breadcrumb */
+  .header-breadcrumb { font-size: 0.63rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; border-left: 1px solid var(--border); padding-left: 16px; margin-left: 16px; }
+
+  /* ── RESUME TAILOR ── */
+  .rs-phases { display: flex; gap: 0; margin-bottom: 20px; overflow: hidden; border-radius: 8px; border: 1px solid rgba(180,92,240,0.2); }
+  .rs-phase { flex: 1; padding: 7px 10px; text-align: center; font-size: 0.6rem; color: var(--muted); background: var(--surface2); border-right: 1px solid rgba(180,92,240,0.15); transition: all 0.2s; letter-spacing: 0.3px; }
+  .rs-phase:last-child { border-right: none; }
+  .rs-phase.active { background: rgba(180,92,240,0.12); color: #b45cf0; font-weight: 500; }
+  .rs-phase.done   { background: rgba(180,92,240,0.06); color: rgba(180,92,240,0.5); }
+  .rs-phase-num { font-family: 'Syne',sans-serif; font-weight: 700; font-size: 0.88rem; display: block; margin-bottom: 1px; }
+  .rs-card { background: var(--surface); border: 1px solid rgba(180,92,240,0.18); border-radius: 12px; padding: 20px; margin-bottom: 14px; }
+  .rs-section-label { font-size: 0.58rem; letter-spacing: 2px; text-transform: uppercase; color: #b45cf0; margin-bottom: 12px; display: flex; align-items: center; gap: 7px; }
+  .rs-section-label::after { content: ''; flex: 1; height: 1px; background: rgba(180,92,240,0.18); }
+  .rs-insight { background: linear-gradient(135deg,rgba(180,92,240,0.07),rgba(180,92,240,0.02)); border: 1px solid rgba(180,92,240,0.2); border-radius: 9px; padding: 14px 16px; font-size: 0.76rem; line-height: 1.75; color: var(--text); }
+  .rs-gap-item { display: flex; align-items: flex-start; gap: 9px; padding: 9px 13px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 6px; font-size: 0.74rem; animation: slideIn 0.3s ease both; }
+  .rs-gap-icon { flex-shrink: 0; margin-top: 1px; }
+  .rs-match-bar { margin: 10px 0; }
+  .rs-match-label { display: flex; justify-content: space-between; font-size: 0.68rem; color: var(--muted); margin-bottom: 5px; }
+  .rs-match-track { height: 5px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+  .rs-match-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg,#b45cf0,#5cb8f0); transition: width 0.9s cubic-bezier(0.34,1.56,0.64,1); width: 0%; }
+  .rs-phase-card { background: var(--surface2); border: 1px solid rgba(180,92,240,0.14); border-radius: 9px; padding: 14px 16px; margin-bottom: 10px; animation: slideIn 0.3s ease both; }
+  .rs-phase-card-title { font-family: 'Syne',sans-serif; font-weight: 600; font-size: 0.8rem; color: #b45cf0; margin-bottom: 7px; }
+  .rs-phase-card-text { font-size: 0.73rem; color: var(--muted); line-height: 1.6; }
+  .rs-output-tabs { display: flex; gap: 0; margin-bottom: 14px; border-bottom: 1px solid var(--border); }
+  .rs-output-tab { padding: 7px 14px; font-size: 0.7rem; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.15s; }
+  .rs-output-tab.active { color: #b45cf0; border-bottom-color: #b45cf0; }
+  .rs-output-pane { display: none; }
+  .rs-output-pane.active { display: block; }
+  .rs-resume-block { background: var(--surface2); border: 1px solid rgba(180,92,240,0.15); border-radius: 9px; padding: 16px 20px; font-size: 0.75rem; line-height: 1.8; white-space: pre-wrap; color: var(--text); max-height: 480px; overflow-y: auto; }
+  .rs-actions-bar { display: flex; gap: 8px; align-items: center; margin-top: 14px; flex-wrap: wrap; }
+
+  /* Resume step (old panel kept for compat) */
+  .resume-step { background: var(--surface); border: 1px solid rgba(6,214,160,0.15); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+  .resume-step-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--resume); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+  .resume-step-badge { font-size: 0.58rem; padding: 2px 8px; background: rgba(6,214,160,0.1); border: 1px solid rgba(6,214,160,0.3); border-radius: 10px; letter-spacing: 1px; text-transform: uppercase; }
+  .resume-output { display: none; background: var(--surface2); border: 1px solid rgba(6,214,160,0.2); border-radius: 12px; padding: 22px; margin-top: 16px; animation: fadeIn 0.3s ease; }
+  .resume-output.visible { display: block; }
+  .resume-section { margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid var(--border); }
+  .resume-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .resume-section-title { font-size: 0.62rem; letter-spacing: 2px; text-transform: uppercase; color: var(--resume); margin-bottom: 8px; }
+  .resume-section-content { font-size: 0.8rem; line-height: 1.8; color: var(--text); white-space: pre-wrap; }
+  .match-bar-track { flex: 1; height: 5px; background: var(--surface); border-radius: 3px; overflow: hidden; }
+  .match-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--resume), var(--accent3)); transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); width: 0%; }
+  .match-bar-label { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--resume); min-width: 36px; text-align: right; }
 </style>
 </head>
 <body>
-
 <div class="app">
-  <!-- HEADER -->
   <header>
     <div class="logo">MailMind <span>// AI Assistant</span></div>
+    <div class="header-breadcrumb" id="header-breadcrumb">Dashboard</div>
     <div class="header-status">
       <div class="status-dot"></div>
       MCP Server Connected
     </div>
   </header>
 
-  <!-- SIDEBAR -->
   <nav>
     <div class="nav-section">
       <div class="nav-label">Tools</div>
-      <button class="nav-btn active" onclick="showPanel('inbox')">
+      <button class="nav-btn active" onclick="showPanel('inbox', this, 'Inbox Sorter')">
         <span class="nav-icon">[IN]</span> Inbox Sorter
       </button>
-      <button class="nav-btn" onclick="showPanel('compose')">
+      <button class="nav-btn" onclick="showPanel('compose', this, 'Compose')">
         <span class="nav-icon">[CM]</span> Compose
       </button>
-      <button class="nav-btn" onclick="showPanel('search')">
+      <button class="nav-btn" onclick="showPanel('search', this, 'AI/ML Search')">
         <span class="nav-icon">[SR]</span> AI/ML Search
       </button>
+      <button class="nav-btn gh" onclick="showPanel('github', this, 'GitHub Analyzer')">
+        <span class="nav-icon">[GH]</span> GitHub Analyzer
+      </button>
+      <button class="nav-btn cv" onclick="showPanel('resume', this, 'Resume Tailor')">
+        <span class="nav-icon">[CV]</span> Resume Tailor
+      </button>
     </div>
-    <div class="nav-section" style="margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border);">
+    <div class="nav-section" style="margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border)">
       <div class="nav-label">Config</div>
-      <button class="nav-btn" onclick="showPanel('settings')">
+      <button class="nav-btn" onclick="showPanel('settings', this, 'Settings')">
         <span class="nav-icon">[CF]</span> Settings
       </button>
     </div>
   </nav>
 
-  <!-- MAIN -->
   <main>
 
-    <!-- ── INBOX PANEL ── -->
+    <!-- INBOX -->
     <div class="panel active" id="panel-inbox">
       <div class="panel-header">
         <div class="panel-title">Inbox Sorter</div>
         <div class="panel-subtitle">Fetch and classify emails by AI-determined priority</div>
       </div>
-
       <div class="stats-row" id="stats-row" style="display:none">
-        <div class="stat-card">
-          <div class="stat-number" id="stat-total" style="color: var(--text)">0</div>
-          <div class="stat-label">Total</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number" id="stat-critical" style="color: var(--critical)">0</div>
-          <div class="stat-label">Critical</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number" id="stat-high" style="color: var(--high)">0</div>
-          <div class="stat-label">High</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number" id="stat-action" style="color: var(--accent)">0</div>
-          <div class="stat-label">Action Needed</div>
-        </div>
+        <div class="stat-card"><div class="stat-number" id="stat-total" style="color:var(--text)">0</div><div class="stat-label">Total</div></div>
+        <div class="stat-card"><div class="stat-number" id="stat-critical" style="color:var(--critical)">0</div><div class="stat-label">Critical</div></div>
+        <div class="stat-card"><div class="stat-number" id="stat-high" style="color:var(--high)">0</div><div class="stat-label">High</div></div>
+        <div class="stat-card"><div class="stat-number" id="stat-action" style="color:var(--accent)">0</div><div class="stat-label">Action Needed</div></div>
       </div>
-
       <div class="controls">
         <div class="form-group">
           <label>Number of emails</label>
-          <select id="email-count">
-            <option value="5">5 emails</option>
-            <option value="10" selected>10 emails</option>
-            <option value="20">20 emails</option>
-            <option value="50">50 emails</option>
-          </select>
+          <select id="email-count"><option value="5">5</option><option value="10" selected>10</option><option value="20">20</option><option value="50">50</option></select>
         </div>
         <div class="form-group">
           <label>Filter priority</label>
-          <select id="priority-filter">
-            <option value="all">All priorities</option>
-            <option value="critical">Critical only</option>
-            <option value="high">High only</option>
-            <option value="medium">Medium only</option>
-            <option value="low">Low only</option>
-          </select>
+          <select id="priority-filter"><option value="all">All priorities</option><option value="critical">Critical</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option></select>
         </div>
-        <button class="btn btn-primary" onclick="fetchEmails()">
-          Fetch &amp; Sort
-        </button>
+        <button class="btn btn-primary" onclick="fetchEmails()">Fetch &amp; Sort</button>
       </div>
-
-      <div class="loader" id="inbox-loader">
-        <div class="spinner"></div>
-        Fetching and classifying your emails...
-      </div>
-
+      <div class="loader" id="inbox-loader"><div class="spinner"></div>Fetching and classifying...</div>
       <div class="email-list" id="email-list">
-        <div class="empty-state">
-          <div class="empty-icon">[ ]</div>
-          <div class="empty-text">Click "Fetch &amp; Sort" to load your inbox</div>
-        </div>
+        <div class="empty-state"><div class="empty-icon">[ ]</div><div class="empty-text">Click "Fetch &amp; Sort" to load your inbox</div></div>
       </div>
     </div>
 
-    <!-- ── COMPOSE PANEL ── -->
+    <!-- COMPOSE -->
     <div class="panel" id="panel-compose">
-      <div class="panel-header">
-        <div class="panel-title">Compose Email</div>
-        <div class="panel-subtitle">Generate professional emails with AI</div>
-      </div>
-
+      <div class="panel-header"><div class="panel-title">Compose Email</div><div class="panel-subtitle">Generate professional emails with AI</div></div>
       <div class="card">
         <div class="compose-grid">
-          <div class="form-group">
-            <label>Recipient Email</label>
-            <input type="email" id="compose-to" placeholder="recipient@example.com">
-          </div>
-          <div class="form-group">
-            <label>Tone</label>
-            <select id="compose-tone">
-              <option value="professional">Professional</option>
-              <option value="casual">Casual</option>
-              <option value="formal">Formal</option>
-              <option value="friendly">Friendly</option>
-              <option value="assertive">Assertive</option>
-            </select>
-          </div>
-          <div class="form-group" style="grid-column: 1/-1">
-            <label>Purpose / Subject</label>
-            <input type="text" id="compose-purpose" placeholder="e.g. Request a meeting about Q1 project review">
-          </div>
-          <div class="form-group" style="grid-column: 1/-1">
-            <label>Key Points <span style="color:var(--muted); font-size:0.65rem">(add as many as needed)</span></label>
+          <div class="form-group"><label>Recipient Email</label><input type="email" id="compose-to" placeholder="recipient@example.com"></div>
+          <div class="form-group"><label>Tone</label><select id="compose-tone"><option value="professional">Professional</option><option value="casual">Casual</option><option value="formal">Formal</option><option value="friendly">Friendly</option><option value="assertive">Assertive</option></select></div>
+          <div class="form-group" style="grid-column:1/-1"><label>Purpose / Subject</label><input type="text" id="compose-purpose" placeholder="e.g. Request a meeting about Q1 project review"></div>
+          <div class="form-group" style="grid-column:1/-1">
+            <label>Key Points</label>
             <div class="key-points-container" id="key-points">
-              <div class="key-point-row">
-                <input type="text" placeholder="Key point 1...">
-                <button class="btn-icon" onclick="addKeyPoint()">+</button>
-              </div>
+              <div class="key-point-row"><input type="text" placeholder="Key point 1..."><button class="btn-icon" onclick="addKeyPoint()">+</button></div>
             </div>
           </div>
-          <div class="form-group" style="grid-column: 1/-1">
-            <label>Your Name</label>
-            <input type="text" id="compose-sender" placeholder="Rayyan">
-          </div>
+          <div class="form-group" style="grid-column:1/-1"><label>Your Name</label><input type="text" id="compose-sender" placeholder="Rayyan"></div>
         </div>
-
         <div style="display:flex; gap:12px; align-items:center; margin-top:4px">
-          <button class="btn btn-primary" onclick="generateEmail(false)">
-            Generate Preview
-          </button>
-          <button class="btn btn-ghost" onclick="generateEmail(true)" id="send-btn" style="display:none">
-            Send Now
-          </button>
-          <div class="loader" id="compose-loader" style="padding:0">
-            <div class="spinner"></div>
-            Generating...
-          </div>
+          <button class="btn btn-primary" onclick="generateEmail(false)">Generate Preview</button>
+          <button class="btn btn-ghost" onclick="generateEmail(true)" id="send-btn" style="display:none">Send Now</button>
+          <div class="loader" id="compose-loader" style="padding:0"><div class="spinner"></div>Generating...</div>
         </div>
       </div>
-
       <div class="email-preview" id="email-preview">
         <div class="preview-header">
           <div class="preview-label">// AI Generated Preview</div>
-          <div style="font-size:0.7rem; color:var(--muted)" id="read-time"></div>
+          <div style="display:flex; gap:8px; align-items:center">
+            <div style="font-size:0.7rem; color:var(--muted)" id="read-time"></div>
+            <button class="copy-btn" onclick="copyToClipboard(document.getElementById('preview-body').textContent)">Copy</button>
+          </div>
         </div>
         <div class="preview-subject" id="preview-subject"></div>
         <div class="preview-body" id="preview-body"></div>
       </div>
     </div>
 
-    <!-- ── SEARCH PANEL ── -->
+    <!-- SEARCH -->
     <div class="panel" id="panel-search">
-      <div class="panel-header">
-        <div class="panel-title">AI/ML Research</div>
-        <div class="panel-subtitle">Deep search across arXiv, HuggingFace, PapersWithCode & top AI labs</div>
-      </div>
-
+      <div class="panel-header"><div class="panel-title">AI/ML Research</div><div class="panel-subtitle">Deep search across arXiv, HuggingFace, PapersWithCode &amp; top AI labs</div></div>
       <div class="controls" style="flex-direction:column; align-items:stretch">
-        <div class="form-group" style="margin-bottom:0">
-          <label>Search Query</label>
-          <input type="text" id="search-query" placeholder="e.g. latest LLM fine-tuning techniques 2025"
-            onkeydown="if(event.key==='Enter') runSearch()">
-        </div>
+        <div class="form-group" style="margin-bottom:0"><label>Search Query</label><input type="text" id="search-query" placeholder="e.g. latest LLM fine-tuning techniques 2025" onkeydown="if(event.key==='Enter') runSearch()"></div>
         <div style="display:flex; gap:12px; flex-wrap:wrap">
-          <div class="form-group" style="flex:1; margin-bottom:0">
-            <label>Depth</label>
-            <select id="search-depth">
-              <option value="basic">Basic (faster)</option>
-              <option value="advanced" selected>Advanced (thorough)</option>
-            </select>
+          <div class="form-group" style="flex:1; margin-bottom:0"><label>Depth</label><select id="search-depth"><option value="basic">Basic</option><option value="advanced" selected>Advanced</option></select></div>
+          <div class="form-group" style="flex:1; margin-bottom:0"><label>Format</label><select id="search-format"><option value="full" selected>Full</option><option value="summary">Summary</option><option value="links_only">Links only</option></select></div>
+          <div class="form-group" style="flex:1; margin-bottom:0"><label>Max Results</label><select id="search-max"><option value="5">5</option><option value="10" selected>10</option><option value="20">20</option></select></div>
+          <div style="display:flex; align-items:flex-end"><button class="btn btn-primary" onclick="runSearch()">Search</button></div>
+        </div>
+      </div>
+      <div class="loader" id="search-loader"><div class="spinner"></div>Searching across AI/ML sources...</div>
+      <div id="search-results"><div class="empty-state"><div class="empty-icon">[ ]</div><div class="empty-text">Search for any AI/ML topic to find papers, repos and articles</div></div></div>
+    </div>
+
+    <!-- GITHUB ANALYZER -->
+    <div class="panel" id="panel-github">
+      <div class="panel-header">
+        <div class="panel-title" style="background:linear-gradient(135deg,var(--accent4),var(--accent3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">GitHub Analyzer</div>
+        <div class="panel-subtitle">Repo insights, commit activity, code review, tech stack &amp; more</div>
+      </div>
+
+      <div class="gh-actions" id="gh-actions">
+        <button class="gh-action-pill active" onclick="selectAction('repo_overview',this)">
+          repo_overview<div class="gh-tooltip">Full portfolio overview — all repos with status, activity &amp; AI insight</div>
+        </button>
+        <button class="gh-action-pill" onclick="selectAction('commit_activity',this)">
+          commit_activity<div class="gh-tooltip">Weekly commit frequency chart with recent commit log</div>
+        </button>
+        <button class="gh-action-pill" onclick="selectAction('readme_quality',this)">
+          readme_quality<div class="gh-tooltip">Score a repo README on completeness, badges &amp; clarity</div>
+        </button>
+        <button class="gh-action-pill" onclick="selectAction('stale_repos',this)">
+          stale_repos<div class="gh-tooltip">Find repos with no recent push — filter by 180 or 365+ days</div>
+        </button>
+        <button class="gh-action-pill" onclick="selectAction('review_code',this)">
+          review_code<div class="gh-tooltip">AI code review of a specific file in any repo</div>
+        </button>
+        <button class="gh-action-pill" onclick="selectAction('tech_stack',this)">
+          tech_stack<div class="gh-tooltip">Detect languages &amp; frameworks used across the codebase</div>
+        </button>
+        <button class="gh-action-pill" onclick="selectAction('audit_dependencies',this)">
+          audit_dependencies<div class="gh-tooltip">Check for unpinned or vulnerable dependencies by severity</div>
+        </button>
+      </div>
+
+      <div class="gh-input-row" id="gh-main-input">
+        <div class="form-group" style="margin-bottom:0">
+          <label id="gh-repo-label">Repository</label>
+          <div style="display:flex; gap:8px; align-items:center">
+            <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-size:0.82rem;color:var(--accent4);white-space:nowrap;flex-shrink:0;">rayyan666 /</div>
+            <div style="position:relative; flex:1">
+              <select id="gh-repo-select" style="width:100%; cursor:pointer;" onchange="onRepoSelected(this.value)">
+                <option value="" disabled selected>— select a repo —</option>
+              </select>
+              <div id="gh-repo-loading" style="display:none; position:absolute; right:10px; top:50%; transform:translateY(-50%)">
+                <div class="spinner amber" style="width:12px;height:12px;border-width:1.5px"></div>
+              </div>
+            </div>
+            <button onclick="loadRepos()" style="padding:10px 14px;border-radius:8px;font-size:0.72rem;white-space:nowrap;cursor:pointer;background:var(--surface2);border:1px solid var(--border);color:var(--muted);font-family:'DM Mono',monospace;transition:all 0.2s" onmouseover="this.style.borderColor='var(--accent4)';this.style.color='var(--accent4)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">↺ Refresh</button>
+            <input type="hidden" id="gh-repo" value="">
           </div>
-          <div class="form-group" style="flex:1; margin-bottom:0">
-            <label>Format</label>
-            <select id="search-format">
-              <option value="full" selected>Full results</option>
-              <option value="summary">Summary + top 3</option>
-              <option value="links_only">Links only</option>
-            </select>
+        </div>
+        <div style="display:flex; align-items:flex-end; gap:8px">
+          <div class="form-group" style="margin-bottom:0">
+            <label>AI Summary</label>
+            <div class="toggle on" id="gh-toggle-ai" onclick="this.classList.toggle('on')" style="margin-top:4px"></div>
           </div>
-          <div class="form-group" style="flex:1; margin-bottom:0">
-            <label>Max Results</label>
-            <select id="search-max">
-              <option value="5">5 results</option>
-              <option value="10" selected>10 results</option>
-              <option value="20">20 results</option>
-            </select>
-          </div>
-          <div style="display:flex; align-items:flex-end">
-            <button class="btn btn-primary" onclick="runSearch()">
-              Search
-            </button>
+        </div>
+        <div style="display:flex; align-items:flex-end">
+          <button class="btn btn-amber" onclick="runGithub()">Analyze</button>
+        </div>
+      </div>
+
+      <div class="repo-preview-card" id="repo-preview-card">
+        <div style="flex:1">
+          <div class="rpc-name" id="rpc-name"></div>
+          <div class="rpc-desc" id="rpc-desc">Select a repo to see a preview</div>
+          <div class="gh-stat-pills" id="rpc-pills" style="margin-top:6px"></div>
+        </div>
+      </div>
+
+      <div class="gh-extra-fields" id="gh-extra-fields"></div>
+
+      <div class="loader" id="gh-loader">
+        <div class="spinner amber"></div>
+        <span id="gh-loader-msg">Analyzing repository...</span>
+      </div>
+
+      <div id="gh-result-area">
+        <div class="empty-state"><div class="empty-icon">[GH]</div><div class="empty-text">Select an action and a repo to analyze</div></div>
+      </div>
+    </div>
+
+    <!-- RESUME TAILOR -->
+    <div class="panel" id="panel-resume">
+      <div class="panel-header">
+        <div class="panel-title" style="background:linear-gradient(135deg,#b45cf0,#5cb8f0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Resume Tailor</div>
+        <div class="panel-subtitle">AI-powered resume tailoring — research, discovery, smart matching &amp; multi-format output</div>
+      </div>
+
+      <div class="rs-phases" id="rs-phases">
+        <div class="rs-phase active" id="rsph-0"><span class="rs-phase-num">0</span>Library</div>
+        <div class="rs-phase" id="rsph-1"><span class="rs-phase-num">1</span>Research</div>
+        <div class="rs-phase" id="rsph-2"><span class="rs-phase-num">2</span>Template</div>
+        <div class="rs-phase" id="rsph-3"><span class="rs-phase-num">2.5</span>Discovery</div>
+        <div class="rs-phase" id="rsph-4"><span class="rs-phase-num">3</span>Match</div>
+        <div class="rs-phase" id="rsph-5"><span class="rs-phase-num">4</span>Generate</div>
+      </div>
+
+      <div class="card rs-card" style="margin-bottom:14px">
+        <div class="rs-section-label">Mode</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <button class="btn btn-resume" id="rs-mode-single" onclick="setRsMode('single')">Single Job</button>
+          <button class="btn btn-ghost" id="rs-mode-batch" onclick="setRsMode('batch')">Batch (3-5 jobs)</button>
+          <div style="margin-left:auto;display:flex;align-items:center;gap:8px;font-size:0.72rem;color:var(--muted)">
+            <div class="toggle on" id="rs-deep-research" onclick="this.classList.toggle('on')"></div>
+            Deep Research
           </div>
         </div>
       </div>
 
-      <div class="loader" id="search-loader">
-        <div class="spinner"></div>
-        Searching across AI/ML sources...
+      <div class="card rs-card" id="rs-input-card">
+        <div class="rs-section-label">Job Description</div>
+        <div class="form-group">
+          <label>Company &amp; Role</label>
+          <input type="text" id="rs-company" placeholder="e.g. Google — Senior ML Engineer">
+        </div>
+        <div class="form-group">
+          <label>Job Description <span style="color:var(--muted);font-size:0.58rem">(paste full JD)</span></label>
+          <textarea id="rs-jd" style="min-height:130px" placeholder="Paste the full job description here..."></textarea>
+        </div>
+        <div id="rs-batch-extra" style="display:none">
+          <div class="rs-section-label" style="margin-top:14px">Additional Jobs</div>
+          <textarea id="rs-batch-jds" style="min-height:100px" placeholder="Paste additional JDs separated by ---"></textarea>
+        </div>
+        <div class="rs-section-label" style="margin-top:14px">Your Background</div>
+        <div class="form-group">
+          <label>Existing Resume <span style="color:var(--muted);font-size:0.58rem">(paste markdown or plain text)</span></label>
+          <textarea id="rs-resume" style="min-height:120px" placeholder="Paste your current resume here..."></textarea>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:6px">
+          <button class="btn btn-resume" id="rs-start-btn" onclick="runResumeTailor()">&#9889; Start Tailoring</button>
+          <button class="btn btn-ghost" onclick="clearResumePanel()">Clear</button>
+          <div class="loader" id="rs-loader" style="padding:0">
+            <div class="spinner resume"></div>
+            <span id="rs-loader-msg">Processing...</span>
+          </div>
+        </div>
       </div>
 
-      <div id="search-results">
-        <div class="empty-state">
-          <div class="empty-icon">[ ]</div>
-          <div class="empty-text">Search for any AI/ML topic to find papers, repos and articles</div>
+      <div id="rs-output-area" style="display:none">
+        <div class="card rs-card" id="rs-research-card" style="display:none">
+          <div class="rs-section-label">Research Findings</div>
+          <div id="rs-research-content"></div>
+        </div>
+        <div class="card rs-card" id="rs-discovery-card" style="display:none">
+          <div class="rs-section-label">Experience Discovery</div>
+          <div id="rs-discovery-content"></div>
+          <div style="margin-top:12px">
+            <div class="form-group">
+              <label>Additional experiences <span style="color:var(--muted);font-size:0.58rem">(one per line, optional)</span></label>
+              <textarea id="rs-extra-exp" style="min-height:70px" placeholder="e.g. Built a Kubernetes CI/CD pipeline for a nonprofit..."></textarea>
+            </div>
+            <button class="btn btn-resume" onclick="continueToMatch()">Continue to Matching &#8594;</button>
+          </div>
+        </div>
+        <div class="card rs-card" id="rs-match-card" style="display:none">
+          <div class="rs-section-label">Content Matching</div>
+          <div id="rs-match-content"></div>
+        </div>
+        <div class="card rs-card" id="rs-result-card" style="display:none">
+          <div class="rs-section-label">Generated Resume</div>
+          <div class="rs-output-tabs">
+            <div class="rs-output-tab active" onclick="switchRsTab('resume',this)">Resume</div>
+            <div class="rs-output-tab" onclick="switchRsTab('report',this)">Interview Report</div>
+            <div class="rs-output-tab" onclick="switchRsTab('gaps',this)">Gap Analysis</div>
+          </div>
+          <div class="rs-output-pane active" id="rs-pane-resume">
+            <div class="rs-resume-block" id="rs-resume-output"></div>
+          </div>
+          <div class="rs-output-pane" id="rs-pane-report">
+            <div class="rs-resume-block" id="rs-report-output"></div>
+          </div>
+          <div class="rs-output-pane" id="rs-pane-gaps">
+            <div id="rs-gaps-output"></div>
+          </div>
+          <div class="rs-actions-bar">
+            <button class="btn btn-resume" onclick="copyRsOutput()">Copy Resume</button>
+            <button class="btn btn-ghost" onclick="downloadResume()">Download .md</button>
+            <button class="btn btn-ghost" onclick="clearResumePanel()">Start Over</button>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- ── SETTINGS PANEL ── -->
+    <!-- SETTINGS -->
     <div class="panel" id="panel-settings">
-      <div class="panel-header">
-        <div class="panel-title">Settings</div>
-        <div class="panel-subtitle">Configure your MCP server connection</div>
-      </div>
-
+      <div class="panel-header"><div class="panel-title">Settings</div><div class="panel-subtitle">Configure your MCP server connection</div></div>
       <div class="card">
-        <div style="font-family:'Syne',sans-serif; font-weight:600; margin-bottom:16px; font-size:0.9rem">
-          MCP Server Config
-        </div>
-
-        <div class="form-group">
-          <label>Server URL</label>
-          <input type="text" id="server-url" placeholder="http://localhost:5000">
-        </div>
-        <div class="form-group">
-          <label>Your Name (for email signing)</label>
-          <input type="text" id="settings-name" placeholder="Rayyan">
-        </div>
-
+        <div style="font-family:'Syne',sans-serif; font-weight:600; margin-bottom:16px; font-size:0.9rem">MCP Server Config</div>
+        <div class="form-group"><label>Server URL</label><input type="text" id="server-url" placeholder="http://localhost:5000"></div>
+        <div class="form-group"><label>Your Name (for email signing)</label><input type="text" id="settings-name" placeholder="Rayyan"></div>
         <div class="toggle-row">
-          <div>
-            <div class="toggle-label">Auto-send emails</div>
-            <div class="toggle-desc">Send generated emails without preview</div>
-          </div>
+          <div><div class="toggle-label">Auto-send emails</div><div class="toggle-desc">Send generated emails without preview</div></div>
           <div class="toggle" id="toggle-autosend" onclick="this.classList.toggle('on')"></div>
         </div>
-
         <div class="toggle-row" style="border-bottom:none">
-          <div>
-            <div class="toggle-label">Advanced search by default</div>
-            <div class="toggle-desc">Use deep search mode for all queries</div>
-          </div>
+          <div><div class="toggle-label">Advanced search by default</div><div class="toggle-desc">Use deep search mode for all queries</div></div>
           <div class="toggle on" id="toggle-search" onclick="this.classList.toggle('on')"></div>
         </div>
-
-        <div style="margin-top:20px">
-          <button class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
-        </div>
+        <div style="margin-top:20px"><button class="btn btn-primary" onclick="saveSettings()">Save Settings</button></div>
       </div>
-
       <div class="card" style="margin-top:16px">
-        <div style="font-family:'Syne',sans-serif; font-weight:600; margin-bottom:16px; font-size:0.9rem">
-          Quick Test
-        </div>
+        <div style="font-family:'Syne',sans-serif; font-weight:600; margin-bottom:16px; font-size:0.9rem">Quick Test</div>
         <div style="display:flex; gap:10px; flex-wrap:wrap">
-          <button class="btn btn-ghost" onclick="showPanel('inbox'); fetchEmails()">
-            Test Email Fetch
-          </button>
-          <button class="btn btn-ghost" onclick="showPanel('search'); document.getElementById('search-query').value='transformer architecture'; runSearch()">
-            Test AI Search
-          </button>
+          <button class="btn btn-ghost" onclick="showPanel('inbox',document.querySelector('.nav-btn'),'Inbox Sorter');fetchEmails()">Test Email Fetch</button>
+          <button class="btn btn-ghost" onclick="showPanel('search',document.querySelectorAll('.nav-btn')[2],'AI/ML Search');document.getElementById('search-query').value='transformer architecture';runSearch()">Test AI Search</button>
+          <button class="btn btn-ghost" style="border-color:rgba(240,160,92,0.3);color:var(--accent4)" onclick="showPanel('github',document.querySelectorAll('.nav-btn')[3],'GitHub Analyzer');document.getElementById('gh-repo').value='rayyan666/MAIL-MCP';runGithub()">Test GitHub</button>
         </div>
       </div>
     </div>
@@ -1025,28 +954,26 @@
   </main>
 </div>
 
-<!-- TOAST -->
-<div class="toast" id="toast">
-  <span id="toast-icon">✓</span>
-  <span id="toast-msg">Done!</span>
-</div>
-
+<div class="toast" id="toast"><span id="toast-icon">✓</span><span id="toast-msg">Done!</span></div>
 <script>
-// ── CONFIG ──
 const CONFIG = {
   serverUrl: localStorage.getItem('serverUrl') || 'http://localhost:5000',
   senderName: localStorage.getItem('senderName') || 'Rayyan',
 };
 
-// ── NAVIGATION ──
-function showPanel(name) {
+function showPanel(name, btn, label) {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('panel-' + name).classList.add('active');
-  event.currentTarget.classList.add('active');
+  if (btn) btn.classList.add('active');
+  const bc = document.getElementById('header-breadcrumb');
+  if (bc && label) bc.textContent = label;
+  if (name === 'github') {
+    const sel = document.getElementById('gh-repo-select');
+    if (sel && sel.options.length <= 1) loadRepos();
+  }
 }
 
-// ── TOAST ──
 function showToast(msg, type = 'success') {
   const t = document.getElementById('toast');
   document.getElementById('toast-msg').textContent = msg;
@@ -1055,59 +982,57 @@ function showToast(msg, type = 'success') {
   setTimeout(() => t.classList.remove('show'), 3000);
 }
 
-// ── API CALL ──
 async function callTool(tool, args) {
-  const url = CONFIG.serverUrl + '/tools/' + tool;
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(args),
+  const res = await fetch(CONFIG.serverUrl + '/tools/' + tool, {
+    method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(args)
   });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  if (!res.ok) throw new Error('HTTP ' + res.status);
   return res.json();
 }
 
-// ── FETCH EMAILS ──
+function escHtml(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text)
+    .then(() => showToast('Copied to clipboard'))
+    .catch(() => showToast('Copy failed', 'error'));
+}
+
+function showSkeleton(area) {
+  area.innerHTML = `
+    <div class="skeleton" style="height:20px;width:55%;margin-bottom:18px"></div>
+    <div class="skeleton" style="height:12px;width:100%;margin-bottom:8px"></div>
+    <div class="skeleton" style="height:12px;width:82%;margin-bottom:8px"></div>
+    <div class="skeleton" style="height:12px;width:67%;margin-bottom:24px"></div>
+    <div class="skeleton" style="height:80px;width:100%;border-radius:10px;margin-bottom:12px"></div>
+    <div class="skeleton" style="height:80px;width:100%;border-radius:10px"></div>`;
+}
+
+// ── INBOX ──
 async function fetchEmails() {
   const loader = document.getElementById('inbox-loader');
   const list = document.getElementById('email-list');
   const statsRow = document.getElementById('stats-row');
-
-  loader.classList.add('visible');
-  list.innerHTML = '';
-  statsRow.style.display = 'none';
-
+  loader.classList.add('visible'); list.innerHTML = ''; statsRow.style.display = 'none';
   try {
-    const count = parseInt(document.getElementById('email-count').value);
-    const priority = document.getElementById('priority-filter').value;
-    const emails = await callTool('get_emails', { max_results: count, filter_priority: priority });
-
-    loader.classList.remove('visible');
-
-    if (!emails || emails.length === 0) {
-      list.innerHTML = '<div class="empty-state"><div class="empty-icon">[ ]</div><div class="empty-text">No emails found</div></div>';
-      return;
-    }
-
-    // Stats
-    const counts = { critical: 0, high: 0, medium: 0, low: 0 };
-    let actionCount = 0;
-    emails.forEach(e => {
-      if (counts[e.priority] !== undefined) counts[e.priority]++;
-      if (e.action_required) actionCount++;
+    const emails = await callTool('get_emails', {
+      max_results: parseInt(document.getElementById('email-count').value),
+      filter_priority: document.getElementById('priority-filter').value
     });
-
+    loader.classList.remove('visible');
+    if (!emails || !emails.length) { list.innerHTML = '<div class="empty-state"><div class="empty-icon">[ ]</div><div class="empty-text">No emails found</div></div>'; return; }
+    const counts = {critical:0, high:0, medium:0, low:0}; let actionCount = 0;
+    emails.forEach(e => { if (counts[e.priority] !== undefined) counts[e.priority]++; if (e.action_required) actionCount++; });
     document.getElementById('stat-total').textContent = emails.length;
     document.getElementById('stat-critical').textContent = counts.critical;
     document.getElementById('stat-high').textContent = counts.high;
     document.getElementById('stat-action').textContent = actionCount;
     statsRow.style.display = 'grid';
-
-    // Render emails
     emails.forEach((email, i) => {
-      const item = document.createElement('div');
-      item.className = 'email-item';
-      item.style.animationDelay = (i * 0.05) + 's';
+      const item = document.createElement('div'); item.className = 'email-item ' + (email.priority||''); item.style.animationDelay = (i * 0.05) + 's';
       item.innerHTML = `
         <div class="priority-badge ${email.priority}"></div>
         <div class="email-content">
@@ -1117,182 +1042,699 @@ async function fetchEmails() {
         </div>
         <div class="email-meta">
           <span class="priority-tag ${email.priority}">${email.priority}</span>
-          <span class="category-tag">${email.category || ''}</span>
-          ${email.action_required ? '<div class="action-dot" title="Action required"></div>' : ''}
-        </div>
-      `;
+          <span class="category-tag">${escHtml(email.category || '')}</span>
+          ${email.action_required ? '<div class="action-dot"></div>' : ''}
+        </div>`;
       list.appendChild(item);
     });
-
-    showToast(`Loaded ${emails.length} emails`);
+    showToast('Loaded ' + emails.length + ' emails');
   } catch (err) {
     loader.classList.remove('visible');
-    list.innerHTML = `<div class="empty-state"><div class="empty-icon">[!]</div><div class="empty-text">Error: ${err.message}<br><br><small style="color:var(--muted)">Make sure your MCP server is running at ${CONFIG.serverUrl}</small></div></div>`;
+    list.innerHTML = `<div class="empty-state"><div class="empty-icon">[!]</div><div class="empty-text">Error: ${escHtml(err.message)}</div></div>`;
     showToast('Failed to fetch emails', 'error');
   }
 }
 
-// ── KEY POINTS ──
+// ── COMPOSE ──
 function addKeyPoint() {
-  const container = document.getElementById('key-points');
-  const count = container.children.length + 1;
-  const row = document.createElement('div');
-  row.className = 'key-point-row';
-  row.innerHTML = `
-    <input type="text" placeholder="Key point ${count}...">
-    <button class="btn-icon" onclick="this.parentElement.remove()">−</button>
-  `;
-  container.appendChild(row);
-  row.querySelector('input').focus();
+  const c = document.getElementById('key-points');
+  const row = document.createElement('div'); row.className = 'key-point-row';
+  row.innerHTML = `<input type="text" placeholder="Key point ${c.children.length + 1}..."><button class="btn-icon" onclick="this.parentElement.remove()">−</button>`;
+  c.appendChild(row); row.querySelector('input').focus();
 }
-
 function getKeyPoints() {
-  return Array.from(document.querySelectorAll('#key-points .key-point-row input'))
-    .map(i => i.value.trim())
-    .filter(v => v);
+  return Array.from(document.querySelectorAll('#key-points .key-point-row input')).map(i => i.value.trim()).filter(v => v);
 }
-
-// ── GENERATE EMAIL ──
 async function generateEmail(send = false) {
   const to = document.getElementById('compose-to').value.trim();
   const purpose = document.getElementById('compose-purpose').value.trim();
-  const tone = document.getElementById('compose-tone').value;
-  const sender = document.getElementById('compose-sender').value.trim() || CONFIG.senderName;
-  const keyPoints = getKeyPoints();
-
-  if (!to || !purpose) {
-    showToast('Fill in recipient and purpose', 'error');
-    return;
-  }
-
+  if (!to || !purpose) { showToast('Fill in recipient and purpose', 'error'); return; }
   const loader = document.getElementById('compose-loader');
   const preview = document.getElementById('email-preview');
   const sendBtn = document.getElementById('send-btn');
-
-  loader.classList.add('visible');
-  preview.classList.remove('visible');
-  sendBtn.style.display = 'none';
-
+  loader.classList.add('visible'); preview.classList.remove('visible'); sendBtn.style.display = 'none';
   try {
     const result = await callTool('compose_email', {
-      to, purpose, tone,
-      key_points: keyPoints,
-      auto_send: send,
-      sender_name: sender,
+      to, purpose, tone: document.getElementById('compose-tone').value,
+      key_points: getKeyPoints(), auto_send: send,
+      sender_name: document.getElementById('compose-sender').value.trim() || CONFIG.senderName
     });
-
     loader.classList.remove('visible');
-
     document.getElementById('preview-subject').textContent = result.subject || '';
     document.getElementById('preview-body').textContent = result.body || '';
-    document.getElementById('read-time').textContent =
-      result.estimated_read_time_seconds ? `~${result.estimated_read_time_seconds}s read` : '';
+    document.getElementById('read-time').textContent = result.estimated_read_time_seconds ? '~' + result.estimated_read_time_seconds + 's read' : '';
     preview.classList.add('visible');
-
-    if (result.status === 'sent') {
-      showToast('Email sent successfully!');
-    } else {
-      sendBtn.style.display = 'inline-flex';
-      sendBtn.onclick = () => generateEmail(true);
-      showToast('Email generated — review and send');
-    }
-  } catch (err) {
-    loader.classList.remove('visible');
-    showToast('Failed to generate email', 'error');
-  }
+    if (result.status === 'sent') showToast('Email sent!');
+    else { sendBtn.style.display = 'inline-flex'; sendBtn.onclick = () => generateEmail(true); showToast('Email generated — review and send'); }
+  } catch (err) { loader.classList.remove('visible'); showToast('Failed to generate email', 'error'); }
 }
 
 // ── SEARCH ──
 async function runSearch() {
   const query = document.getElementById('search-query').value.trim();
   if (!query) { showToast('Enter a search query', 'error'); return; }
-
   const loader = document.getElementById('search-loader');
   const results = document.getElementById('search-results');
-
-  loader.classList.add('visible');
-  results.innerHTML = '';
-
+  loader.classList.add('visible'); results.innerHTML = '';
   try {
-    const depth = document.getElementById('search-depth').value;
-    const format = document.getElementById('search-format').value;
-    const maxResults = parseInt(document.getElementById('search-max').value);
-
-    const data = await callTool('search_ai_ml', { query, depth, format, max_results: maxResults });
-
+    const data = await callTool('search_ai_ml', {
+      query, depth: document.getElementById('search-depth').value,
+      format: document.getElementById('search-format').value,
+      max_results: parseInt(document.getElementById('search-max').value)
+    });
     loader.classList.remove('visible');
-
-    if (format === 'links_only') {
-      // Array of {title, url}
-      const list = Array.isArray(data) ? data : [];
-      list.forEach((r, i) => {
-        const el = document.createElement('div');
-        el.className = 'search-result';
-        el.style.animationDelay = (i * 0.05) + 's';
-        el.innerHTML = `
-          <div class="result-title"><a href="${escHtml(r.url)}" target="_blank">${escHtml(r.title)}</a></div>
-          <div class="result-url">${escHtml(r.url)}</div>
-        `;
+    const fmt = document.getElementById('search-format').value;
+    if (fmt === 'links_only') {
+      (Array.isArray(data) ? data : []).forEach((r, i) => {
+        const el = document.createElement('div'); el.className = 'search-result'; el.style.animationDelay = (i * 0.05) + 's';
+        el.innerHTML = `<div class="result-title"><a href="${escHtml(r.url)}" target="_blank">${escHtml(r.title)}</a></div><div class="result-url">${escHtml(r.url)}</div>`;
         results.appendChild(el);
       });
     } else {
-      // Show AI answer
-      if (data.ai_answer) {
-        const ans = document.createElement('div');
-        ans.className = 'ai-answer';
-        ans.innerHTML = `<div class="ai-answer-label">// AI Summary</div>${escHtml(data.ai_answer)}`;
-        results.appendChild(ans);
-      }
-
-      const list = data.results || (data.top_results) || [];
-      list.forEach((r, i) => {
-        const el = document.createElement('div');
-        el.className = 'search-result';
-        el.style.animationDelay = (i * 0.05) + 's';
-        el.innerHTML = `
-          <div class="result-title"><a href="${escHtml(r.url)}" target="_blank">${escHtml(r.title)}</a></div>
-          <div class="result-url">${escHtml(r.url)}</div>
-          <div class="result-content">${escHtml(r.content || '')}</div>
-          ${r.relevance_score ? `<span class="result-score">relevance: ${r.relevance_score}</span>` : ''}
-        `;
+      if (data.ai_answer) { const ans = document.createElement('div'); ans.className = 'ai-answer'; ans.innerHTML = `<div class="ai-answer-label">// AI Summary</div>${escHtml(data.ai_answer)}`; results.appendChild(ans); }
+      (data.results || data.top_results || []).forEach((r, i) => {
+        const el = document.createElement('div'); el.className = 'search-result'; el.style.animationDelay = (i * 0.05) + 's';
+        el.innerHTML = `<div class="result-title"><a href="${escHtml(r.url)}" target="_blank">${escHtml(r.title)}</a></div><div class="result-url">${escHtml(r.url)}</div><div class="result-content">${escHtml(r.content || '')}</div>${r.relevance_score ? `<span class="result-score">relevance: ${r.relevance_score}</span>` : ''}`;
         results.appendChild(el);
       });
     }
-
-    showToast(`Found ${(data.results || data.top_results || data || []).length || 0} results`);
+    showToast('Search complete');
   } catch (err) {
     loader.classList.remove('visible');
-    results.innerHTML = `<div class="empty-state"><div class="empty-icon">[!]</div><div class="empty-text">Search failed: ${err.message}</div></div>`;
+    results.innerHTML = `<div class="empty-state"><div class="empty-icon">[!]</div><div class="empty-text">Search failed: ${escHtml(err.message)}</div></div>`;
     showToast('Search failed', 'error');
   }
 }
 
+// ══ GITHUB ANALYZER ══
+let currentAction = 'repo_overview';
+let repoCache = {};
+
+const GH_ACTION_META = {
+  repo_overview:      { label: 'Repository',            loader: 'Fetching portfolio overview...', extra: [] },
+  commit_activity:    { label: 'Repository',            loader: 'Fetching commit history...',     extra: ['days'] },
+  readme_quality:     { label: 'Repository',            loader: 'Scoring README quality...',      extra: [] },
+  stale_repos:        { label: 'GitHub Username / Org', loader: 'Scanning for stale repos...',   extra: ['threshold_days', 'include_private'] },
+  review_code:        { label: 'Repository',            loader: 'Running AI code review...',      extra: ['file_path'] },
+  tech_stack:         { label: 'Repository',            loader: 'Detecting tech stack...',         extra: [] },
+  audit_dependencies: { label: 'Repository',            loader: 'Auditing dependencies...',        extra: [] },
+};
+
+async function loadRepos() {
+  const select = document.getElementById('gh-repo-select');
+  const loadingEl = document.getElementById('gh-repo-loading');
+  loadingEl.style.display = 'block'; select.disabled = true;
+  try {
+    const data = await callTool('analyze_github', { action: 'list_repos', repo: 'rayyan666', include_private: true });
+    const repos = data.repos || data.repositories || (Array.isArray(data) ? data : []);
+    populateRepoSelect(select, repos);
+    repos.forEach(r => { repoCache[r.name || r] = r; });
+    showToast('Loaded ' + repos.length + ' repos');
+  } catch (err) {
+    try {
+      const res = await fetch('https://api.github.com/users/rayyan666/repos?per_page=100&sort=updated');
+      const repos = await res.json();
+      if (Array.isArray(repos) && repos.length) {
+        populateRepoSelect(select, repos);
+        repos.forEach(r => { repoCache[r.name] = r; });
+        showToast('Loaded ' + repos.length + ' public repos (fallback)');
+      } else {
+        select.innerHTML = '<option value="" disabled selected>— no repos found —</option>';
+      }
+    } catch (e) {
+      select.innerHTML = '<option value="" disabled selected>— failed to load —</option>';
+      showToast('Could not load repos', 'error');
+    }
+  }
+  loadingEl.style.display = 'none'; select.disabled = false;
+}
+
+function populateRepoSelect(select, repos) {
+  select.innerHTML = '<option value="" disabled selected>— select a repo —</option>';
+  const pub = repos.filter(r => !r.private);
+  const priv = repos.filter(r => r.private);
+  const addGroup = (label, items) => {
+    if (!items.length) return;
+    const grp = document.createElement('optgroup'); grp.label = label;
+    items.sort((a, b) => (a.name || a).localeCompare(b.name || b)).forEach(r => {
+      const opt = document.createElement('option');
+      const name = r.name || r; opt.value = name;
+      opt.textContent = name + (r.language ? ' [' + r.language + ']' : '') + (r.stargazers_count ? ' ★' + r.stargazers_count : '');
+      grp.appendChild(opt);
+    });
+    select.appendChild(grp);
+  };
+  addGroup('Public (' + pub.length + ')', pub);
+  addGroup('Private (' + priv.length + ')', priv);
+}
+
+function onRepoSelected(name) {
+  document.getElementById('gh-repo').value = 'rayyan666/' + name;
+  const card = document.getElementById('repo-preview-card');
+  const r = repoCache[name];
+  if (!r) { card.classList.remove('visible'); return; }
+  document.getElementById('rpc-name').textContent = r.name || name;
+  document.getElementById('rpc-desc').textContent = r.description || 'No description';
+  const pillsEl = document.getElementById('rpc-pills'); pillsEl.innerHTML = '';
+  if (r.language)          pillsEl.innerHTML += `<span class="gh-pill lang">${escHtml(r.language)}</span>`;
+  if (r.stargazers_count)  pillsEl.innerHTML += `<span class="gh-pill stars">★ ${r.stargazers_count}</span>`;
+  if (r.forks_count)       pillsEl.innerHTML += `<span class="gh-pill forks">⑂ ${r.forks_count}</span>`;
+  if (r.open_issues_count) pillsEl.innerHTML += `<span class="gh-pill issues">${r.open_issues_count} issues</span>`;
+  if (r.private)           pillsEl.innerHTML += `<span class="gh-pill" style="border-color:rgba(255,68,68,0.3);color:var(--critical)">private</span>`;
+  if (r.pushed_at)         pillsEl.innerHTML += `<span class="gh-pill">pushed ${escHtml((r.pushed_at || '').slice(0,10))}</span>`;
+  card.classList.add('visible');
+}
+
+function selectAction(action, btn) {
+  currentAction = action;
+  document.querySelectorAll('.gh-action-pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  const meta = GH_ACTION_META[action];
+  document.getElementById('gh-repo-label').textContent = meta.label;
+  const extraDiv = document.getElementById('gh-extra-fields');
+  extraDiv.innerHTML = ''; extraDiv.classList.remove('visible');
+  if (meta.extra.length) {
+    extraDiv.classList.add('visible');
+    meta.extra.forEach(field => {
+      if (field === 'days')
+        extraDiv.innerHTML += `<div class="form-group" style="margin-bottom:0"><label>Days to look back</label><input type="number" id="gh-days" value="30" min="1" max="365"></div>`;
+      else if (field === 'threshold_days')
+        extraDiv.innerHTML += `<div class="form-group" style="margin-bottom:0"><label>Stale threshold (days)</label><input type="number" id="gh-threshold" value="180" min="30"></div>`;
+      else if (field === 'include_private')
+        extraDiv.innerHTML += `<div class="form-group" style="margin-bottom:0"><label>Include private repos</label><div style="display:flex;align-items:center;gap:8px;margin-top:6px"><div class="toggle" id="gh-private" onclick="this.classList.toggle('on')"></div><span style="font-size:0.72rem;color:var(--muted)">Off by default</span></div></div>`;
+      else if (field === 'file_path')
+        extraDiv.innerHTML += `<div class="form-group" style="margin-bottom:0;grid-column:1/-1"><label>File path to review <span style="color:var(--muted);font-size:0.65rem">(optional)</span></label><input type="text" id="gh-filepath" placeholder="e.g. main.py or tools/github_analyzer.py"></div>`;
+    });
+  }
+  document.getElementById('gh-result-area').innerHTML = `<div class="empty-state"><div class="empty-icon">[GH]</div><div class="empty-text">Ready to run <strong>${action}</strong></div></div>`;
+}
+
+async function runGithub() {
+  let repo = document.getElementById('gh-repo').value.trim();
+  if (!repo) {
+    const sel = document.getElementById('gh-repo-select');
+    if (sel && sel.value) { repo = 'rayyan666/' + sel.value; document.getElementById('gh-repo').value = repo; }
+  }
+  if (!repo && currentAction !== 'stale_repos') { showToast('Select a repository first', 'error'); return; }
+  if (currentAction === 'stale_repos') repo = 'rayyan666';
+  const aiSummary = document.getElementById('gh-toggle-ai').classList.contains('on');
+  const meta = GH_ACTION_META[currentAction];
+  const args = { action: currentAction, repo, ai_summary: aiSummary };
+  if (currentAction === 'commit_activity') { const el = document.getElementById('gh-days'); args.days = el ? parseInt(el.value) || 30 : 30; }
+  if (currentAction === 'stale_repos') { const tEl = document.getElementById('gh-threshold'); const pEl = document.getElementById('gh-private'); args.threshold_days = tEl ? parseInt(tEl.value) || 180 : 180; args.include_private = pEl ? pEl.classList.contains('on') : false; }
+  if (currentAction === 'review_code') { const fEl = document.getElementById('gh-filepath'); if (fEl && fEl.value.trim()) args.file_path = fEl.value.trim(); }
+  const loader = document.getElementById('gh-loader');
+  const resultArea = document.getElementById('gh-result-area');
+  document.getElementById('gh-loader-msg').textContent = meta.loader;
+  loader.classList.add('visible');
+  showSkeleton(resultArea);
+  try {
+    const data = await callTool('analyze_github', args);
+    loader.classList.remove('visible'); resultArea.innerHTML = '';
+    renderGithubResult(currentAction, data);
+    showToast('Analysis complete');
+  } catch (err) {
+    loader.classList.remove('visible');
+    resultArea.innerHTML = `<div class="empty-state"><div class="empty-icon">[!]</div><div class="empty-text">Error: ${escHtml(err.message)}<br><small style="color:var(--muted)">Make sure MCP server is running at ${CONFIG.serverUrl}</small></div></div>`;
+    showToast('Analysis failed', 'error');
+  }
+}
+
+function renderGithubResult(action, data) {
+  const area = document.getElementById('gh-result-area');
+  area.innerHTML = '';
+  switch (action) {
+    case 'repo_overview':      renderRepoOverview(area, data);    break;
+    case 'commit_activity':    renderCommitActivity(area, data);  break;
+    case 'readme_quality':     renderReadmeQuality(area, data);   break;
+    case 'stale_repos':        renderStaleRepos(area, data);      break;
+    case 'review_code':        renderCodeReview(area, data);      break;
+    case 'tech_stack':         renderTechStack(area, data);       break;
+    case 'audit_dependencies': renderDepAudit(area, data);        break;
+    default: area.innerHTML = `<pre style="font-size:0.78rem;color:var(--text);white-space:pre-wrap">${escHtml(JSON.stringify(data, null, 2))}</pre>`;
+  }
+}
+
+function makeHeading(left, tag, rightHTML = '') {
+  const d = document.createElement('div'); d.className = 'gh-section-heading';
+  d.innerHTML = `<div class="gh-section-heading-left">${escHtml(left)}${tag ? ` <span class="gh-tag">${escHtml(tag)}</span>` : ''}</div>${rightHTML}`;
+  return d;
+}
+function aiBlock(text) {
+  const d = document.createElement('div'); d.className = 'gh-ai-block'; d.style.marginTop = '14px';
+  d.innerHTML = `<div class="gh-ai-label">// AI Insight <span class="typing-cursor"></span></div>${escHtml(text)}`;
+  return d;
+}
+
+function renderRepoOverview(area, d) {
+  const repos = d.repos || [];
+  const total = d.total_repos || repos.length;
+  const active = d.active || 0; const idle = d.idle || 0; const stale = d.stale || 0;
+  if (total > 0) {
+    const r = 34, cx = 42, cy = 42, circ = 2 * Math.PI * r;
+    const aD = (active/total)*circ, iD = (idle/total)*circ, sD = (stale/total)*circ;
+    const donutRow = document.createElement('div'); donutRow.className = 'donut-row';
+    donutRow.innerHTML = `
+      <div class="donut-wrap">
+        <svg width="84" height="84" viewBox="0 0 84 84">
+          <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="var(--border)" stroke-width="10"/>
+          <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="var(--low)" stroke-width="10" stroke-dasharray="${aD} ${circ}" stroke-dashoffset="0"/>
+          <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="var(--medium)" stroke-width="10" stroke-dasharray="${iD} ${circ}" stroke-dashoffset="${-aD}"/>
+          <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="var(--critical)" stroke-width="10" stroke-dasharray="${sD} ${circ}" stroke-dashoffset="${-(aD + iD)}"/>
+        </svg>
+        <div class="donut-center">${total}<small>repos</small></div>
+      </div>
+      <div class="donut-legend">
+        <div class="donut-legend-item"><div class="donut-dot" style="background:var(--low)"></div>Active<div class="donut-count" style="color:var(--low)">${active}</div></div>
+        <div class="donut-legend-item"><div class="donut-dot" style="background:var(--medium)"></div>Idle<div class="donut-count" style="color:var(--medium)">${idle}</div></div>
+        <div class="donut-legend-item"><div class="donut-dot" style="background:var(--critical)"></div>Stale<div class="donut-count" style="color:var(--critical)">${stale}</div></div>
+      </div>`;
+    area.appendChild(donutRow);
+  }
+  if (d.ai_summary || d.ai_insight) area.appendChild(aiBlock(d.ai_summary || d.ai_insight));
+  const exportBtn = `<button class="copy-btn" onclick="copyToClipboard(JSON.stringify(${JSON.stringify(repos)},null,2))">Export JSON</button>`;
+  area.appendChild(makeHeading('Repositories', total + ' total', exportBtn));
+  repos.forEach((r, i) => {
+    const status = r.status || 'idle';
+    const card = document.createElement('div'); card.className = 'gh-repo-card'; card.style.animationDelay = (i * 0.04) + 's';
+    card.innerHTML = `
+      <div class="gh-repo-header">
+        <div>
+          <div class="gh-repo-name">
+            <a href="https://github.com/rayyan666/${escHtml(r.name)}" target="_blank" onclick="event.stopPropagation()">${escHtml(r.name)}</a>
+            <span class="expand-arrow">▾</span>
+          </div>
+          <div class="gh-repo-meta">${r.language ? escHtml(r.language) + ' · ' : ''}pushed ${escHtml((r.pushed_at || '').slice(0, 10))}</div>
+        </div>
+        <div style="display:flex;gap:6px;align-items:center">
+          ${r.private ? '<span class="gh-pill" style="border-color:rgba(255,68,68,0.3);color:var(--critical);font-size:0.58rem">private</span>' : ''}
+          <span class="status-pill ${status}">${status}</span>
+        </div>
+      </div>
+      <div class="gh-repo-expanded">
+        <div class="gh-repo-desc">${escHtml(r.description || 'No description provided.')}</div>
+        <div class="gh-stat-pills">
+          ${r.stars !== undefined  ? `<span class="gh-pill stars">★ ${r.stars}</span>` : ''}
+          ${r.forks !== undefined  ? `<span class="gh-pill forks">⑂ ${r.forks}</span>` : ''}
+          ${r.open_issues !== undefined ? `<span class="gh-pill issues">${r.open_issues} issues</span>` : ''}
+          ${r.language ? `<span class="gh-pill lang">${escHtml(r.language)}</span>` : ''}
+          ${r.license  ? `<span class="gh-pill license">${escHtml(r.license)}</span>` : ''}
+        </div>
+        ${r.topics && r.topics.length ? `<div class="gh-stat-pills">${r.topics.map(t => `<span class="gh-pill">${escHtml(t)}</span>`).join('')}</div>` : ''}
+        <div style="margin-top:10px;display:flex;gap:8px">
+          <a href="https://github.com/rayyan666/${escHtml(r.name)}" target="_blank" onclick="event.stopPropagation()"><button class="copy-btn" style="cursor:pointer">Open on GitHub ↗</button></a>
+        </div>
+      </div>`;
+    card.onclick = () => card.classList.toggle('expanded');
+    area.appendChild(card);
+  });
+}
+
+function renderCommitActivity(area, d) {
+  area.appendChild(makeHeading('Commit Activity', 'LAST ' + (d.days || 30) + ' DAYS'));
+  const pills = document.createElement('div'); pills.className = 'gh-stat-pills'; pills.style.marginBottom = '20px';
+  pills.innerHTML = `
+    ${d.total_commits !== undefined ? `<span class="gh-pill stars">${d.total_commits} commits</span>` : ''}
+    ${d.active_days   !== undefined ? `<span class="gh-pill good">${d.active_days} active days</span>` : ''}
+    ${d.avg_per_day   !== undefined ? `<span class="gh-pill lang">${d.avg_per_day} avg/day</span>` : ''}
+    ${d.top_author                  ? `<span class="gh-pill license">top: ${escHtml(d.top_author)}</span>` : ''}`;
+  area.appendChild(pills);
+  if (d.weekly && d.weekly.length) {
+    const chartWrap = document.createElement('div'); chartWrap.className = 'commit-chart-wrap';
+    const chart = document.createElement('div'); chart.className = 'commit-chart';
+    const max = Math.max(...d.weekly.map(w => w.count || 0), 1);
+    d.weekly.forEach(w => {
+      const bar = document.createElement('div'); bar.className = 'commit-bar';
+      bar.style.height = Math.max(3, Math.round(((w.count || 0) / max) * 100)) + '%';
+      bar.title = `${w.week || ''}: ${w.count || 0} commits`;
+      if (w.week) { const lbl = document.createElement('span'); lbl.className = 'commit-bar-label'; lbl.textContent = w.week.slice(-5); bar.appendChild(lbl); }
+      chart.appendChild(bar);
+    });
+    chartWrap.appendChild(chart); area.appendChild(chartWrap);
+  }
+  if (d.recent_commits && d.recent_commits.length) {
+    const lh = document.createElement('div'); lh.className = 'gh-section-heading'; lh.style.marginTop = '10px'; lh.innerHTML = '<div class="gh-section-heading-left">Recent Commits</div>'; area.appendChild(lh);
+    d.recent_commits.forEach((c, i) => {
+      const el = document.createElement('div'); el.className = 'stale-repo-item'; el.style.animationDelay = (i * 0.05) + 's';
+      el.innerHTML = `<div><div class="stale-repo-name">${escHtml(c.message || c.sha?.slice(0,7) || 'commit')}</div><div class="stale-repo-days">${escHtml(c.author || '')} · ${escHtml(c.date || '')}</div></div><span class="gh-pill" style="font-size:0.6rem">${escHtml((c.sha || '').slice(0, 7))}</span>`;
+      area.appendChild(el);
+    });
+  }
+  if (d.ai_summary) area.appendChild(aiBlock(d.ai_summary));
+}
+
+function renderReadmeQuality(area, d) {
+  const score = d.score || 0;
+  area.appendChild(makeHeading('README Quality Score', d.grade ? 'Grade: ' + d.grade : ''));
+  const scoreCard = document.createElement('div'); scoreCard.className = 'gh-repo-card';
+  scoreCard.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <span style="font-size:0.75rem;color:var(--muted)">Quality Score</span>
+      <span class="quality-score">${score}/100</span>
+    </div>
+    <div class="quality-meter">
+      <div class="quality-bar-track" style="flex:1"><div class="quality-bar-fill" id="q-bar" style="width:0%"></div></div>
+    </div>`;
+  area.appendChild(scoreCard);
+  setTimeout(() => { const b = document.getElementById('q-bar'); if (b) b.style.width = score + '%'; }, 100);
+  if (d.checks && Object.keys(d.checks).length) {
+    const cd = document.createElement('div'); cd.className = 'gh-repo-card';
+    const checksDiv = document.createElement('div'); checksDiv.className = 'quality-checks';
+    cd.innerHTML = '<div class="gh-section-heading" style="margin-bottom:12px"><div class="gh-section-heading-left">Checklist</div></div>';
+    Object.entries(d.checks).forEach(([key, val]) => {
+      const pass = val === true || val === 'pass' || val === 'yes';
+      const row = document.createElement('div'); row.className = 'quality-check';
+      row.innerHTML = `<div class="check-icon ${pass ? 'pass' : 'fail'}">${pass ? '✓' : '✕'}</div><span>${escHtml(key.replace(/_/g, ' '))}</span>`;
+      checksDiv.appendChild(row);
+    });
+    cd.appendChild(checksDiv); area.appendChild(cd);
+  }
+  if (d.suggestions && d.suggestions.length) {
+    const s = document.createElement('div'); s.className = 'gh-ai-block'; s.style.marginTop = '12px';
+    s.innerHTML = `<div class="gh-ai-label">// Suggestions</div>${d.suggestions.map(s => `• ${escHtml(s)}`).join('<br>')}`;
+    area.appendChild(s);
+  }
+  if (d.ai_summary) area.appendChild(aiBlock(d.ai_summary));
+}
+
+function renderStaleRepos(area, d) {
+  let repos = d.stale_repos || d.repos || (Array.isArray(d) ? d : []);
+  area.appendChild(makeHeading('Stale Repositories', repos.length + ' FOUND'));
+  const filterRow = document.createElement('div'); filterRow.className = 'stale-filter-row';
+  filterRow.innerHTML = `
+    <button class="stale-filter-btn active" onclick="filterStale(this,'all')">All (${repos.length})</button>
+    <button class="stale-filter-btn" onclick="filterStale(this,'very-stale')">365+ days</button>
+    <button class="stale-filter-btn" onclick="filterStale(this,'stale')">180–364 days</button>`;
+  area.appendChild(filterRow);
+  if (!repos.length) { area.innerHTML += '<div class="empty-state"><div class="empty-icon">[ ]</div><div class="empty-text">No stale repositories found</div></div>'; return; }
+  const listDiv = document.createElement('div'); listDiv.id = 'stale-list';
+  repos.forEach((r, i) => {
+    const days = r.days_since_push || r.days_inactive || 0;
+    const sev = days > 365 ? 'very-stale' : 'stale';
+    const el = document.createElement('div'); el.className = 'stale-repo-item'; el.dataset.sev = sev; el.style.animationDelay = (i * 0.05) + 's';
+    el.innerHTML = `
+      <div>
+        <div class="stale-repo-name">${escHtml(r.name || r.full_name || 'unknown')}</div>
+        <div class="stale-repo-days">Last pushed: ${escHtml(r.last_pushed || r.pushed_at || 'unknown')} · ${days} days ago</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+        <span class="stale-badge ${sev}">${sev.replace('-', ' ')}</span>
+        ${r.stars !== undefined ? `<span class="gh-pill stars" style="font-size:0.58rem">★ ${r.stars}</span>` : ''}
+      </div>`;
+    listDiv.appendChild(el);
+  });
+  area.appendChild(listDiv);
+  if (d.ai_summary) area.appendChild(aiBlock(d.ai_summary));
+}
+
+function filterStale(btn, filter) {
+  document.querySelectorAll('.stale-filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active');
+  document.querySelectorAll('#stale-list .stale-repo-item').forEach(el => {
+    el.style.display = (filter === 'all' || el.dataset.sev === filter) ? 'flex' : 'none';
+  });
+}
+
+function renderCodeReview(area, d) {
+  area.appendChild(makeHeading('Code Review', d.file_path || '', `<button class="copy-btn" onclick="copyToClipboard(document.getElementById('gh-result-area').innerText)">Copy All</button>`));
+  [['summary','Summary'],['issues','Issues Found'],['suggestions','Suggestions'],['positives','Strengths'],['review','Full Review'],['ai_summary','AI Analysis']].forEach(([key, label]) => {
+    const val = d[key]; if (!val) return;
+    const block = document.createElement('div'); block.className = 'code-review-block';
+    block.innerHTML = `<div class="section-title">${label}</div><pre>${Array.isArray(val) ? val.map((v, i) => `${i+1}. ${escHtml(v)}`).join('\n') : escHtml(val)}</pre>`;
+    area.appendChild(block);
+  });
+  if (d.score !== undefined) { const sc = document.createElement('div'); sc.className = 'gh-ai-block'; sc.innerHTML = `<div class="gh-ai-label">// Code Quality Score</div><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;color:var(--accent4)">${d.score}/100</span>`; area.appendChild(sc); }
+}
+
+function renderTechStack(area, d) {
+  area.appendChild(makeHeading('Tech Stack Detection'));
+  const categories = d.stack || d.tech_stack || d.categories || (Array.isArray(d) ? { detected: d } : null);
+  if (!categories) { area.innerHTML += '<div class="empty-state"><div class="empty-icon">[ ]</div><div class="empty-text">No tech stack data returned</div></div>'; return; }
+  const renderCat = (label, items) => {
+    if (!items || !items.length) return;
+    const section = document.createElement('div'); section.style.marginBottom = '20px';
+    const lbl = document.createElement('div'); lbl.style.cssText = 'font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px'; lbl.textContent = label; section.appendChild(lbl);
+    const grid = document.createElement('div'); grid.className = 'tech-stack-grid';
+    items.forEach((item, i) => {
+      const name = typeof item === 'string' ? item : (item.name || item.language || JSON.stringify(item));
+      const detail = typeof item === 'object' ? (item.version || item.percentage || '') : '';
+      const badge = document.createElement('div'); badge.className = 'tech-badge'; badge.style.animationDelay = (i * 0.04) + 's';
+      badge.innerHTML = `<div class="tech-dot"></div>${escHtml(name)}${detail ? `<span style="color:var(--muted);font-size:0.65rem">  ${escHtml(String(detail))}</span>` : ''}`;
+      grid.appendChild(badge);
+    });
+    section.appendChild(grid); area.appendChild(section);
+  };
+  if (Array.isArray(categories)) renderCat('Detected', categories);
+  else Object.entries(categories).forEach(([cat, items]) => renderCat(cat.replace(/_/g, ' '), Array.isArray(items) ? items : [items]));
+  if (d.ai_summary) area.appendChild(aiBlock(d.ai_summary));
+}
+
+function renderDepAudit(area, d) {
+  const vulns = d.vulnerabilities || d.issues || (Array.isArray(d) ? d : []);
+  const summary = d.summary || {};
+  area.appendChild(makeHeading('Dependency Audit', vulns.length + ' FLAGGED'));
+  if (Object.keys(summary).length) {
+    const pills = document.createElement('div'); pills.className = 'gh-stat-pills'; pills.style.marginBottom = '20px';
+    Object.entries(summary).forEach(([sev, count]) => { pills.innerHTML += `<span class="gh-pill ${sev === 'critical' ? 'issues' : sev === 'high' ? 'watchers' : sev === 'low' ? 'good' : ''}">${count} ${sev}</span>`; });
+    area.appendChild(pills);
+  }
+  if (!vulns.length) { const ok = document.createElement('div'); ok.className = 'gh-ai-block'; ok.innerHTML = `<div class="gh-ai-label">// Status</div>No dependency vulnerabilities detected.`; area.appendChild(ok); return; }
+  vulns.forEach((dep, i) => {
+    const sev = (dep.severity || dep.level || 'ok').toLowerCase();
+    const el = document.createElement('div'); el.className = 'dep-item'; el.style.animationDelay = (i * 0.04) + 's';
+    el.innerHTML = `
+      <div>
+        <div class="dep-name">${escHtml(dep.name || dep.package || 'unknown')}</div>
+        <div class="dep-version">${escHtml(dep.current_version || dep.version || '')}${dep.safe_version ? ` → fix: ${escHtml(dep.safe_version)}` : ''}</div>
+        ${dep.description ? `<div style="font-size:0.68rem;color:var(--muted);margin-top:4px;max-width:400px">${escHtml(dep.description)}</div>` : ''}
+      </div>
+      <span class="dep-severity ${sev}">${sev}</span>`;
+    area.appendChild(el);
+  });
+  if (d.ai_summary) { const ai = document.createElement('div'); ai.className = 'gh-ai-block'; ai.style.marginTop = '16px'; ai.innerHTML = `<div class="gh-ai-label">// AI Recommendations</div>${escHtml(d.ai_summary)}`; area.appendChild(ai); }
+}
+
+// ══ RESUME TAILOR ══
+let rsMode = 'single', rsCurrentPhase = 0, rsJobData = null, rsResumeText = '';
+
+function setRsMode(mode) {
+  rsMode = mode;
+  document.getElementById('rs-mode-single').className = mode==='single' ? 'btn btn-resume' : 'btn btn-ghost';
+  document.getElementById('rs-mode-batch').className  = mode==='batch'  ? 'btn btn-resume' : 'btn btn-ghost';
+  document.getElementById('rs-batch-extra').style.display = mode==='batch' ? 'block' : 'none';
+}
+
+function setRsPhase(n) {
+  rsCurrentPhase = n;
+  for (let i=0; i<=5; i++) {
+    const el = document.getElementById('rsph-'+i);
+    if (el) el.className = 'rs-phase ' + (i < n ? 'done' : i===n ? 'active' : '');
+  }
+}
+
+async function runResumeTailor() {
+  const company = document.getElementById('rs-company').value.trim();
+  const jd = document.getElementById('rs-jd').value.trim();
+  const resume = document.getElementById('rs-resume').value.trim();
+  if (!jd) { showToast('Paste a job description first', 'error'); return; }
+  rsResumeText = resume;
+  rsJobData = { company, jd };
+  const deepResearch = document.getElementById('rs-deep-research').classList.contains('on');
+  const batchJds = rsMode === 'batch' ? document.getElementById('rs-batch-jds').value.trim() : '';
+  const btn = document.getElementById('rs-start-btn');
+  const loader = document.getElementById('rs-loader');
+  btn.disabled = true;
+  loader.classList.add('visible');
+  document.getElementById('rs-output-area').style.display = 'block';
+  document.getElementById('rs-loader-msg').textContent = 'Researching company & role...';
+  setRsPhase(1);
+  try {
+    const prompt = buildResumeTailorPrompt(company, jd, resume, deepResearch, rsMode, batchJds);
+    const data = await callAnthropicAPI(prompt);
+    loader.classList.remove('visible');
+    btn.disabled = false;
+    renderRsResult(data, company, jd);
+    showToast('Resume tailoring complete!');
+  } catch(err) {
+    loader.classList.remove('visible');
+    btn.disabled = false;
+    showToast('Tailoring failed: ' + err.message, 'error');
+  }
+}
+
+function buildResumeTailorPrompt(company, jd, resume, deepResearch, mode, batchJds) {
+  const batchSection = mode==='batch' && batchJds ? '\n\nADDITIONAL JOBS FOR BATCH MODE:\n' + batchJds : '';
+  return `You are an expert resume tailoring assistant. Create a highly targeted resume matching the JD while maintaining 100% factual accuracy.
+
+COMPANY & ROLE: ${company}
+JOB DESCRIPTION:
+${jd}${batchSection}
+
+CANDIDATE RESUME:
+${resume || '(No resume provided — generate a strong template and ask user to fill in details)'}
+
+DEEP RESEARCH: ${deepResearch ? 'ON — analyze company culture, values, success profiles' : 'OFF — focus on JD keyword matching'}
+MODE: ${mode === 'batch' ? 'BATCH — identify common requirements across all jobs' : 'SINGLE JOB'}
+
+Respond ONLY with valid JSON (no markdown, no preamble):
+{
+  "research": {
+    "company_insights": "Key company culture/values insights",
+    "role_requirements": ["top 5 key requirements"],
+    "success_profile": "What a successful candidate looks like",
+    "keywords": ["critical ATS keywords"]
+  },
+  "discovery": {
+    "gaps_identified": ["skills in JD not shown in resume"],
+    "suggested_questions": ["2-3 questions to surface hidden experience"],
+    "reframing_opportunities": ["experiences to reframe for JD alignment"]
+  },
+  "matching": {
+    "coverage_score": 85,
+    "matched_items": ["matched bullet points"],
+    "gap_items": ["gaps not covered"],
+    "confidence_notes": "Overall assessment"
+  },
+  "tailored_resume": "Full tailored resume in markdown",
+  "interview_report": "Interview prep: likely questions and talking points",
+  "gap_analysis": "Detailed gap analysis with recommendations"
+}`;
+}
+
+async function callAnthropicAPI(prompt) {
+  const response = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 1000,
+      messages: [{ role: 'user', content: prompt }]
+    })
+  });
+  if (!response.ok) throw new Error('API error ' + response.status);
+  const data = await response.json();
+  const text = data.content.map(i => i.text || '').join('');
+  const clean = text.replace(/```json|```/g,'').trim();
+  try { return JSON.parse(clean); }
+  catch(e) { return { tailored_resume: text, research:{company_insights:'',role_requirements:[],keywords:[]}, discovery:{gaps_identified:[],suggested_questions:[]}, matching:{coverage_score:70,matched_items:[],gap_items:[]}, interview_report:'', gap_analysis:'' }; }
+}
+
+function renderRsResult(data, company, jd) {
+  setRsPhase(5);
+  if (data.research) {
+    const rc = document.getElementById('rs-research-card');
+    rc.style.display = 'block';
+    const r = data.research;
+    let html = '';
+    if (r.company_insights) html += `<div class="rs-phase-card"><div class="rs-phase-card-title">Company Insights</div><div class="rs-phase-card-text">${escHtml(r.company_insights)}</div></div>`;
+    if (r.role_requirements && r.role_requirements.length) html += `<div class="rs-phase-card"><div class="rs-phase-card-title">Key Requirements</div><div class="rs-phase-card-text">${r.role_requirements.map((req,i)=>`<div style="margin-bottom:5px">${i+1}. ${escHtml(req)}</div>`).join('')}</div></div>`;
+    if (r.keywords && r.keywords.length) html += `<div style="margin-top:10px"><div style="font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px">ATS Keywords</div><div class="tech-stack-grid">${r.keywords.map(k=>`<span style="display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:6px;border:1px solid rgba(180,92,240,0.2);background:rgba(180,92,240,0.06);font-size:0.7rem;color:#b45cf0"><span style="width:5px;height:5px;border-radius:50%;background:#b45cf0;flex-shrink:0;display:inline-block"></span>${escHtml(k)}</span>`).join('')}</div></div>`;
+    document.getElementById('rs-research-content').innerHTML = html;
+  }
+  if (data.discovery) {
+    const dc = document.getElementById('rs-discovery-card');
+    dc.style.display = 'block';
+    const disc = data.discovery;
+    let html = '';
+    if (disc.gaps_identified && disc.gaps_identified.length) {
+      html += `<div style="font-size:0.7rem;font-weight:600;color:#b45cf0;margin-bottom:10px;font-family:'Syne',sans-serif">Gaps Identified</div>`;
+      disc.gaps_identified.forEach((g,i) => { html += `<div class="rs-gap-item" style="animation-delay:${i*0.05}s"><span class="rs-gap-icon">&#9888;</span><span>${escHtml(g)}</span></div>`; });
+    }
+    if (disc.suggested_questions && disc.suggested_questions.length) {
+      html += `<div style="font-size:0.7rem;font-weight:600;color:#b45cf0;margin:14px 0 8px;font-family:'Syne',sans-serif">Discovery Questions</div>`;
+      disc.suggested_questions.forEach((q,i) => { html += `<div class="rs-gap-item" style="animation-delay:${(i+3)*0.05}s"><span class="rs-gap-icon">?</span><span>${escHtml(q)}</span></div>`; });
+    }
+    document.getElementById('rs-discovery-content').innerHTML = html;
+  }
+  if (data.matching) {
+    const mc = document.getElementById('rs-match-card');
+    mc.style.display = 'block';
+    const m = data.matching;
+    const score = m.coverage_score || 70;
+    let html = `<div class="rs-match-bar"><div class="rs-match-label"><span>JD Coverage</span><span style="color:#b45cf0;font-family:'Syne',sans-serif;font-weight:700">${score}%</span></div><div class="rs-match-track"><div class="rs-match-fill" id="rs-match-fill" style="width:0%"></div></div></div>`;
+    if (m.matched_items && m.matched_items.length) {
+      html += `<div style="font-size:0.68rem;color:var(--low);margin:10px 0 6px">&#10003; ${m.matched_items.length} matches found</div>`;
+      m.matched_items.slice(0,3).forEach(item => { html += `<div class="rs-gap-item" style="border-color:rgba(6,214,160,0.2)"><span style="color:var(--low)">&#10003;</span><span style="font-size:0.72rem">${escHtml(item)}</span></div>`; });
+    }
+    if (m.confidence_notes) html += `<div style="font-size:0.72rem;color:var(--muted);margin-top:10px;line-height:1.6">${escHtml(m.confidence_notes)}</div>`;
+    document.getElementById('rs-match-content').innerHTML = html;
+    setTimeout(() => { const f=document.getElementById('rs-match-fill'); if(f) f.style.width=score+'%'; }, 200);
+  }
+  const resultCard = document.getElementById('rs-result-card');
+  resultCard.style.display = 'block';
+  document.getElementById('rs-resume-output').textContent = data.tailored_resume || '(No resume generated)';
+  document.getElementById('rs-report-output').textContent = data.interview_report || '(No interview report generated)';
+  const gapsEl = document.getElementById('rs-gaps-output');
+  if (data.gap_analysis) gapsEl.innerHTML = `<div class="rs-insight">${escHtml(data.gap_analysis)}</div>`;
+  else if (data.matching && data.matching.gap_items) gapsEl.innerHTML = data.matching.gap_items.map(g=>`<div class="rs-gap-item"><span>&#9651;</span><span>${escHtml(g)}</span></div>`).join('');
+}
+
+async function continueToMatch() {
+  const extraExp = document.getElementById('rs-extra-exp').value.trim();
+  if (!rsJobData) { showToast('Run initial analysis first', 'error'); return; }
+  const loader = document.getElementById('rs-loader');
+  loader.classList.add('visible');
+  document.getElementById('rs-loader-msg').textContent = 'Matching with updated experiences...';
+  try {
+    const enhancedResume = rsResumeText + (extraExp ? '\n\nAdditional Experiences:\n' + extraExp : '');
+    const prompt = buildResumeTailorPrompt(rsJobData.company, rsJobData.jd, enhancedResume, true, rsMode, '');
+    const data = await callAnthropicAPI(prompt);
+    loader.classList.remove('visible');
+    renderRsResult(data, rsJobData.company, rsJobData.jd);
+    showToast('Updated with new experience data!');
+  } catch(e) {
+    loader.classList.remove('visible');
+    showToast('Failed: ' + e.message, 'error');
+  }
+}
+
+function switchRsTab(tab, btn) {
+  document.querySelectorAll('.rs-output-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.rs-output-pane').forEach(p => p.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  const pane = document.getElementById('rs-pane-' + tab);
+  if (pane) pane.classList.add('active');
+}
+
+function copyRsOutput() {
+  const el = document.getElementById('rs-resume-output');
+  if (!el) return;
+  navigator.clipboard.writeText(el.textContent).then(() => showToast('Resume copied to clipboard!'));
+}
+
+function downloadResume() {
+  const text = document.getElementById('rs-resume-output')?.textContent;
+  if (!text) { showToast('No resume to download', 'error'); return; }
+  const company = (document.getElementById('rs-company').value || 'resume').replace(/[^a-z0-9]/gi,'_');
+  const blob = new Blob([text], { type: 'text/markdown' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'Resume_' + company + '_' + new Date().toISOString().slice(0,10) + '.md';
+  a.click();
+  showToast('Downloaded!');
+}
+
+function clearResumePanel() {
+  ['rs-company','rs-jd','rs-resume','rs-batch-jds','rs-extra-exp'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+  document.getElementById('rs-output-area').style.display = 'none';
+  ['rs-research-card','rs-discovery-card','rs-match-card','rs-result-card'].forEach(id => { const el=document.getElementById(id); if(el) el.style.display='none'; });
+  setRsPhase(0);
+}
+
 // ── SETTINGS ──
 function saveSettings() {
-  const url = document.getElementById('server-url').value.trim();
+  const url  = document.getElementById('server-url').value.trim();
   const name = document.getElementById('settings-name').value.trim();
-  if (url) { CONFIG.serverUrl = url; localStorage.setItem('serverUrl', url); }
-  if (name) { CONFIG.senderName = name; localStorage.setItem('senderName', name); }
+  if (url)  { CONFIG.serverUrl = url;    localStorage.setItem('serverUrl', url); }
+  if (name) { CONFIG.senderName = name;  localStorage.setItem('senderName', name); }
   showToast('Settings saved');
 }
 
-// Load saved settings
 window.onload = () => {
-  const url = localStorage.getItem('serverUrl');
+  const url  = localStorage.getItem('serverUrl');
   const name = localStorage.getItem('senderName');
-  if (url) document.getElementById('server-url').value = url;
+  if (url)  document.getElementById('server-url').value = url;
   if (name) document.getElementById('settings-name').value = name;
 };
-
-// ── UTILS ──
-function escHtml(str) {
-  if (!str) return '';
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
 </script>
 </body>
 </html>
