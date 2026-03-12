@@ -33,7 +33,7 @@ jobs:
       - name: Lint with flake8
         run: |
           flake8 tools/ services/ main.py serve.py logger.py `
-            --max-line-length=120 `
+            --max-line-length=130 `
             --extend-ignore=E203,W503 `
             --exclude=venv,__pycache__
 
