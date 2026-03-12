@@ -503,7 +503,10 @@ def audit_dependencies(repo_name: str) -> dict:
         "unpinned_packages": [d["name"] for d in unpinned],
         "all_dependencies": all_deps,
         "recommendation": "All dependencies pinned — good for reproducibility." if not unpinned
-                          else f"{len(unpinned)} unpinned packages found. Consider pinning versions for reproducible builds.",
+                          else (
+                              f"{len(unpinned)} unpinned packages found. "
+                              "Consider pinning versions for reproducible builds."
+                          ),
     }
 
 

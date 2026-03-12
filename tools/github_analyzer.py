@@ -128,7 +128,8 @@ def analyze_github(
             result["ai_insight"] = _ai_insight(
                 data,
                 f"Analyse this developer's commit activity over the last {days} days. "
-                "Comment on their consistency, most productive periods, and any gaps in activity. "
+                "Comment on their consistency, most productive periods, "
+                "and any gaps in activity. "
                 "Give 2-3 specific observations. Be direct and practical."
             )
         return result
