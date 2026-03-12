@@ -338,9 +338,9 @@ def review_code(repo_name: str, file_path: str) -> dict:
         raise RuntimeError(f"File '{file_path}' not found in '{repo_name}'")
 
     lines = content.splitlines()
-    blank_lines = sum(1 for l in lines if l.strip() == "")
-    comment_lines = sum(1 for l in lines if l.strip().startswith(("#", "//", "/*", "*", '"""', "'''")))
-    long_lines = [i + 1 for i, l in enumerate(lines) if len(l) > 120]
+    blank_lines = sum(1 for line in lines if line.strip() == "")
+    comment_lines = sum(1 for line in lines if line.strip().startswith(("#", "//", "/*", "*", '"""', "'''")))
+    long_lines = [i + 1 for i, line in enumerate(lines) if len(line) > 120]
 
     log.info(f"Code fetched successfully | {len(lines)} lines")
     return {

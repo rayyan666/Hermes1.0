@@ -1,6 +1,5 @@
 from logger import get_logger
 from services.claude_service import _get_groq_client as get_groq_client
-import os
 import re
 import json
 
