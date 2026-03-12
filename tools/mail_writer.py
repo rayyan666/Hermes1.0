@@ -7,6 +7,7 @@ load_dotenv()
 
 VALID_TONES = {"professional", "casual", "formal", "friendly", "assertive"}
 
+
 def write_email(
     to: str,
     purpose: str,

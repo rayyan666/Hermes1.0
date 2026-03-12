@@ -86,7 +86,7 @@ def get_commit_activity(days: int = 30, repo_name: str = None) -> dict:
     since = datetime.now(timezone.utc) - timedelta(days=days)
 
     repos = [g.get_repo(f"{user.login}/{repo_name}")] if repo_name \
-            else [r for r in user.get_repos(type="all") if r.owner.login == user.login]
+        else [r for r in user.get_repos(type="all") if r.owner.login == user.login]
 
     daily_counts = {}
     repo_breakdown = {}
@@ -156,17 +156,66 @@ def check_readme_quality(repo_name: str) -> dict:
         }
 
     checks = {
-        "has_description":      (10, "Project description present",          len(content) > 100),
-        "has_installation":     (15, "Installation/setup instructions",      any(w in content.lower() for w in ["install", "setup", "getting started", "pip install", "npm install"])),
-        "has_usage":            (15, "Usage examples or commands",           any(w in content.lower() for w in ["usage", "example", "how to", "run", "start"])),
-        "has_code_blocks":      (10, "Code blocks present",                  "```" in content),
-        "has_architecture":     (10, "Architecture or how it works section", any(w in content.lower() for w in ["architecture", "how it works", "overview", "design", "structure"])),
-        "has_prerequisites":    (10, "Prerequisites listed",                 any(w in content.lower() for w in ["prerequisite", "requirements", "you will need", "before you begin", "python", "node"])),
-        "has_contributing":     (5,  "Contributing guidelines",              any(w in content.lower() for w in ["contributing", "contribute", "pull request", "pr"])),
-        "has_license":          (5,  "License mentioned",                    any(w in content.lower() for w in ["license", "mit", "apache", "gpl"])),
-        "has_badges":           (5,  "Badges (CI, version, etc.)",           "![" in content and ("badge" in content.lower() or "shield" in content.lower() or "actions" in content.lower())),
-        "adequate_length":      (10, "Adequate length (>500 chars)",         len(content) > 500),
-        "has_screenshots":      (5,  "Screenshots or diagrams",              any(w in content.lower() for w in ["png", "jpg", "gif", "screenshot", "diagram", "!["])),
+        "has_description": (
+            10, "Project description present",
+            len(content) > 100
+        ),
+        "has_installation": (
+            15, "Installation/setup instructions",
+            any(w in content.lower() for w in [
+                "install", "setup", "getting started", "pip install", "npm install"
+            ])
+        ),
+        "has_usage": (
+            15, "Usage examples or commands",
+            any(w in content.lower() for w in [
+                "usage", "example", "how to", "run", "start"
+            ])
+        ),
+        "has_code_blocks": (
+            10, "Code blocks present",
+            "```" in content
+        ),
+        "has_architecture": (
+            10, "Architecture or how it works section",
+            any(w in content.lower() for w in [
+                "architecture", "how it works", "overview", "design", "structure"
+            ])
+        ),
+        "has_prerequisites": (
+            10, "Prerequisites listed",
+            any(w in content.lower() for w in [
+                "prerequisite", "requirements", "you will need", "before you begin", "python", "node"
+            ])
+        ),
+        "has_contributing": (
+            5, "Contributing guidelines",
+            any(w in content.lower() for w in [
+                "contributing", "contribute", "pull request", "pr"
+            ])
+        ),
+        "has_license": (
+            5, "License mentioned",
+            any(w in content.lower() for w in ["license", "mit", "apache", "gpl"])
+        ),
+        "has_badges": (
+            5, "Badges (CI, version, etc.)",
+            "![" in content and (
+                "badge" in content.lower()
+                or "shield" in content.lower()
+                or "actions" in content.lower()
+            )
+        ),
+        "adequate_length": (
+            10, "Adequate length (>500 chars)",
+            len(content) > 500
+        ),
+        "has_screenshots": (
+            5, "Screenshots or diagrams",
+            any(w in content.lower() for w in [
+                "png", "jpg", "gif", "screenshot", "diagram", "!["
+            ])
+        ),
     }
 
     score = 0
@@ -291,7 +340,7 @@ def review_code(repo_name: str, file_path: str) -> dict:
     lines = content.splitlines()
     blank_lines = sum(1 for l in lines if l.strip() == "")
     comment_lines = sum(1 for l in lines if l.strip().startswith(("#", "//", "/*", "*", '"""', "'''")))
-    long_lines = [i+1 for i, l in enumerate(lines) if len(l) > 120]
+    long_lines = [i + 1 for i, l in enumerate(lines) if len(l) > 120]
 
     log.info(f"Code fetched successfully | {len(lines)} lines")
     return {

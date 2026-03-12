@@ -71,7 +71,7 @@ def fetch_emails(max_results: int = 20) -> list[dict]:
             "from": header_map.get("from", "unknown"),
             "date": header_map.get("date", ""),
             "snippet": detail.get("snippet", ""),
-            "body": body[:1500],    
+            "body": body[:1500],
         })
 
     return emails

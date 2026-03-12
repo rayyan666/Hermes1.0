@@ -3,6 +3,7 @@ from services.search_service import hyper_search_aiml
 VALID_DEPTHS = {"basic", "advanced"}
 VALID_FORMATS = {"full", "summary", "links_only"}
 
+
 def search_aiml(
     query: str,
     depth: str = "advanced",

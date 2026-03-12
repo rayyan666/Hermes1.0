@@ -1,3 +1,5 @@
+from logger import get_logger
+from services.claude_service import _get_groq_client as get_groq_client
 import os
 import re
 import json
@@ -5,8 +7,6 @@ import json
 from dotenv import load_dotenv
 load_dotenv()  # ensures .env is loaded even when called directly
 
-from services.claude_service import _get_groq_client as get_groq_client
-from logger import get_logger
 
 log = get_logger("resume_tailor")
 
@@ -71,11 +71,11 @@ JOB DESCRIPTION:
         f"\nEXTRA CONTEXT:\n{extra_context}" if extra_context.strip() else ""
     )
     required = ", ".join(jd_data.get("required_skills", [])[:10]) or "see JD"
-    nice     = ", ".join(jd_data.get("nice_to_have",    [])[:5])  or "see JD"
-    resps    = jd_data.get("responsibilities", "")
+    nice = ", ".join(jd_data.get("nice_to_have", [])[:5]) or "see JD"
+    resps = jd_data.get("responsibilities", "")
 
     mode_map = {
-        "full":  "Full tailoring: surface ALL transferable experience, reframe titles, deep keyword alignment",
+        "full": "Full tailoring: surface ALL transferable experience, reframe titles, deep keyword alignment",
         "quick": "Quick match: keyword-match existing experience to JD with minimal rewriting",
         "batch": "Batch mode: optimise for multiple similar roles simultaneously",
     }

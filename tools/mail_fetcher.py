@@ -3,12 +3,13 @@ from services.claude_service import classify_and_sort_emails
 
 VALID_PRIORITIES = {"all", "critical", "high", "medium", "low"}
 
+
 def get_sorted_emails(max_results: int = 20, filter_priority: str = "all") -> list[dict]:
     """
     Fetch emails from Gmail and sort them by AI-determined priority.
 
     DONT FETCH ANY MAILS FROM HDFC BANK
-    
+
     Args:
         max_results: Number of emails to fetch (1-100)
         filter_priority: Filter by priority level — "all", "critical", "high", "medium", "low"
