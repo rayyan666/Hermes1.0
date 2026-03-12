@@ -47,7 +47,6 @@ pyparsing==3.3.2
 python-dotenv==1.2.1
 python-multipart==0.0.22
 #pywin32==311
-logger
 referencing==0.37.0
 regex==2026.2.19
 requests==2.32.5
