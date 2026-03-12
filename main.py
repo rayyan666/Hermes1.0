@@ -1,10 +1,6 @@
-"""
-main.py — MCP Server + Flask HTTP Server entry point
-Registers 4 tools: get_emails, compose_email, search_ai_ml, analyze_github
-"""
-
 import threading
 import os
+import sys
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from mcp.server.fastmcp import FastMCP
@@ -31,7 +27,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 @app.route("/")
 def serve_ui():
     flask_log.info("GET / — serving UI")
-    return send_from_directory(BASE_DIR, "ui/index.html")
+    return send_from_directory(os.path.join(BASE_DIR, "ui"), "index.html")
 
 
 @app.route("/tools/get_emails", methods=["POST"])
@@ -104,15 +100,25 @@ def api_github():
         flask_log.error(f"analyze_github failed: {e}", exc_info=True)
         return jsonify({"error": str(e)}), 500
 
-@app.route('/tools/tailor_resume', methods=['POST'])
-def tailor_resume_endpoint():
-    data = request.json
-    result = tailor_resume(**{k: data.get(k,'') for k in ['role','company','job_description','existing_resume','mode','extra_context']})
-    return jsonify(result)
 
-def run_flask():
-    flask_log.info("Flask server starting on port 5000")
-    app.run(port=5000, debug=False, use_reloader=False)
+@app.route("/tools/tailor_resume", methods=["POST"])
+def tailor_resume_endpoint():
+    data = request.json or {}
+    flask_log.info(f"POST /tools/tailor_resume | role={data.get('role')} | company={data.get('company')}")
+    try:
+        result = tailor_resume(**{
+            k: data.get(k, "")
+            for k in ["role", "company", "job_description", "existing_resume", "mode", "extra_context"]
+        })
+        return jsonify(result)
+    except Exception as e:
+        flask_log.error(f"tailor_resume failed: {e}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/health")
+def health():
+    return jsonify({"status": "ok", "server": "gunicorn"})
 
 
 # ── MCP tools ─────────────────────────────────────────────────────────────────
@@ -188,16 +194,6 @@ def github_analyzer(
       review_code         — AI code review of a file (requires repo= and file_path=)
       tech_stack          — Full language and framework map across all repos
       audit_dependencies  — Check dependency files for unpinned packages (requires repo=)
-
-    Examples:
-      action="list_repos"
-      action="repo_overview"
-      action="commit_activity", days=60
-      action="readme_quality", repo="MAIL-MCP"
-      action="review_code", repo="MAIL-MCP", file_path="services/gmail_service.py"
-      action="tech_stack"
-      action="audit_dependencies", repo="MAIL-MCP"
-      action="stale_repos", threshold_days=90
     """
     log.info(f"MCP: github_analyzer | action={action} | repo={repo} | file={file_path}")
     try:
@@ -210,15 +206,31 @@ def github_analyzer(
         log.error(f"MCP github_analyzer failed: {e}", exc_info=True)
         raise
 
+
 @mcp.tool()
 def tailor_resume_tool(role: str, company: str, job_description: str,
                        existing_resume: str = "", mode: str = "full",
                        extra_context: str = "") -> dict:
+    """AI-powered resume tailoring. Modes: full, quick, batch."""
     return tailor_resume(role, company, job_description, existing_resume, mode, extra_context)
 
 
+# ── Entry point (MCP stdio mode only) ─────────────────────────────────────────
+# When run via Gunicorn, this block is NOT executed.
+# Gunicorn imports main:app directly and manages the HTTP server itself.
+# This block only runs when: python main.py  (MCP stdio mode for Claude Desktop)
+
 if __name__ == "__main__":
-    log.info("Starting Flask thread...")
-    threading.Thread(target=run_flask, daemon=True).start()
-    log.info("Starting MCP server on stdio transport...")
-    mcp.run(transport="stdio")
+    if "--dev" in sys.argv:
+        # Dev mode: Flask dev server only (no MCP)
+        log.info("Starting Flask dev server on port 5000...")
+        app.run(port=5000, debug=True, use_reloader=False)
+    else:
+        # MCP stdio mode: start Flask in background thread, MCP on stdio
+        log.info("Starting Flask thread (background)...")
+        threading.Thread(
+            target=lambda: app.run(port=5000, debug=False, use_reloader=False),
+            daemon=True
+        ).start()
+        log.info("Starting MCP server on stdio transport...")
+        mcp.run(transport="stdio")

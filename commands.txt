@@ -1,0 +1,8 @@
+# Normal use (Waitress on Windows automatically)
+python serve.py
+
+# For Claude Desktop MCP mode
+python serve.py --mcp
+
+# Dev mode with debug
+python serve.py --dev

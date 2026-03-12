@@ -1,9 +1,3 @@
-"""
-tools/github_analyzer.py — GitHub analysis tool
-Exposes all Tier 1 and Tier 2 GitHub capabilities as a single MCP tool.
-Uses Groq to add AI-powered insight on top of raw GitHub data.
-"""
-
 import json
 from services.github_service import (
     get_repo_overview,

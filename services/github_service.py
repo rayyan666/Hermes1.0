@@ -1,8 +1,3 @@
-"""
-services/github_service.py — GitHub API wrapper
-Handles all direct communication with the GitHub REST API via PyGithub.
-"""
-
 import os
 from datetime import datetime, timezone, timedelta
 from github import Github, GithubException
@@ -21,7 +16,7 @@ def _get_client() -> Github:
     if _client:
         return _client
 
-    token = os.getenv("GITHUB_TOKEN")
+    token = os.getenv("GH_TOKEN")
     if not token:
         log.error("GITHUB_TOKEN not set — add it to .env and claude_desktop_config.json")
         raise RuntimeError("GITHUB_TOKEN not set")

@@ -1,8 +1,3 @@
-"""
-services/claude_service.py — Groq AI service
-Handles email classification, generation, and exposes a shared client.
-"""
-
 import os
 import json
 from groq import Groq
@@ -22,7 +17,7 @@ def _get_groq_client() -> Groq:
     if _groq_client:
         return _groq_client
 
-    api_key = os.getenv("GROQ_API_KEY")
+    api_key = "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"
     if not api_key:
         log.error("GROQ_API_KEY not set — check your .env or claude_desktop_config.json")
         raise RuntimeError("GROQ_API_KEY not set")

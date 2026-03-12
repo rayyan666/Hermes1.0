@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MailMind // AI Assistant</title>
+<title>hermes 1.0</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0a0f;
+    --bg: #0d0d1f;
     --surface: #111118;
     --surface2: #1a1a24;
     --border: #2a2a3a;
     --accent: #7c5cfc;
     --accent2: #fc5c7d;
-    --accent3: #5cf0c8;
+    --accent3: #05ce98;
     --accent4: #f0a05c;
     --text: #e8e8f0;
     --muted: #6b6b80;
@@ -21,7 +21,6 @@
     --high: #ff8c42;
     --medium: #ffd166;
     --low: #06d6a0;
-    --resume: #06d6a0;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -189,13 +188,6 @@
 
   .nav-btn.gh.active::before { background: var(--accent4); }
 
-  .nav-btn.cv.active {
-    background: rgba(6,214,160,0.1);
-    color: var(--resume);
-    border: 1px solid rgba(6,214,160,0.25);
-  }
-  .nav-btn.cv.active::before { background: var(--resume); }
-
   .nav-icon { font-size: 0.6rem; width: 28px; text-align: center; color: var(--muted); letter-spacing: 0.5px; }
 
   main {
@@ -297,12 +289,6 @@
   .btn-ghost { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
   .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
 
-  .btn-green { background: rgba(6,214,160,0.15); color: var(--resume); border: 1px solid rgba(6,214,160,0.3); }
-  .btn-green:hover { background: rgba(6,214,160,0.25); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(6,214,160,0.2); }
-
-  .btn-resume { background: rgba(180,92,240,0.12); color: #b45cf0; border: 1px solid rgba(180,92,240,0.28); }
-  .btn-resume:hover { background: rgba(180,92,240,0.22); transform: translateY(-1px); }
-
   .controls { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; margin-bottom: 24px; }
   .controls .form-group { margin-bottom: 0; flex: 1; min-width: 120px; }
 
@@ -320,8 +306,6 @@
     transition: all 0.2s;
     cursor: pointer;
     animation: slideIn 0.3s ease both;
-    position: relative;
-    overflow: hidden;
   }
 
   .email-item:hover { border-color: rgba(124,92,252,0.4); background: var(--surface2); transform: translateX(3px); }
@@ -331,12 +315,6 @@
     to { opacity: 1; transform: translateX(0); }
   }
 
-  .email-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; opacity: 0; transition: opacity 0.2s; }
-  .email-item.critical::before { background: var(--critical); opacity: 1; }
-  .email-item.high::before    { background: var(--high); opacity: 1; }
-  .email-item.medium::before  { background: var(--medium); opacity: 1; }
-  .email-item.low::before     { background: var(--low); opacity: 1; }
-
   .priority-badge { width: 8px; height: 8px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; box-shadow: 0 0 8px currentColor; }
   .priority-badge.critical { background: var(--critical); color: var(--critical); }
   .priority-badge.high { background: var(--high); color: var(--high); }
@@ -344,6 +322,7 @@
   .priority-badge.low { background: var(--low); color: var(--low); }
 
   .email-content { overflow: hidden; }
+
   .email-subject { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.88rem; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .email-from { font-size: 0.72rem; color: var(--muted); margin-bottom: 4px; }
   .email-summary { font-size: 0.73rem; color: var(--muted); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
@@ -393,8 +372,6 @@
 
   .spinner { width: 18px; height: 18px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; }
   .spinner.amber { border-top-color: var(--accent4); }
-  .spinner.green { border-top-color: var(--resume); }
-  .spinner.resume { border-top-color: #b45cf0; }
 
   @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -408,8 +385,7 @@
   .toast.error { border-color: var(--critical); }
 
   .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
-  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; text-align: center; position: relative; overflow: hidden; transition: transform 0.2s, border-color 0.2s; }
-  .stat-card:hover { transform: translateY(-2px); }
+  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; text-align: center; }
   .stat-number { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.6rem; }
   .stat-label { font-size: 0.65rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
 
@@ -430,40 +406,34 @@
   .gh-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
 
   .gh-action-pill {
-    padding: 7px 14px; border-radius: 20px; border: 1px solid var(--border);
-    background: var(--surface2); color: var(--muted); font-family: 'DM Mono', monospace;
-    font-size: 0.72rem; cursor: pointer; transition: all 0.18s ease; white-space: nowrap;
-    position: relative;
+    padding: 7px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    white-space: nowrap;
   }
   .gh-action-pill:hover { border-color: rgba(240,160,92,0.4); color: var(--accent4); }
   .gh-action-pill.active { background: rgba(240,160,92,0.15); border-color: rgba(240,160,92,0.5); color: var(--accent4); box-shadow: 0 0 12px rgba(240,160,92,0.1); }
-
-  .gh-tooltip {
-    position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
-    background: var(--surface2); border: 1px solid rgba(240,160,92,0.3); border-radius: 8px;
-    padding: 7px 12px; font-size: 0.67rem; color: var(--text); white-space: nowrap;
-    pointer-events: none; opacity: 0; transition: opacity 0.18s; z-index: 60;
-    max-width: 200px; white-space: normal; text-align: center; line-height: 1.5;
-  }
-  .gh-action-pill:hover .gh-tooltip { opacity: 1; }
+  .gh-action-pill[data-tip]:hover::after { content: attr(data-tip); position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 5px 10px; font-size: 0.6rem; color: var(--text); white-space: nowrap; z-index: 50; pointer-events: none; }
+  .gh-action-pill[data-tip]:hover::before { content: ''; position: absolute; bottom: calc(100% + 2px); left: 50%; transform: translateX(-50%); border: 5px solid transparent; border-top-color: var(--border); z-index: 51; pointer-events: none; }
+  .gh-action-pill { position: relative; }
 
   .gh-input-row { display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: flex-end; margin-bottom: 20px; }
 
   .gh-extra-fields { display: none; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; padding: 16px; background: rgba(240,160,92,0.04); border: 1px solid rgba(240,160,92,0.15); border-radius: 10px; animation: fadeIn 0.2s ease; }
   .gh-extra-fields.visible { display: grid; }
 
-  .gh-repo-card { background: var(--surface); border: 1px solid rgba(240,160,92,0.25); border-radius: 12px; padding: 20px; margin-bottom: 14px; animation: slideIn 0.3s ease both; cursor: pointer; }
-  .gh-repo-card .expand-arrow { transition: transform 0.2s; display: inline-block; color: var(--muted); font-size: 0.7rem; margin-left: 6px; }
-  .gh-repo-card.expanded .expand-arrow { transform: rotate(180deg); }
-  .gh-repo-expanded { display: none; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); animation: fadeIn 0.2s ease; }
-  .gh-repo-card.expanded .gh-repo-expanded { display: block; }
-
+  .gh-repo-card { background: var(--surface); border: 1px solid rgba(240,160,92,0.25); border-radius: 12px; padding: 20px; margin-bottom: 14px; animation: slideIn 0.3s ease both; }
   .gh-repo-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
   .gh-repo-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--accent4); }
   .gh-repo-name a { color: inherit; text-decoration: none; }
   .gh-repo-name a:hover { text-decoration: underline; }
   .gh-repo-desc { font-size: 0.75rem; color: var(--muted); line-height: 1.6; margin-bottom: 14px; }
-  .gh-repo-meta { font-size: 0.63rem; color: var(--muted); }
 
   .gh-stat-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
 
@@ -474,21 +444,12 @@
   .gh-pill.lang { border-color: rgba(240,160,92,0.3); color: var(--accent4); }
   .gh-pill.license { border-color: rgba(124,92,252,0.3); color: var(--accent); }
   .gh-pill.watchers { border-color: rgba(255,140,66,0.3); color: var(--high); }
+  .gh-pill.private { border-color: rgba(255,68,68,0.3); color: var(--critical); }
+  .gh-pill.archived { border-color: rgba(107,107,128,0.4); color: var(--muted); }
   .gh-pill.good { border-color: rgba(6,214,160,0.3); color: var(--low); }
 
-  .gh-ai-block { background: linear-gradient(135deg, rgba(240,160,92,0.07), rgba(240,160,92,0.02)); border: 1px solid rgba(240,160,92,0.2); border-radius: 8px; padding: 14px; font-size: 0.78rem; line-height: 1.7; color: var(--text); margin-top: 10px; position: relative; overflow: hidden; }
-  .gh-ai-block::before {
-    content: ''; position: absolute; inset: 0;
-    background: linear-gradient(90deg, rgba(240,160,92,0) 0%, rgba(240,160,92,0.15) 50%, rgba(240,160,92,0) 100%);
-    background-size: 200% 100%; animation: aiShimmer 3s ease infinite; pointer-events: none;
-  }
-  @keyframes aiShimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
-
+  .gh-ai-block { background: linear-gradient(135deg, rgba(240,160,92,0.07), rgba(240,160,92,0.02)); border: 1px solid rgba(240,160,92,0.2); border-radius: 8px; padding: 14px; font-size: 0.78rem; line-height: 1.7; color: var(--text); margin-top: 10px; }
   .gh-ai-label { font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent4); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
-  .gh-ai-block-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-
-  .typing-cursor { display: inline-block; width: 2px; height: 11px; background: var(--accent4); animation: blink 1s step-end infinite; vertical-align: middle; }
-  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
   .commit-chart-wrap { overflow: hidden; margin-bottom: 30px; }
   .commit-chart { display: flex; align-items: flex-end; gap: 4px; height: 60px; margin: 14px 0 6px; padding: 0 2px; }
@@ -533,54 +494,97 @@
   .dep-severity.low { background: rgba(6,214,160,0.15); color: var(--low); border: 1px solid rgba(6,214,160,0.3); }
   .dep-severity.ok { background: rgba(107,107,128,0.15); color: var(--muted); border: 1px solid rgba(107,107,128,0.3); }
 
-  .gh-section-heading { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; color: var(--accent4); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid rgba(240,160,92,0.2); display: flex; align-items: center; gap: 8px; justify-content: space-between; }
-  .gh-section-heading-left { display: flex; align-items: center; gap: 8px; }
+  .gh-section-heading { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; color: var(--accent4); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid rgba(240,160,92,0.2); display: flex; align-items: center; gap: 8px; }
   .gh-section-heading .gh-tag { font-size: 0.6rem; padding: 2px 8px; background: rgba(240,160,92,0.1); border: 1px solid rgba(240,160,92,0.25); border-radius: 4px; letter-spacing: 1px; }
 
-  /* Donut chart */
-  .donut-row { display: flex; align-items: center; gap: 24px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; }
-  .donut-wrap { position: relative; width: 84px; height: 84px; flex-shrink: 0; }
-  .donut-wrap svg { transform: rotate(-90deg); }
-  .donut-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.15rem; }
-  .donut-center small { font-size: 0.52rem; color: var(--muted); font-family: 'DM Mono', monospace; font-weight: 400; }
-  .donut-legend { display: flex; flex-direction: column; gap: 9px; }
-  .donut-legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.73rem; }
-  .donut-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-  .donut-count { margin-left: auto; font-family: 'Syne', sans-serif; font-weight: 700; min-width: 24px; text-align: right; }
-
-  /* Skeleton */
-  .skeleton { background: linear-gradient(90deg, var(--surface2) 25%, var(--border) 50%, var(--surface2) 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: 6px; }
-  .skeleton-row { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; padding: 14px 16px; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 8px; background: var(--surface); }
+  /* ── IMPROVED SKELETON ── */
+  .skeleton-row {
+    display: grid; grid-template-columns: auto 1fr auto; gap: 12px;
+    padding: 14px 16px; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 8px;
+    background: var(--surface);
+  }
   .skeleton-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--surface2); margin-top: 5px; animation: shimmer 1.4s ease infinite; }
   .skeleton-line { height: 9px; border-radius: 4px; background: var(--surface2); animation: shimmer 1.4s ease infinite; margin-bottom: 6px; }
-  @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+  @keyframes shimmer { 0%,100% { opacity: 0.35; } 50% { opacity: 0.8; } }
 
-  /* Copy button */
-  .copy-btn { font-size: 0.63rem; padding: 4px 10px; border-radius: 5px; border: 1px solid var(--border); background: var(--surface2); color: var(--muted); cursor: pointer; font-family: 'DM Mono', monospace; transition: all 0.18s; }
-  .copy-btn:hover { border-color: var(--accent4); color: var(--accent4); }
+  /* ── COPY BUTTON ── */
+  .btn-copy { padding: 4px 9px; font-size: 0.6rem; background: var(--surface2); border: 1px solid var(--border); border-radius: 5px; color: var(--muted); cursor: pointer; font-family: 'DM Mono',monospace; transition: all 0.15s; }
+  .btn-copy:hover { border-color: var(--accent3); color: var(--accent3); }
 
-  /* Stale filter */
-  .stale-filter-row { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
-  .stale-filter-btn { padding: 5px 12px; border-radius: 14px; border: 1px solid var(--border); background: var(--surface2); color: var(--muted); font-size: 0.68rem; cursor: pointer; font-family: 'DM Mono', monospace; transition: all 0.18s; }
-  .stale-filter-btn.active { background: rgba(240,160,92,0.15); border-color: rgba(240,160,92,0.4); color: var(--accent4); }
+  /* ── IMPROVED STAT CARDS ── */
+  .stat-card { position: relative; overflow: hidden; transition: transform 0.2s, border-color 0.2s; }
+  .stat-card:hover { transform: translateY(-2px); }
+  .stat-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; opacity: 0.5; }
+  .stat-card.s-crit::after { background: var(--critical); }
+  .stat-card.s-high::after { background: var(--high); }
+  .stat-card.s-action::after { background: var(--accent); }
 
-  /* Repo preview card */
-  .repo-preview-card { display: none; background: linear-gradient(135deg, rgba(240,160,92,0.07), rgba(240,160,92,0.02)); border: 1px solid rgba(240,160,92,0.25); border-radius: 10px; padding: 14px 18px; margin-bottom: 16px; animation: fadeIn 0.25s ease; }
-  .repo-preview-card.visible { display: flex; gap: 16px; align-items: flex-start; flex-wrap: wrap; }
-  .rpc-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; color: var(--accent4); margin-bottom: 4px; }
-  .rpc-desc { font-size: 0.72rem; color: var(--muted); line-height: 1.5; margin-bottom: 8px; }
+  /* ── IMPROVED EMAIL ITEMS - left border accent ── */
+  .email-item { position: relative; overflow: hidden; }
+  .email-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; opacity: 0; transition: opacity 0.2s; }
+  .email-item.critical::before { background: var(--critical); opacity: 1; }
+  .email-item.high::before    { background: var(--high); opacity: 1; }
+  .email-item.medium::before  { background: var(--medium); opacity: 1; }
+  .email-item.low::before     { background: var(--low); opacity: 1; }
 
-  /* Status pills */
+  /* ── REPO PREVIEW CARD ── */
+  .repo-preview-card { display: none; background: rgba(240,160,92,0.04); border: 1px solid rgba(240,160,92,0.18); border-radius: 9px; padding: 12px 16px; margin-bottom: 12px; animation: fadeIn 0.2s ease; }
+  .repo-preview-card.visible { display: block; }
+  .repo-preview-name { font-family: 'Syne',sans-serif; font-weight: 700; font-size: 0.88rem; color: var(--accent4); margin-bottom: 4px; }
+  .repo-preview-desc { font-size: 0.7rem; color: var(--muted); line-height: 1.5; margin-bottom: 8px; }
+  .repo-preview-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+
+  /* ── STALE FILTER ── */
+  .stale-controls { display: flex; gap: 7px; align-items: center; margin-bottom: 12px; }
+  .stale-filter-btn { padding: 4px 10px; font-size: 0.62rem; border-radius: 5px; border: 1px solid var(--border); background: var(--surface2); color: var(--muted); cursor: pointer; font-family: 'DM Mono',monospace; transition: all 0.15s; }
+  .stale-filter-btn.active { border-color: rgba(240,160,92,0.4); color: var(--accent4); background: rgba(240,160,92,0.08); }
+
+  /* ── GH AI BLOCK WITH COPY ── */
+  .gh-ai-block-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+
+  /* ── DONUT CHART ── */
+  .gh-donut-wrap { display: flex; align-items: center; gap: 24px; margin-bottom: 20px; padding: 16px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; }
+  .gh-donut { position: relative; width: 80px; height: 80px; flex-shrink: 0; }
+  .gh-donut svg { transform: rotate(-90deg); }
+  .gh-donut-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .gh-donut-num { font-family: 'Syne',sans-serif; font-weight: 800; font-size: 1.3rem; line-height: 1; }
+  .gh-donut-sub { font-size: 0.5rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+  .gh-donut-legend { display: flex; flex-direction: column; gap: 7px; }
+  .gh-legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.72rem; }
+  .gh-legend-dot { width: 9px; height: 9px; border-radius: 3px; flex-shrink: 0; }
+
+  /* ── EXPANDABLE REPO ROWS ── */
+  .repo-list-item { background: var(--surface); border: 1px solid var(--border); border-radius: 9px; margin-bottom: 7px; transition: all 0.18s; animation: slideIn 0.3s ease both; cursor: pointer; overflow: hidden; }
+  .repo-list-item:hover { border-color: rgba(240,160,92,0.3); }
+  .repo-list-item.expanded { border-color: rgba(240,160,92,0.4); }
+  .repo-list-header { display: flex; justify-content: space-between; align-items: center; padding: 11px 16px; }
+  .repo-list-left { display: flex; flex-direction: column; gap: 2px; }
+  .repo-list-name { font-family: 'Syne',sans-serif; font-weight: 600; font-size: 0.83rem; color: var(--text); }
+  .repo-list-meta { font-size: 0.63rem; color: var(--muted); }
+  .repo-list-right { display: flex; align-items: center; gap: 7px; }
   .status-pill { font-size: 0.55rem; letter-spacing: 0.5px; text-transform: uppercase; padding: 2px 7px; border-radius: 4px; }
   .status-pill.active  { background: rgba(6,214,160,0.12);  color: var(--low);      border: 1px solid rgba(6,214,160,0.25); }
   .status-pill.idle    { background: rgba(255,209,102,0.1); color: var(--medium);   border: 1px solid rgba(255,209,102,0.2); }
   .status-pill.stale   { background: rgba(255,68,68,0.1);  color: var(--critical); border: 1px solid rgba(255,68,68,0.2); }
   .status-pill.private { background: rgba(255,140,66,0.1); color: var(--high);     border: 1px solid rgba(255,140,66,0.2); }
+  .repo-expand-arrow { font-size: 0.65rem; color: var(--muted); transition: transform 0.2s; display: inline-block; }
+  .repo-list-item.expanded .repo-expand-arrow { transform: rotate(180deg); }
+  .repo-list-expanded { display: none; padding: 0 16px 14px; border-top: 1px solid var(--border); }
+  .repo-list-item.expanded .repo-list-expanded { display: block; animation: fadeIn 0.2s ease; }
+  .repo-expanded-inner { padding-top: 12px; }
+  .repo-expanded-stat { display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--muted); margin-bottom: 5px; }
+  .repo-expanded-stat span:last-child { color: var(--text); }
 
-  /* Header breadcrumb */
-  .header-breadcrumb { font-size: 0.63rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; border-left: 1px solid var(--border); padding-left: 16px; margin-left: 16px; }
+  /* ── HEADER BREADCRUMB ── */
+  .header-breadcrumb { font-size: 0.63rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; border-left: 1px solid var(--border); padding-left: 16px; }
 
-  /* ── RESUME TAILOR ── */
+  /* ── NAV BADGE ── */
+  .nav-badge { margin-left: auto; font-size: 0.48rem; padding: 1px 5px; border-radius: 3px; background: rgba(180,92,240,0.18); color: #b45cf0; border: 1px solid rgba(180,92,240,0.3); letter-spacing: 0.5px; }
+  .nav-btn.rs.active { background: rgba(180,92,240,0.1); color: #b45cf0; border: 1px solid rgba(180,92,240,0.2); }
+  .nav-btn.rs.active::before { background: #b45cf0; }
+
+  /* ── RESUME TAILOR PANEL ── */
+  --resume: #b45cf0;
   .rs-phases { display: flex; gap: 0; margin-bottom: 20px; overflow: hidden; border-radius: 8px; border: 1px solid rgba(180,92,240,0.2); }
   .rs-phase { flex: 1; padding: 7px 10px; text-align: center; font-size: 0.6rem; color: var(--muted); background: var(--surface2); border-right: 1px solid rgba(180,92,240,0.15); transition: all 0.2s; letter-spacing: 0.3px; }
   .rs-phase:last-child { border-right: none; }
@@ -596,7 +600,7 @@
   .rs-match-bar { margin: 10px 0; }
   .rs-match-label { display: flex; justify-content: space-between; font-size: 0.68rem; color: var(--muted); margin-bottom: 5px; }
   .rs-match-track { height: 5px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
-  .rs-match-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg,#b45cf0,#5cb8f0); transition: width 0.9s cubic-bezier(0.34,1.56,0.64,1); width: 0%; }
+  .rs-match-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg,#b45cf0,var(--accent5,#5cb8f0)); transition: width 0.9s cubic-bezier(0.34,1.56,0.64,1); }
   .rs-phase-card { background: var(--surface2); border: 1px solid rgba(180,92,240,0.14); border-radius: 9px; padding: 14px 16px; margin-bottom: 10px; animation: slideIn 0.3s ease both; }
   .rs-phase-card-title { font-family: 'Syne',sans-serif; font-weight: 600; font-size: 0.8rem; color: #b45cf0; margin-bottom: 7px; }
   .rs-phase-card-text { font-size: 0.73rem; color: var(--muted); line-height: 1.6; }
@@ -607,12 +611,100 @@
   .rs-output-pane.active { display: block; }
   .rs-resume-block { background: var(--surface2); border: 1px solid rgba(180,92,240,0.15); border-radius: 9px; padding: 16px 20px; font-size: 0.75rem; line-height: 1.8; white-space: pre-wrap; color: var(--text); max-height: 480px; overflow-y: auto; }
   .rs-actions-bar { display: flex; gap: 8px; align-items: center; margin-top: 14px; flex-wrap: wrap; }
+  .btn-resume { background: rgba(180,92,240,0.12); color: #b45cf0; border: 1px solid rgba(180,92,240,0.28); }
+  .btn-resume:hover { background: rgba(180,92,240,0.22); transform: translateY(-1px); }
+  .spinner.resume { border-top-color: #b45cf0; }
 
-  /* Resume step (old panel kept for compat) */
-  .resume-step { background: var(--surface); border: 1px solid rgba(6,214,160,0.15); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
-  .resume-step-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--resume); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
-  .resume-step-badge { font-size: 0.58rem; padding: 2px 8px; background: rgba(6,214,160,0.1); border: 1px solid rgba(6,214,160,0.3); border-radius: 10px; letter-spacing: 1px; text-transform: uppercase; }
-  .resume-output { display: none; background: var(--surface2); border: 1px solid rgba(6,214,160,0.2); border-radius: 12px; padding: 22px; margin-top: 16px; animation: fadeIn 0.3s ease; }
+
+  /* ── TOOLTIPS on action pills ── */
+  .gh-action-pill { position: relative; }
+  .gh-tooltip {
+    position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+    background: var(--surface2); border: 1px solid rgba(240,160,92,0.3); border-radius: 8px;
+    padding: 7px 12px; font-size: 0.67rem; color: var(--text); white-space: nowrap;
+    pointer-events: none; opacity: 0; transition: opacity 0.18s; z-index: 60;
+    max-width: 200px; white-space: normal; text-align: center; line-height: 1.5;
+  }
+  .gh-action-pill:hover .gh-tooltip { opacity: 1; }
+
+  /* ── REPO PREVIEW CARD ── */
+  .repo-preview-card {
+    display: none; background: linear-gradient(135deg, rgba(240,160,92,0.07), rgba(240,160,92,0.02));
+    border: 1px solid rgba(240,160,92,0.25); border-radius: 10px; padding: 14px 18px;
+    margin-bottom: 16px; animation: fadeIn 0.25s ease;
+  }
+  .repo-preview-card.visible { display: flex; gap: 16px; align-items: flex-start; flex-wrap: wrap; }
+  .rpc-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; color: var(--accent4); margin-bottom: 4px; }
+  .rpc-desc { font-size: 0.72rem; color: var(--muted); line-height: 1.5; margin-bottom: 8px; }
+
+  /* ── EXPANDABLE REPO CARDS ── */
+  .gh-repo-card { cursor: pointer; }
+  .gh-repo-card .expand-arrow { transition: transform 0.2s; display: inline-block; color: var(--muted); font-size: 0.7rem; margin-left: 6px; }
+  .gh-repo-card.expanded .expand-arrow { transform: rotate(180deg); }
+  .gh-repo-expanded { display: none; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); animation: fadeIn 0.2s ease; }
+  .gh-repo-card.expanded .gh-repo-expanded { display: block; }
+
+  /* ── DONUT CHART ── */
+  .donut-row { display: flex; align-items: center; gap: 24px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; }
+  .donut-wrap { position: relative; width: 84px; height: 84px; flex-shrink: 0; }
+  .donut-wrap svg { transform: rotate(-90deg); }
+  .donut-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.15rem; }
+  .donut-center small { font-size: 0.52rem; color: var(--muted); font-family: 'DM Mono', monospace; font-weight: 400; }
+  .donut-legend { display: flex; flex-direction: column; gap: 9px; }
+  .donut-legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.73rem; }
+  .donut-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .donut-count { margin-left: auto; font-family: 'Syne', sans-serif; font-weight: 700; min-width: 24px; text-align: right; }
+
+  /* ── ANIMATED AI INSIGHT BORDER ── */
+  .gh-ai-block { position: relative; overflow: hidden; }
+  .gh-ai-block::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(240,160,92,0) 0%, rgba(240,160,92,0.15) 50%, rgba(240,160,92,0) 100%);
+    background-size: 200% 100%; animation: aiShimmer 3s ease infinite; pointer-events: none;
+  }
+  @keyframes aiShimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+  .gh-ai-label { display: flex; align-items: center; gap: 8px; }
+  .typing-cursor { display: inline-block; width: 2px; height: 11px; background: var(--accent4); animation: blink 1s step-end infinite; vertical-align: middle; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  /* ── SKELETON LOADER ── */
+  .skeleton { background: linear-gradient(90deg, var(--surface2) 25%, var(--border) 50%, var(--surface2) 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: 6px; }
+  @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+  /* ── COPY BUTTON ── */
+  .copy-btn { font-size: 0.63rem; padding: 4px 10px; border-radius: 5px; border: 1px solid var(--border); background: var(--surface2); color: var(--muted); cursor: pointer; font-family: 'DM Mono', monospace; transition: all 0.18s; }
+  .copy-btn:hover { border-color: var(--accent4); color: var(--accent4); }
+
+  /* ── STALE FILTER BUTTONS ── */
+  .stale-filter-row { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+  .stale-filter-btn { padding: 5px 12px; border-radius: 14px; border: 1px solid var(--border); background: var(--surface2); color: var(--muted); font-size: 0.68rem; cursor: pointer; font-family: 'DM Mono', monospace; transition: all 0.18s; }
+  .stale-filter-btn.active { background: rgba(240,160,92,0.15); border-color: rgba(240,160,92,0.4); color: var(--accent4); }
+
+  /* ── RESUME TAILOR PANEL ── */
+  :root { --resume: #06d6a0; }
+  .nav-btn.cv.active { background: rgba(6,214,160,0.1); color: var(--resume); border: 1px solid rgba(6,214,160,0.25); }
+  .nav-btn.cv.active::before { background: var(--resume); }
+
+  .resume-step {
+    background: var(--surface); border: 1px solid rgba(6,214,160,0.15); border-radius: 12px;
+    padding: 20px; margin-bottom: 16px;
+  }
+  .resume-step-title {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--resume);
+    margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
+  }
+  .resume-step-badge {
+    font-size: 0.58rem; padding: 2px 8px; background: rgba(6,214,160,0.1);
+    border: 1px solid rgba(6,214,160,0.3); border-radius: 10px; letter-spacing: 1px; text-transform: uppercase;
+  }
+  .btn-green { background: rgba(6,214,160,0.15); color: var(--resume); border: 1px solid rgba(6,214,160,0.3); }
+  .btn-green:hover { background: rgba(6,214,160,0.25); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(6,214,160,0.2); }
+  .spinner.green { border-top-color: var(--resume); }
+
+  .resume-output {
+    display: none; background: var(--surface2); border: 1px solid rgba(6,214,160,0.2);
+    border-radius: 12px; padding: 22px; margin-top: 16px; animation: fadeIn 0.3s ease;
+  }
   .resume-output.visible { display: block; }
   .resume-section { margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid var(--border); }
   .resume-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
@@ -621,12 +713,17 @@
   .match-bar-track { flex: 1; height: 5px; background: var(--surface); border-radius: 3px; overflow: hidden; }
   .match-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--resume), var(--accent3)); transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); width: 0%; }
   .match-bar-label { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--resume); min-width: 36px; text-align: right; }
+
+  /* ── SECTION HEADING with right-side actions ── */
+  .gh-section-heading { justify-content: space-between; }
+  .gh-section-heading-left { display: flex; align-items: center; gap: 8px; }
+
 </style>
 </head>
 <body>
 <div class="app">
   <header>
-    <div class="logo">MailMind <span>// AI Assistant</span></div>
+    <div class="logo">hermes <span>// AI Assistant</span></div>
     <div class="header-breadcrumb" id="header-breadcrumb">Dashboard</div>
     <div class="header-status">
       <div class="status-dot"></div>
@@ -646,10 +743,10 @@
       <button class="nav-btn" onclick="showPanel('search', this, 'AI/ML Search')">
         <span class="nav-icon">[SR]</span> AI/ML Search
       </button>
-      <button class="nav-btn gh" onclick="showPanel('github', this, 'GitHub Analyzer')">
+      <button class="nav-btn gh" onclick="showPanel('github', this)">
         <span class="nav-icon">[GH]</span> GitHub Analyzer
       </button>
-      <button class="nav-btn cv" onclick="showPanel('resume', this, 'Resume Tailor')">
+      <button class="nav-btn cv" onclick="showPanel('resume', this)">
         <span class="nav-icon">[CV]</span> Resume Tailor
       </button>
     </div>
@@ -750,6 +847,7 @@
         <div class="panel-subtitle">Repo insights, commit activity, code review, tech stack &amp; more</div>
       </div>
 
+      <!-- Action pills with tooltips -->
       <div class="gh-actions" id="gh-actions">
         <button class="gh-action-pill active" onclick="selectAction('repo_overview',this)">
           repo_overview<div class="gh-tooltip">Full portfolio overview — all repos with status, activity &amp; AI insight</div>
@@ -774,6 +872,7 @@
         </button>
       </div>
 
+      <!-- Repo selector row -->
       <div class="gh-input-row" id="gh-main-input">
         <div class="form-group" style="margin-bottom:0">
           <label id="gh-repo-label">Repository</label>
@@ -802,12 +901,20 @@
         </div>
       </div>
 
+      <!-- Repo preview card — appears on selection -->
       <div class="repo-preview-card" id="repo-preview-card">
         <div style="flex:1">
           <div class="rpc-name" id="rpc-name"></div>
-          <div class="rpc-desc" id="rpc-desc">Select a repo to see a preview</div>
-          <div class="gh-stat-pills" id="rpc-pills" style="margin-top:6px"></div>
+          <div class="rpc-desc" id="rpc-desc"></div>
+          <div class="gh-stat-pills" id="rpc-pills" style="margin-top:0"></div>
         </div>
+      </div>
+
+      <!-- Repo Preview Card -->
+      <div class="repo-preview-card" id="repo-preview-card">
+        <div class="repo-preview-name" id="rpc-name"></div>
+        <div class="repo-preview-desc" id="rpc-desc">Select a repo to see a preview</div>
+        <div class="repo-preview-pills" id="rpc-pills"></div>
       </div>
 
       <div class="gh-extra-fields" id="gh-extra-fields"></div>
@@ -825,8 +932,78 @@
     <!-- RESUME TAILOR -->
     <div class="panel" id="panel-resume">
       <div class="panel-header">
+        <div class="panel-title" style="background:linear-gradient(135deg,var(--resume),var(--accent3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Resume Tailor</div>
+        <div class="panel-subtitle">AI-powered resume generation — researches roles, surfaces undocumented experience, creates tailored output</div>
+      </div>
+
+      <div class="resume-step">
+        <div class="resume-step-title">Job Details <span class="resume-step-badge">Step 1</span></div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px">
+          <div class="form-group" style="margin-bottom:0"><label>Target Role</label><input type="text" id="resume-role" placeholder="e.g. Senior ML Engineer"></div>
+          <div class="form-group" style="margin-bottom:0"><label>Company</label><input type="text" id="resume-company" placeholder="e.g. Google DeepMind"></div>
+        </div>
+        <div class="form-group" style="margin-top:14px; margin-bottom:0">
+          <label>Job Description <span style="color:var(--muted); font-size:0.65rem; text-transform:none; letter-spacing:0">(paste full JD for best results)</span></label>
+          <textarea id="resume-jd" style="min-height:110px" placeholder="Paste the full job description here..."></textarea>
+        </div>
+      </div>
+
+      <div class="resume-step">
+        <div class="resume-step-title">Your Resume <span class="resume-step-badge">Step 2</span></div>
+        <div class="form-group" style="margin-bottom:0">
+          <label>Existing Resume <span style="color:var(--muted); font-size:0.65rem; text-transform:none; letter-spacing:0">(paste in markdown or plain text)</span></label>
+          <textarea id="resume-existing" style="min-height:100px" placeholder="Paste your current resume here..."></textarea>
+        </div>
+      </div>
+
+      <div class="resume-step">
+        <div class="resume-step-title">Options <span class="resume-step-badge">Step 3</span></div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px">
+          <div class="form-group" style="margin-bottom:0">
+            <label>Mode</label>
+            <select id="resume-mode">
+              <option value="full">Full tailoring (research + discovery + match)</option>
+              <option value="quick">Quick match (JD keyword matching)</option>
+              <option value="batch">Batch mode (multiple jobs)</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin-bottom:0">
+            <label>Output Format</label>
+            <select id="resume-format">
+              <option value="markdown">Markdown</option>
+              <option value="structured">Structured sections</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group" style="margin-top:14px; margin-bottom:0">
+          <label>Extra Context <span style="color:var(--muted); font-size:0.65rem; text-transform:none; letter-spacing:0">(career gaps, transitions, side projects to highlight)</span></label>
+          <input type="text" id="resume-context" placeholder="e.g. 2-year gap running a startup, volunteer ML work at NGO">
+        </div>
+      </div>
+
+      <div style="display:flex; gap:12px; align-items:center; margin-bottom:20px">
+        <button class="btn btn-green" onclick="tailorResume()">✦ Generate Tailored Resume</button>
+        <div class="loader" id="resume-loader" style="padding:0">
+          <div class="spinner green"></div>
+          <span id="resume-loader-msg">Analyzing job description...</span>
+        </div>
+      </div>
+
+      <div class="resume-output" id="resume-output">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; padding-bottom:12px; border-bottom:1px solid var(--border)">
+          <div style="font-size:0.62rem; letter-spacing:2px; text-transform:uppercase; color:var(--resume)">// Tailored Resume Output</div>
+          <button class="copy-btn" onclick="copyToClipboard(document.getElementById('resume-result-body').innerText)">Copy All</button>
+        </div>
+        <div id="resume-result-body"></div>
+      </div>
+    </div>
+
+
+    <!-- RESUME TAILOR -->
+    <div class="panel" id="panel-resume">
+      <div class="panel-header">
         <div class="panel-title" style="background:linear-gradient(135deg,#b45cf0,#5cb8f0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Resume Tailor</div>
-        <div class="panel-subtitle">AI-powered resume tailoring — research, discovery, smart matching &amp; multi-format output</div>
+        <div class="panel-subtitle">AI-powered resume tailoring — research, discovery, smart matching & multi-format output</div>
       </div>
 
       <div class="rs-phases" id="rs-phases">
@@ -944,9 +1121,9 @@
       <div class="card" style="margin-top:16px">
         <div style="font-family:'Syne',sans-serif; font-weight:600; margin-bottom:16px; font-size:0.9rem">Quick Test</div>
         <div style="display:flex; gap:10px; flex-wrap:wrap">
-          <button class="btn btn-ghost" onclick="showPanel('inbox',document.querySelector('.nav-btn'),'Inbox Sorter');fetchEmails()">Test Email Fetch</button>
-          <button class="btn btn-ghost" onclick="showPanel('search',document.querySelectorAll('.nav-btn')[2],'AI/ML Search');document.getElementById('search-query').value='transformer architecture';runSearch()">Test AI Search</button>
-          <button class="btn btn-ghost" style="border-color:rgba(240,160,92,0.3);color:var(--accent4)" onclick="showPanel('github',document.querySelectorAll('.nav-btn')[3],'GitHub Analyzer');document.getElementById('gh-repo').value='rayyan666/MAIL-MCP';runGithub()">Test GitHub</button>
+          <button class="btn btn-ghost" onclick="showPanel('inbox',document.querySelector('.nav-btn'));fetchEmails()">Test Email Fetch</button>
+          <button class="btn btn-ghost" onclick="showPanel('search',document.querySelectorAll('.nav-btn')[2]);document.getElementById('search-query').value='transformer architecture';runSearch()">Test AI Search</button>
+          <button class="btn btn-ghost" style="border-color:rgba(240,160,92,0.3);color:var(--accent4)" onclick="showPanel('github',document.querySelectorAll('.nav-btn')[3]);document.getElementById('gh-repo').value='rayyan666/MAIL-MCP';runGithub()">Test GitHub</button>
         </div>
       </div>
     </div>
@@ -961,13 +1138,12 @@ const CONFIG = {
   senderName: localStorage.getItem('senderName') || 'Rayyan',
 };
 
-function showPanel(name, btn, label) {
+// ── Core utils ──────────────────────────────────────
+function showPanel(name, btn) {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('panel-' + name).classList.add('active');
   if (btn) btn.classList.add('active');
-  const bc = document.getElementById('header-breadcrumb');
-  if (bc && label) bc.textContent = label;
   if (name === 'github') {
     const sel = document.getElementById('gh-repo-select');
     if (sel && sel.options.length <= 1) loadRepos();
@@ -1011,7 +1187,7 @@ function showSkeleton(area) {
     <div class="skeleton" style="height:80px;width:100%;border-radius:10px"></div>`;
 }
 
-// ── INBOX ──
+// ── INBOX ────────────────────────────────────────────
 async function fetchEmails() {
   const loader = document.getElementById('inbox-loader');
   const list = document.getElementById('email-list');
@@ -1055,7 +1231,7 @@ async function fetchEmails() {
   }
 }
 
-// ── COMPOSE ──
+// ── COMPOSE ──────────────────────────────────────────
 function addKeyPoint() {
   const c = document.getElementById('key-points');
   const row = document.createElement('div'); row.className = 'key-point-row';
@@ -1089,7 +1265,7 @@ async function generateEmail(send = false) {
   } catch (err) { loader.classList.remove('visible'); showToast('Failed to generate email', 'error'); }
 }
 
-// ── SEARCH ──
+// ── SEARCH ───────────────────────────────────────────
 async function runSearch() {
   const query = document.getElementById('search-query').value.trim();
   if (!query) { showToast('Enter a search query', 'error'); return; }
@@ -1126,7 +1302,9 @@ async function runSearch() {
   }
 }
 
-// ══ GITHUB ANALYZER ══
+// ══════════════════════════════════════════════════════
+// GITHUB ANALYZER
+// ══════════════════════════════════════════════════════
 let currentAction = 'repo_overview';
 let repoCache = {};
 
@@ -1151,6 +1329,7 @@ async function loadRepos() {
     repos.forEach(r => { repoCache[r.name || r] = r; });
     showToast('Loaded ' + repos.length + ' repos');
   } catch (err) {
+    // Fallback: GitHub public API
     try {
       const res = await fetch('https://api.github.com/users/rayyan666/repos?per_page=100&sort=updated');
       const repos = await res.json();
@@ -1179,7 +1358,9 @@ function populateRepoSelect(select, repos) {
     items.sort((a, b) => (a.name || a).localeCompare(b.name || b)).forEach(r => {
       const opt = document.createElement('option');
       const name = r.name || r; opt.value = name;
-      opt.textContent = name + (r.language ? ' [' + r.language + ']' : '') + (r.stargazers_count ? ' ★' + r.stargazers_count : '');
+      opt.textContent = name
+        + (r.language ? ' [' + r.language + ']' : '')
+        + (r.stargazers_count ? ' ★' + r.stargazers_count : '');
       grp.appendChild(opt);
     });
     select.appendChild(grp);
@@ -1275,6 +1456,7 @@ function renderGithubResult(action, data) {
   }
 }
 
+// ── helpers ──
 function makeHeading(left, tag, rightHTML = '') {
   const d = document.createElement('div'); d.className = 'gh-section-heading';
   d.innerHTML = `<div class="gh-section-heading-left">${escHtml(left)}${tag ? ` <span class="gh-tag">${escHtml(tag)}</span>` : ''}</div>${rightHTML}`;
@@ -1286,10 +1468,13 @@ function aiBlock(text) {
   return d;
 }
 
+// ── repo_overview ── (UPGRADED: donut + expandable cards)
 function renderRepoOverview(area, d) {
   const repos = d.repos || [];
   const total = d.total_repos || repos.length;
   const active = d.active || 0; const idle = d.idle || 0; const stale = d.stale || 0;
+
+  // Donut chart
   if (total > 0) {
     const r = 34, cx = 42, cy = 42, circ = 2 * Math.PI * r;
     const aD = (active/total)*circ, iD = (idle/total)*circ, sD = (stale/total)*circ;
@@ -1298,9 +1483,12 @@ function renderRepoOverview(area, d) {
       <div class="donut-wrap">
         <svg width="84" height="84" viewBox="0 0 84 84">
           <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="var(--border)" stroke-width="10"/>
-          <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="var(--low)" stroke-width="10" stroke-dasharray="${aD} ${circ}" stroke-dashoffset="0"/>
-          <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="var(--medium)" stroke-width="10" stroke-dasharray="${iD} ${circ}" stroke-dashoffset="${-aD}"/>
-          <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="var(--critical)" stroke-width="10" stroke-dasharray="${sD} ${circ}" stroke-dashoffset="${-(aD + iD)}"/>
+          <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="var(--low)" stroke-width="10"
+            stroke-dasharray="${aD} ${circ}" stroke-dashoffset="0"/>
+          <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="var(--medium)" stroke-width="10"
+            stroke-dasharray="${iD} ${circ}" stroke-dashoffset="${-aD}"/>
+          <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="var(--critical)" stroke-width="10"
+            stroke-dasharray="${sD} ${circ}" stroke-dashoffset="${-(aD + iD)}"/>
         </svg>
         <div class="donut-center">${total}<small>repos</small></div>
       </div>
@@ -1311,9 +1499,14 @@ function renderRepoOverview(area, d) {
       </div>`;
     area.appendChild(donutRow);
   }
+
   if (d.ai_summary || d.ai_insight) area.appendChild(aiBlock(d.ai_summary || d.ai_insight));
+
+  // Repo list header with export
   const exportBtn = `<button class="copy-btn" onclick="copyToClipboard(JSON.stringify(${JSON.stringify(repos)},null,2))">Export JSON</button>`;
   area.appendChild(makeHeading('Repositories', total + ' total', exportBtn));
+
+  // Expandable repo cards
   repos.forEach((r, i) => {
     const status = r.status || 'idle';
     const card = document.createElement('div'); card.className = 'gh-repo-card'; card.style.animationDelay = (i * 0.04) + 's';
@@ -1341,7 +1534,7 @@ function renderRepoOverview(area, d) {
           ${r.license  ? `<span class="gh-pill license">${escHtml(r.license)}</span>` : ''}
         </div>
         ${r.topics && r.topics.length ? `<div class="gh-stat-pills">${r.topics.map(t => `<span class="gh-pill">${escHtml(t)}</span>`).join('')}</div>` : ''}
-        <div style="margin-top:10px;display:flex;gap:8px">
+        <div style="margin-top:10px; display:flex; gap:8px">
           <a href="https://github.com/rayyan666/${escHtml(r.name)}" target="_blank" onclick="event.stopPropagation()"><button class="copy-btn" style="cursor:pointer">Open on GitHub ↗</button></a>
         </div>
       </div>`;
@@ -1350,6 +1543,7 @@ function renderRepoOverview(area, d) {
   });
 }
 
+// ── commit_activity ──
 function renderCommitActivity(area, d) {
   area.appendChild(makeHeading('Commit Activity', 'LAST ' + (d.days || 30) + ' DAYS'));
   const pills = document.createElement('div'); pills.className = 'gh-stat-pills'; pills.style.marginBottom = '20px';
@@ -1383,6 +1577,7 @@ function renderCommitActivity(area, d) {
   if (d.ai_summary) area.appendChild(aiBlock(d.ai_summary));
 }
 
+// ── readme_quality ──
 function renderReadmeQuality(area, d) {
   const score = d.score || 0;
   area.appendChild(makeHeading('README Quality Score', d.grade ? 'Grade: ' + d.grade : ''));
@@ -1417,9 +1612,11 @@ function renderReadmeQuality(area, d) {
   if (d.ai_summary) area.appendChild(aiBlock(d.ai_summary));
 }
 
+// ── stale_repos ── (UPGRADED: filter buttons)
 function renderStaleRepos(area, d) {
   let repos = d.stale_repos || d.repos || (Array.isArray(d) ? d : []);
   area.appendChild(makeHeading('Stale Repositories', repos.length + ' FOUND'));
+  // Filter buttons
   const filterRow = document.createElement('div'); filterRow.className = 'stale-filter-row';
   filterRow.innerHTML = `
     <button class="stale-filter-btn active" onclick="filterStale(this,'all')">All (${repos.length})</button>
@@ -1446,7 +1643,6 @@ function renderStaleRepos(area, d) {
   area.appendChild(listDiv);
   if (d.ai_summary) area.appendChild(aiBlock(d.ai_summary));
 }
-
 function filterStale(btn, filter) {
   document.querySelectorAll('.stale-filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active');
   document.querySelectorAll('#stale-list .stale-repo-item').forEach(el => {
@@ -1454,6 +1650,7 @@ function filterStale(btn, filter) {
   });
 }
 
+// ── review_code ──
 function renderCodeReview(area, d) {
   area.appendChild(makeHeading('Code Review', d.file_path || '', `<button class="copy-btn" onclick="copyToClipboard(document.getElementById('gh-result-area').innerText)">Copy All</button>`));
   [['summary','Summary'],['issues','Issues Found'],['suggestions','Suggestions'],['positives','Strengths'],['review','Full Review'],['ai_summary','AI Analysis']].forEach(([key, label]) => {
@@ -1465,6 +1662,7 @@ function renderCodeReview(area, d) {
   if (d.score !== undefined) { const sc = document.createElement('div'); sc.className = 'gh-ai-block'; sc.innerHTML = `<div class="gh-ai-label">// Code Quality Score</div><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;color:var(--accent4)">${d.score}/100</span>`; area.appendChild(sc); }
 }
 
+// ── tech_stack ──
 function renderTechStack(area, d) {
   area.appendChild(makeHeading('Tech Stack Detection'));
   const categories = d.stack || d.tech_stack || d.categories || (Array.isArray(d) ? { detected: d } : null);
@@ -1488,6 +1686,7 @@ function renderTechStack(area, d) {
   if (d.ai_summary) area.appendChild(aiBlock(d.ai_summary));
 }
 
+// ── audit_dependencies ──
 function renderDepAudit(area, d) {
   const vulns = d.vulnerabilities || d.issues || (Array.isArray(d) ? d : []);
   const summary = d.summary || {};
@@ -1513,214 +1712,84 @@ function renderDepAudit(area, d) {
   if (d.ai_summary) { const ai = document.createElement('div'); ai.className = 'gh-ai-block'; ai.style.marginTop = '16px'; ai.innerHTML = `<div class="gh-ai-label">// AI Recommendations</div>${escHtml(d.ai_summary)}`; area.appendChild(ai); }
 }
 
-// ══ RESUME TAILOR ══
-let rsMode = 'single', rsCurrentPhase = 0, rsJobData = null, rsResumeText = '';
+// ══════════════════════════════════════════════════════
+// RESUME TAILOR
+// ══════════════════════════════════════════════════════
+async function tailorResume() {
+  const role    = document.getElementById('resume-role').value.trim();
+  const company = document.getElementById('resume-company').value.trim();
+  const jd      = document.getElementById('resume-jd').value.trim();
+  const existing = document.getElementById('resume-existing').value.trim();
+  const mode    = document.getElementById('resume-mode').value;
+  const context = document.getElementById('resume-context').value.trim();
+  if (!role || !jd) { showToast('Fill in role and job description', 'error'); return; }
 
-function setRsMode(mode) {
-  rsMode = mode;
-  document.getElementById('rs-mode-single').className = mode==='single' ? 'btn btn-resume' : 'btn btn-ghost';
-  document.getElementById('rs-mode-batch').className  = mode==='batch'  ? 'btn btn-resume' : 'btn btn-ghost';
-  document.getElementById('rs-batch-extra').style.display = mode==='batch' ? 'block' : 'none';
-}
+  const loader    = document.getElementById('resume-loader');
+  const loaderMsg = document.getElementById('resume-loader-msg');
+  const output    = document.getElementById('resume-output');
+  const resultBody = document.getElementById('resume-result-body');
 
-function setRsPhase(n) {
-  rsCurrentPhase = n;
-  for (let i=0; i<=5; i++) {
-    const el = document.getElementById('rsph-'+i);
-    if (el) el.className = 'rs-phase ' + (i < n ? 'done' : i===n ? 'active' : '');
-  }
-}
+  loader.classList.add('visible'); output.classList.remove('visible'); resultBody.innerHTML = '';
 
-async function runResumeTailor() {
-  const company = document.getElementById('rs-company').value.trim();
-  const jd = document.getElementById('rs-jd').value.trim();
-  const resume = document.getElementById('rs-resume').value.trim();
-  if (!jd) { showToast('Paste a job description first', 'error'); return; }
-  rsResumeText = resume;
-  rsJobData = { company, jd };
-  const deepResearch = document.getElementById('rs-deep-research').classList.contains('on');
-  const batchJds = rsMode === 'batch' ? document.getElementById('rs-batch-jds').value.trim() : '';
-  const btn = document.getElementById('rs-start-btn');
-  const loader = document.getElementById('rs-loader');
-  btn.disabled = true;
-  loader.classList.add('visible');
-  document.getElementById('rs-output-area').style.display = 'block';
-  document.getElementById('rs-loader-msg').textContent = 'Researching company & role...';
-  setRsPhase(1);
+  // Cycle through phase messages
+  const phases = ['Analyzing job description...', 'Researching company & role...', 'Matching your experience...', 'Generating tailored resume...'];
+  let phaseIdx = 0;
+  const phaseInterval = setInterval(() => { phaseIdx = (phaseIdx + 1) % phases.length; loaderMsg.textContent = phases[phaseIdx]; }, 2800);
+
   try {
-    const prompt = buildResumeTailorPrompt(company, jd, resume, deepResearch, rsMode, batchJds);
-    const data = await callAnthropicAPI(prompt);
-    loader.classList.remove('visible');
-    btn.disabled = false;
-    renderRsResult(data, company, jd);
-    showToast('Resume tailoring complete!');
-  } catch(err) {
-    loader.classList.remove('visible');
-    btn.disabled = false;
-    showToast('Tailoring failed: ' + err.message, 'error');
-  }
-}
+    const result = await callTool('tailor_resume', {
+      role, company, job_description: jd, existing_resume: existing, mode, extra_context: context
+    });
+    clearInterval(phaseInterval); loader.classList.remove('visible');
 
-function buildResumeTailorPrompt(company, jd, resume, deepResearch, mode, batchJds) {
-  const batchSection = mode==='batch' && batchJds ? '\n\nADDITIONAL JOBS FOR BATCH MODE:\n' + batchJds : '';
-  return `You are an expert resume tailoring assistant. Create a highly targeted resume matching the JD while maintaining 100% factual accuracy.
-
-COMPANY & ROLE: ${company}
-JOB DESCRIPTION:
-${jd}${batchSection}
-
-CANDIDATE RESUME:
-${resume || '(No resume provided — generate a strong template and ask user to fill in details)'}
-
-DEEP RESEARCH: ${deepResearch ? 'ON — analyze company culture, values, success profiles' : 'OFF — focus on JD keyword matching'}
-MODE: ${mode === 'batch' ? 'BATCH — identify common requirements across all jobs' : 'SINGLE JOB'}
-
-Respond ONLY with valid JSON (no markdown, no preamble):
-{
-  "research": {
-    "company_insights": "Key company culture/values insights",
-    "role_requirements": ["top 5 key requirements"],
-    "success_profile": "What a successful candidate looks like",
-    "keywords": ["critical ATS keywords"]
-  },
-  "discovery": {
-    "gaps_identified": ["skills in JD not shown in resume"],
-    "suggested_questions": ["2-3 questions to surface hidden experience"],
-    "reframing_opportunities": ["experiences to reframe for JD alignment"]
-  },
-  "matching": {
-    "coverage_score": 85,
-    "matched_items": ["matched bullet points"],
-    "gap_items": ["gaps not covered"],
-    "confidence_notes": "Overall assessment"
-  },
-  "tailored_resume": "Full tailored resume in markdown",
-  "interview_report": "Interview prep: likely questions and talking points",
-  "gap_analysis": "Detailed gap analysis with recommendations"
-}`;
-}
-
-async function callAnthropicAPI(prompt) {
-  const response = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 1000,
-      messages: [{ role: 'user', content: prompt }]
-    })
-  });
-  if (!response.ok) throw new Error('API error ' + response.status);
-  const data = await response.json();
-  const text = data.content.map(i => i.text || '').join('');
-  const clean = text.replace(/```json|```/g,'').trim();
-  try { return JSON.parse(clean); }
-  catch(e) { return { tailored_resume: text, research:{company_insights:'',role_requirements:[],keywords:[]}, discovery:{gaps_identified:[],suggested_questions:[]}, matching:{coverage_score:70,matched_items:[],gap_items:[]}, interview_report:'', gap_analysis:'' }; }
-}
-
-function renderRsResult(data, company, jd) {
-  setRsPhase(5);
-  if (data.research) {
-    const rc = document.getElementById('rs-research-card');
-    rc.style.display = 'block';
-    const r = data.research;
-    let html = '';
-    if (r.company_insights) html += `<div class="rs-phase-card"><div class="rs-phase-card-title">Company Insights</div><div class="rs-phase-card-text">${escHtml(r.company_insights)}</div></div>`;
-    if (r.role_requirements && r.role_requirements.length) html += `<div class="rs-phase-card"><div class="rs-phase-card-title">Key Requirements</div><div class="rs-phase-card-text">${r.role_requirements.map((req,i)=>`<div style="margin-bottom:5px">${i+1}. ${escHtml(req)}</div>`).join('')}</div></div>`;
-    if (r.keywords && r.keywords.length) html += `<div style="margin-top:10px"><div style="font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px">ATS Keywords</div><div class="tech-stack-grid">${r.keywords.map(k=>`<span style="display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:6px;border:1px solid rgba(180,92,240,0.2);background:rgba(180,92,240,0.06);font-size:0.7rem;color:#b45cf0"><span style="width:5px;height:5px;border-radius:50%;background:#b45cf0;flex-shrink:0;display:inline-block"></span>${escHtml(k)}</span>`).join('')}</div></div>`;
-    document.getElementById('rs-research-content').innerHTML = html;
-  }
-  if (data.discovery) {
-    const dc = document.getElementById('rs-discovery-card');
-    dc.style.display = 'block';
-    const disc = data.discovery;
-    let html = '';
-    if (disc.gaps_identified && disc.gaps_identified.length) {
-      html += `<div style="font-size:0.7rem;font-weight:600;color:#b45cf0;margin-bottom:10px;font-family:'Syne',sans-serif">Gaps Identified</div>`;
-      disc.gaps_identified.forEach((g,i) => { html += `<div class="rs-gap-item" style="animation-delay:${i*0.05}s"><span class="rs-gap-icon">&#9888;</span><span>${escHtml(g)}</span></div>`; });
+    if (result.error) {
+      resultBody.innerHTML = `<div class="resume-section"><div class="resume-section-title" style="color:var(--critical)">Error</div><div class="resume-section-content">${escHtml(result.error)}</div></div>`;
+    } else {
+      const sections = [
+        ['match_score',     'JD Match Score'],
+        ['summary',         'Professional Summary'],
+        ['tailored_resume', 'Tailored Resume'],
+        ['key_matches',     'Key Matches'],
+        ['gaps',            'Gap Analysis'],
+        ['interview_tips',  'Interview Prep'],
+        ['ai_insight',      'AI Insight'],
+      ];
+      sections.forEach(([key, label]) => {
+        const val = result[key]; if (!val) return;
+        const sec = document.createElement('div'); sec.className = 'resume-section';
+        if (key === 'match_score') {
+          const score = parseInt(val) || 0;
+          sec.innerHTML = `
+            <div class="resume-section-title">${label}</div>
+            <div style="display:flex;align-items:center;gap:12px;margin-top:6px">
+              <div class="match-bar-track"><div class="match-bar-fill" id="ms-fill" style="width:0%"></div></div>
+              <div class="match-bar-label">${score}%</div>
+            </div>`;
+          resultBody.appendChild(sec);
+          setTimeout(() => { const f = document.getElementById('ms-fill'); if (f) f.style.width = score + '%'; }, 120);
+          return;
+        }
+        if (Array.isArray(val))
+          sec.innerHTML = `<div class="resume-section-title">${label}</div><div class="resume-section-content">${val.map(v => '• ' + escHtml(v)).join('\n')}</div>`;
+        else
+          sec.innerHTML = `<div class="resume-section-title">${label}</div><div class="resume-section-content">${escHtml(val)}</div>`;
+        resultBody.appendChild(sec);
+      });
     }
-    if (disc.suggested_questions && disc.suggested_questions.length) {
-      html += `<div style="font-size:0.7rem;font-weight:600;color:#b45cf0;margin:14px 0 8px;font-family:'Syne',sans-serif">Discovery Questions</div>`;
-      disc.suggested_questions.forEach((q,i) => { html += `<div class="rs-gap-item" style="animation-delay:${(i+3)*0.05}s"><span class="rs-gap-icon">?</span><span>${escHtml(q)}</span></div>`; });
-    }
-    document.getElementById('rs-discovery-content').innerHTML = html;
-  }
-  if (data.matching) {
-    const mc = document.getElementById('rs-match-card');
-    mc.style.display = 'block';
-    const m = data.matching;
-    const score = m.coverage_score || 70;
-    let html = `<div class="rs-match-bar"><div class="rs-match-label"><span>JD Coverage</span><span style="color:#b45cf0;font-family:'Syne',sans-serif;font-weight:700">${score}%</span></div><div class="rs-match-track"><div class="rs-match-fill" id="rs-match-fill" style="width:0%"></div></div></div>`;
-    if (m.matched_items && m.matched_items.length) {
-      html += `<div style="font-size:0.68rem;color:var(--low);margin:10px 0 6px">&#10003; ${m.matched_items.length} matches found</div>`;
-      m.matched_items.slice(0,3).forEach(item => { html += `<div class="rs-gap-item" style="border-color:rgba(6,214,160,0.2)"><span style="color:var(--low)">&#10003;</span><span style="font-size:0.72rem">${escHtml(item)}</span></div>`; });
-    }
-    if (m.confidence_notes) html += `<div style="font-size:0.72rem;color:var(--muted);margin-top:10px;line-height:1.6">${escHtml(m.confidence_notes)}</div>`;
-    document.getElementById('rs-match-content').innerHTML = html;
-    setTimeout(() => { const f=document.getElementById('rs-match-fill'); if(f) f.style.width=score+'%'; }, 200);
-  }
-  const resultCard = document.getElementById('rs-result-card');
-  resultCard.style.display = 'block';
-  document.getElementById('rs-resume-output').textContent = data.tailored_resume || '(No resume generated)';
-  document.getElementById('rs-report-output').textContent = data.interview_report || '(No interview report generated)';
-  const gapsEl = document.getElementById('rs-gaps-output');
-  if (data.gap_analysis) gapsEl.innerHTML = `<div class="rs-insight">${escHtml(data.gap_analysis)}</div>`;
-  else if (data.matching && data.matching.gap_items) gapsEl.innerHTML = data.matching.gap_items.map(g=>`<div class="rs-gap-item"><span>&#9651;</span><span>${escHtml(g)}</span></div>`).join('');
-}
-
-async function continueToMatch() {
-  const extraExp = document.getElementById('rs-extra-exp').value.trim();
-  if (!rsJobData) { showToast('Run initial analysis first', 'error'); return; }
-  const loader = document.getElementById('rs-loader');
-  loader.classList.add('visible');
-  document.getElementById('rs-loader-msg').textContent = 'Matching with updated experiences...';
-  try {
-    const enhancedResume = rsResumeText + (extraExp ? '\n\nAdditional Experiences:\n' + extraExp : '');
-    const prompt = buildResumeTailorPrompt(rsJobData.company, rsJobData.jd, enhancedResume, true, rsMode, '');
-    const data = await callAnthropicAPI(prompt);
-    loader.classList.remove('visible');
-    renderRsResult(data, rsJobData.company, rsJobData.jd);
-    showToast('Updated with new experience data!');
-  } catch(e) {
-    loader.classList.remove('visible');
-    showToast('Failed: ' + e.message, 'error');
+    output.classList.add('visible'); showToast('Resume tailored successfully');
+  } catch (err) {
+    clearInterval(phaseInterval); loader.classList.remove('visible');
+    resultBody.innerHTML = `
+      <div class="resume-section">
+        <div class="resume-section-title" style="color:var(--critical)">Error</div>
+        <div class="resume-section-content">${escHtml(err.message)}
+<span style="color:var(--muted);font-size:0.72rem">Make sure your MCP server is running and the <code>tailor_resume</code> tool is registered.</span></div>
+      </div>`;
+    output.classList.add('visible'); showToast('Resume tailoring failed', 'error');
   }
 }
 
-function switchRsTab(tab, btn) {
-  document.querySelectorAll('.rs-output-tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.rs-output-pane').forEach(p => p.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-  const pane = document.getElementById('rs-pane-' + tab);
-  if (pane) pane.classList.add('active');
-}
-
-function copyRsOutput() {
-  const el = document.getElementById('rs-resume-output');
-  if (!el) return;
-  navigator.clipboard.writeText(el.textContent).then(() => showToast('Resume copied to clipboard!'));
-}
-
-function downloadResume() {
-  const text = document.getElementById('rs-resume-output')?.textContent;
-  if (!text) { showToast('No resume to download', 'error'); return; }
-  const company = (document.getElementById('rs-company').value || 'resume').replace(/[^a-z0-9]/gi,'_');
-  const blob = new Blob([text], { type: 'text/markdown' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'Resume_' + company + '_' + new Date().toISOString().slice(0,10) + '.md';
-  a.click();
-  showToast('Downloaded!');
-}
-
-function clearResumePanel() {
-  ['rs-company','rs-jd','rs-resume','rs-batch-jds','rs-extra-exp'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
-  document.getElementById('rs-output-area').style.display = 'none';
-  ['rs-research-card','rs-discovery-card','rs-match-card','rs-result-card'].forEach(id => { const el=document.getElementById(id); if(el) el.style.display='none'; });
-  setRsPhase(0);
-}
-
-// ── SETTINGS ──
+// ── SETTINGS ─────────────────────────────────────────
 function saveSettings() {
   const url  = document.getElementById('server-url').value.trim();
   const name = document.getElementById('settings-name').value.trim();
@@ -1735,6 +1804,221 @@ window.onload = () => {
   if (url)  document.getElementById('server-url').value = url;
   if (name) document.getElementById('settings-name').value = name;
 };
+
+// ─── BREADCRUMB & SHOWPANEL UPDATE ───
+const _origShowPanel = window.showPanel;
+function showPanel(name, btn, label) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  if (btn) btn.classList.add('active');
+  const bc = document.getElementById('header-breadcrumb');
+  if (bc && label) bc.textContent = label;
+  if (name === 'github') {
+    const select = document.getElementById('gh-repo-select');
+    if (select && select.options.length <= 1) loadRepos();
+  }
+}
+
+// ─── SKELETON LOADER ───
+function renderSkeletons(n) {
+  let html = '';
+  for (let i=0;i<n;i++) {
+    html += `<div class="skeleton-row" style="animation-delay:${i*0.08}s">
+      <div class="skeleton-dot"></div>
+      <div>
+        <div class="skeleton-line" style="width:60%;margin-bottom:8px"></div>
+        <div class="skeleton-line" style="width:30%;margin-bottom:8px;opacity:0.6"></div>
+        <div class="skeleton-line" style="width:85%;opacity:0.5"></div>
+      </div>
+      <div><div class="skeleton-line" style="width:40px;height:18px;border-radius:6px"></div></div>
+    </div>`;
+  }
+  return html;
+}
+
+// ─── COPY UTILITY ───
+function copyText(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  navigator.clipboard.writeText(el.textContent || el.innerText).then(() => showToast('Copied to clipboard'));
+}
+
+// ─── REPO PREVIEW ON SELECT ───
+function onRepoSelectChange() {
+  const sel = document.getElementById('gh-repo-select');
+  const name = sel.value;
+  document.getElementById('gh-repo').value = 'rayyan666/' + name;
+  const card = document.getElementById('repo-preview-card');
+  const r = window._repoDataMap && window._repoDataMap[name];
+  if (r) {
+    document.getElementById('rpc-name').textContent = name;
+    document.getElementById('rpc-desc').textContent = r.description || 'No description';
+    const pills = document.getElementById('rpc-pills');
+    pills.innerHTML = '';
+    const add = (cls, txt) => { const s=document.createElement('span'); s.className='gh-pill '+cls; s.textContent=txt; pills.appendChild(s); };
+    if (r.language) add('lang', r.language);
+    if (r.stargazers_count !== undefined) add('stars', '\u2605 ' + r.stargazers_count);
+    if (r.forks_count !== undefined) add('forks', '\u2442 ' + r.forks_count);
+    if (r.private) add('private', 'private');
+    card.classList.add('visible');
+  } else {
+    card.classList.remove('visible');
+  }
+}
+
+// ─── ENHANCED STALE REPOS (with filter) ───
+function filterStale(filter, btn) {
+  document.querySelectorAll('.stale-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  if (window._staleRender) window._staleRender(filter);
+}
+
+// ─── DONUT CHART FOR REPO OVERVIEW ───
+function buildDonut(area, d) {
+  const stars = d.stars || 0, forks = d.forks || 0, issues = d.open_issues || 0;
+  const total = Math.max(stars + forks + issues, 1);
+  const r = 32; const circ = 2 * Math.PI * r;
+  const sd = circ * (stars/total); const fd = circ * (forks/total);
+  const wrap = document.createElement('div'); wrap.className = 'gh-donut-wrap';
+  wrap.innerHTML = `
+    <div class="gh-donut">
+      <svg width="80" height="80" viewBox="0 0 80 80">
+        <circle cx="40" cy="40" r="${r}" fill="none" stroke="var(--surface2)" stroke-width="8"/>
+        <circle cx="40" cy="40" r="${r}" fill="none" stroke="var(--medium)" stroke-width="8" stroke-dasharray="${sd} ${circ-sd}" stroke-linecap="round"/>
+        <circle cx="40" cy="40" r="${r}" fill="none" stroke="var(--accent3)" stroke-width="8" stroke-dasharray="${fd} ${circ-fd}" stroke-dashoffset="-${sd}" stroke-linecap="round"/>
+      </svg>
+      <div class="gh-donut-center">
+        <span class="gh-donut-num" style="color:var(--accent4)">${stars}</span>
+        <span class="gh-donut-sub">stars</span>
+      </div>
+    </div>
+    <div class="gh-donut-legend">
+      <div class="gh-legend-item"><div class="gh-legend-dot" style="background:var(--medium)"></div>Stars: ${stars}</div>
+      <div class="gh-legend-item"><div class="gh-legend-dot" style="background:var(--accent3)"></div>Forks: ${forks}</div>
+      <div class="gh-legend-item"><div class="gh-legend-dot" style="background:var(--critical)"></div>Issues: ${issues}</div>
+      ${d.watchers !== undefined ? `<div class="gh-legend-item"><div class="gh-legend-dot" style="background:var(--high)"></div>Watching: ${d.watchers}</div>` : ''}
+    </div>`;
+  area.insertBefore(wrap, area.firstChild);
+}
+
+// ─── RESUME TAILOR (via Flask/Groq — no direct API calls) ───
+async function tailorResume() {
+  const role     = document.getElementById('resume-role')?.value.trim()    || document.getElementById('rs-company')?.value.trim() || '';
+  const company  = document.getElementById('resume-company')?.value.trim() || '';
+  const jd       = document.getElementById('resume-jd')?.value.trim()      || document.getElementById('rs-jd')?.value.trim() || '';
+  const existing = document.getElementById('resume-existing')?.value.trim()|| document.getElementById('rs-resume')?.value.trim() || '';
+  const mode     = document.getElementById('resume-mode')?.value           || 'full';
+  const context  = document.getElementById('resume-context')?.value.trim() || '';
+
+  if (!jd) { showToast('Paste a job description first', 'error'); return; }
+
+  const loader     = document.getElementById('resume-loader');
+  const loaderMsg  = document.getElementById('resume-loader-msg');
+  const output     = document.getElementById('resume-output');
+  const resultBody = document.getElementById('resume-result-body');
+
+  if (loader)     loader.classList.add('visible');
+  if (output)     output.classList.remove('visible');
+  if (resultBody) resultBody.innerHTML = '';
+
+  const phases = [
+    'Analyzing job description...',
+    'Researching company & role...',
+    'Matching your experience...',
+    'Generating tailored resume...'
+  ];
+  let pi = 0;
+  const phaseInterval = setInterval(() => {
+    pi = (pi + 1) % phases.length;
+    if (loaderMsg) loaderMsg.textContent = phases[pi];
+  }, 2800);
+
+  try {
+    const result = await callTool('tailor_resume', {
+      role, company, job_description: jd,
+      existing_resume: existing, mode, extra_context: context
+    });
+    clearInterval(phaseInterval);
+    if (loader) loader.classList.remove('visible');
+
+    if (!resultBody) return;
+
+    if (result.error) {
+      resultBody.innerHTML = `<div class="resume-section"><div class="resume-section-title" style="color:var(--critical)">Error</div><div class="resume-section-content">${escHtml(result.error)}</div></div>`;
+    } else {
+      const sections = [
+        ['match_score',      'JD Match Score'],
+        ['summary',          'Professional Summary'],
+        ['tailored_resume',  'Tailored Resume'],
+        ['key_matches',      'Key Matches'],
+        ['gaps',             'Gap Analysis'],
+        ['interview_tips',   'Interview Prep'],
+        ['ai_insight',       'AI Insight'],
+        // also handle old-style keys from legacy calls
+        ['gap_analysis',     'Gap Analysis'],
+        ['interview_report', 'Interview Report'],
+      ];
+      const rendered = new Set();
+      sections.forEach(([key, label]) => {
+        if (rendered.has(label)) return;
+        const val = result[key]; if (!val) return;
+        rendered.add(label);
+        const sec = document.createElement('div'); sec.className = 'resume-section';
+        if (key === 'match_score') {
+          const score = parseInt(val) || 0;
+          sec.innerHTML = `
+            <div class="resume-section-title">${label}</div>
+            <div style="display:flex;align-items:center;gap:12px;margin-top:6px">
+              <div class="match-bar-track"><div class="match-bar-fill" id="ms-fill" style="width:0%"></div></div>
+              <div class="match-bar-label">${score}%</div>
+            </div>`;
+          resultBody.appendChild(sec);
+          setTimeout(() => { const f = document.getElementById('ms-fill'); if (f) f.style.width = score + '%'; }, 120);
+          return;
+        }
+        if (Array.isArray(val))
+          sec.innerHTML = `<div class="resume-section-title">${label}</div><div class="resume-section-content">${val.map(v => '• ' + escHtml(v)).join('\n')}</div>`;
+        else
+          sec.innerHTML = `<div class="resume-section-title">${label}</div><div class="resume-section-content">${escHtml(val)}</div>`;
+        resultBody.appendChild(sec);
+      });
+
+      // Copy + Download buttons
+      const btnRow = document.createElement('div');
+      btnRow.style.cssText = 'display:flex;gap:10px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)';
+      btnRow.innerHTML = `
+        <button class="copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('resume-result-body').innerText).then(()=>showToast('Copied!'))">Copy All</button>
+        <button class="copy-btn" onclick="downloadResumeFile()">Download .md</button>`;
+      resultBody.appendChild(btnRow);
+    }
+
+    if (output) output.classList.add('visible');
+    showToast('Resume tailored successfully');
+  } catch (err) {
+    clearInterval(phaseInterval);
+    if (loader) loader.classList.remove('visible');
+    if (resultBody) resultBody.innerHTML = `
+      <div class="resume-section">
+        <div class="resume-section-title" style="color:var(--critical)">Error</div>
+        <div class="resume-section-content">${escHtml(err.message)}<br><br>
+        <span style="color:var(--muted);font-size:0.72rem">Make sure your Flask server is running at ${CONFIG.serverUrl} and the <code>tailor_resume</code> route is registered in main.py</span></div>
+      </div>`;
+    if (output) output.classList.add('visible');
+    showToast('Resume tailoring failed', 'error');
+  }
+}
+
+function downloadResumeFile() {
+  const text = document.getElementById('resume-result-body')?.innerText;
+  if (!text) { showToast('No resume to download', 'error'); return; }
+  const company = (document.getElementById('resume-company')?.value || 'resume').replace(/[^a-z0-9]/gi, '_');
+  const blob = new Blob([text], { type: 'text/markdown' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = 'Resume_' + company + '_' + new Date().toISOString().slice(0, 10) + '.md';
+  a.click(); showToast('Downloaded!');
+}
+
 </script>
 </body>
 </html>
