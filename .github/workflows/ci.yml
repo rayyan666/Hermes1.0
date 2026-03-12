@@ -27,8 +27,16 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install flask flask-cors waitress
+          pip install groq python-dotenv
+          pip install "google-api-python-client" "google-auth" "google-auth-oauthlib" "google-auth-httplib2"
+          pip install PyGithub
+          pip install tavily-python
+          pip install mcp[cli]
           pip install pytest pytest-cov flake8
+
+      - name: Show installed packages
+        run: pip list
 
       - name: Lint with flake8
         run: |
