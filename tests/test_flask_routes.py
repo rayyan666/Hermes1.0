@@ -1,7 +1,3 @@
-"""
-tests/test_flask_routes.py — Flask route tests using mocked tool functions.
-All external API calls are mocked so no real credentials are needed.
-"""
 import json
 import os
 import pytest

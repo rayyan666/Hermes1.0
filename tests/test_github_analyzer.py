@@ -1,7 +1,3 @@
-"""
-Run: gunicorn -c gunicorn.conf.py main:app
-"""
-
 import os
 
 # Server
