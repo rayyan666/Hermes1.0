@@ -16,7 +16,7 @@ Manage email, analyse GitHub repositories, and tailor resumes — all from a sin
 [![Waitress](https://img.shields.io/badge/Waitress-WSGI-lightgrey?style=flat-square)](https://docs.pylonsproject.org/projects/waitress)
 [![Groq](https://img.shields.io/badge/Groq-llama--3.3--70b-f55036?style=flat-square)](https://console.groq.com)
 [![MCP](https://img.shields.io/badge/MCP-FastMCP-7c3aed?style=flat-square)](https://github.com/jlowin/fastmcp)
-[![CI](https://github.com/rayyan666/Hermes1.0/actions/workflows/ci.yml/badge.svg)](https://github.com/rayyan666/Hermes1.0/actions/workflowss/ci.yml)
+[![CI](https://github.com/rayyan666/Hermes1.0/actions/workflows/ci.yml/badge.svg)](https://github.com/rayyan666/Hermes1.0/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-MIT-22c55e?style=flat-square)](LICENSE)
 
 <br/>
