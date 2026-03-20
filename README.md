@@ -16,7 +16,7 @@ Manage email, analyse GitHub repositories, and tailor resumes — all from a sin
 [![Waitress](https://img.shields.io/badge/Waitress-WSGI-lightgrey?style=flat-square)](https://docs.pylonsproject.org/projects/waitress)
 [![Groq](https://img.shields.io/badge/Groq-llama--3.3--70b-f55036?style=flat-square)](https://console.groq.com)
 [![MCP](https://img.shields.io/badge/MCP-FastMCP-7c3aed?style=flat-square)](https://github.com/jlowin/fastmcp)
-[![CI](https://github.com/rayyan666/Hermes1.0/actions/workflows/ci.yml/badge.svg)](https://github.com/rayyan666/Hermes1.0/actions/workflows/ci.yml)
+[![CI](https://github.com/rayyan666/MAIL-MCP/actions/workflows/ci.yml/badge.svg)](https://github.com/rayyan666/MAIL-MCP/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-MIT-22c55e?style=flat-square)](LICENSE)
 
 <br/>
@@ -49,30 +49,9 @@ No data leaves your machine except for API calls to Gmail, GitHub, Groq, and arX
 
 ## Architecture
 
-```
-┌─────────────────────────┐     ┌──────────────────────────────┐
-│     Claude Desktop      │     │           Browser            │
-│    (stdio transport)    │     │    http://localhost:5000      │
-└────────────┬────────────┘     └──────────────┬───────────────┘
-             │                                 │
-             ▼                                 ▼
-┌─────────────────────────────────────────────────────────────┐
-│                        serve.py                             │
-│         Waitress (Windows)  /  Gunicorn (Linux/macOS)       │
-├─────────────────────────────────────────────────────────────┤
-│                         main.py                             │
-│              Flask Application  +  FastMCP Server           │
-├──────────┬──────────┬──────────┬──────────┬─────────────────┤
-│  mail_   │  mail_   │  ai_     │  github_ │  resume_        │
-│ fetcher  │ writer   │ search   │ analyzer │  tailor         │
-└────┬─────┴────┬─────┴────┬─────┴────┬─────┴────┬────────────┘
-     │          │          │          │          │
-     ▼          ▼          ▼          ▼          ▼
-  Gmail       Gmail      arXiv     GitHub      Groq
-   API         API      HF / PWC    API        API
-              Groq        
-               API        
-```
+![Hermes Architecture](diagram.png)
+
+> Full data flow from Claude Desktop and Browser UI through the MCP/HTTP layers, tools, services, and external APIs.
 
 ---
 
